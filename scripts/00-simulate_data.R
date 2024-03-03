@@ -65,8 +65,3 @@ simulated_data_clean |>
   theme_minimal() +
   labs(x = "Year", y = "Proportion Important (%)", caption = "Data source: World Bank.")
 
-
-
-
-
-`
