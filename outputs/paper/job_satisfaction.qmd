@@ -1,4 +1,6 @@
 ---
+
+---
 title: "Job Satisfaction"
 author: "Shirley Chen, Jessica Im"
 thanks: ""
@@ -41,6 +43,18 @@ ordered_responses <- c('very_important',
                        'not_important_at_all')
 ```
 
+# Introduction
+
+# Data
+
+## Source
+
+## Measurement
+
+# Results
+
+## Overall Trend
+
 ```{r}
 #| echo: false
 #| fig-cap: Q1 - "A job that allows someone to help other people?"
@@ -74,7 +88,7 @@ ggplot(helping_others_percentages, aes(
 ```{r}
 #| echo: false
 #| fig-cap: Q2 - "An interesting job?"
-#| 
+
 # Interesting Work Data
 interesting_work_data <- cleaned_GSS_data[c('year', 'interesting_work')]
 
@@ -103,7 +117,7 @@ ggplot(interesting_work_percentages, aes(
 ```{r}
 #| echo: false
 #| fig-cap: Q3 - "A job that is useful to society?"
-#| 
+
 # Social Usefulness Data
 social_usefulness_data <- cleaned_GSS_data[c('year', 'social_usefulness')]
 
@@ -128,3 +142,5 @@ ggplot(social_usefulness_percentages, aes(
                      limits = c(0, 100)) + 
   theme_minimal()
 ```
+
+# Discussion
