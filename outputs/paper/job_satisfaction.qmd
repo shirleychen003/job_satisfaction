@@ -1,7 +1,7 @@
 ---
 
 ---
-title: "Job Satisfaction"
+title: "Navigating Factors Affecting Job Satisfaction Among Working Americans"
 author: "Shirley Chen, Jessica Im"
 thanks: ""
 platform available at: "TBA"
