@@ -1,44 +1,88 @@
 #### Preamble ####
-# Purpose: Cleans the raw plane data recorded by two observers..... [...UPDATE THIS...]
-# Author: Rohan Alexander [...UPDATE THIS...]
-# Date: 6 April 2023 [...UPDATE THIS...]
-# Contact: rohan.alexander@utoronto.ca [...UPDATE THIS...]
+# Purpose: Cleans the data
+# Author: Shirley Chen, Jessica Im
+# Date: 2 March 2024
+# Contact: sshirleyy.chen@mail.utoronto.ca
 # License: MIT
-# Pre-requisites: [...UPDATE THIS...]
-# Any other information needed? [...UPDATE THIS...]
+# Pre-requisites:
+# 00-simulate_data.R
+# 01-download_data.R
 
 #### Workspace setup ####
+library(dplyr)
 library(tidyverse)
+library(knitr)
+library(janitor)
+library(lubridate)
+library(readr)
+library(scales)
 
-#### Clean data ####
-raw_data <- read_csv("inputs/data/plane_data.csv")
+# Open data
+raw_GSS_data<-
+  read_csv(
+    "inputs/data/raw_GSS_data.csv",
+    show_col_types = FALSE
+  )
 
-cleaned_data <-
-  raw_data |>
-  janitor::clean_names() |>
-  select(wing_width_mm, wing_length_mm, flying_time_sec_first_timer) |>
-  filter(wing_width_mm != "caw") |>
+cleaned_GSS_data <-
+  clean_names(raw_GSS_data) |>
+  drop_na(year, hlpoths, intjob, hlpsoc)
+
+# Remove uncessary columns
+cleaned_GSS_data <-
+  subset(cleaned_GSS_data, select = c(year, hlpoths, intjob, hlpsoc))
+
+# Keep years 1989, 1998, 2006, 2016
+selected_years <- c("1989", "1998", "2006", "2016")
+cleaned_GSS_data <- cleaned_GSS_data |>
+  filter(year %in% selected_years)
+
+# Rename columns to better understand
+cleaned_GSS_data <- cleaned_GSS_data |>
+  rename(
+    helping_others = hlpoths,
+    interesting_work = intjob,
+    social_usefulness = hlpsoc
+  )
+
+# Rename responses
+cleaned_GSS_data <-cleaned_GSS_data |>
   mutate(
-    flying_time_sec_first_timer = if_else(flying_time_sec_first_timer == "1,35",
-                                   "1.35",
-                                   flying_time_sec_first_timer)
-  ) |>
-  mutate(wing_width_mm = if_else(wing_width_mm == "490",
-                                 "49",
-                                 wing_width_mm)) |>
-  mutate(wing_width_mm = if_else(wing_width_mm == "6",
-                                 "60",
-                                 wing_width_mm)) |>
-  mutate(
-    wing_width_mm = as.numeric(wing_width_mm),
-    wing_length_mm = as.numeric(wing_length_mm),
-    flying_time_sec_first_timer = as.numeric(flying_time_sec_first_timer)
-  ) |>
-  rename(flying_time = flying_time_sec_first_timer,
-         width = wing_width_mm,
-         length = wing_length_mm
-         ) |> 
-  tidyr::drop_na()
+    helping_others = recode(helping_others, 
+                            '1' = 'very_important',
+                            '2' = 'important',
+                            '3' = 'neutral',
+                            '4' = 'not_important',
+                            '5' = 'not_important_at_all'),
+    interesting_work = recode(interesting_work, 
+                              '1' = 'very_important',
+                              '2' = 'important',
+                              '3' = 'neutral',
+                              '4' = 'not_important',
+                              '5' = 'not_important_at_all'),
+    social_usefulness = recode(social_usefulness, 
+                               '1' = 'very_important',
+                               '2' = 'important',
+                               '3' = 'neutral',
+                               '4' = 'not_important',
+                               '5' = 'not_important_at_all')
+  )
+
+ordered_responses <- c('very_important', 
+                       'important',
+                       'neutral',
+                       'not_important',
+                       'not_important_at_all')
+
+
+#Interesting Work Data
+
+
+
+#Social Usefulness Data
+
+
+
 
 #### Save data ####
-write_csv(cleaned_data, "outputs/data/analysis_data.csv")
+write_csv(cleaned_GSS_data, "outputs/data/cleaned_GSS_data.csv")

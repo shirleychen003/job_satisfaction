@@ -58,9 +58,22 @@ simulated_data_clean
 
 
 #### Graph Simulated Data ####
+simulated_data_pivot <-
+  simulated_data_clean |>
+  pivot_longer(
+    cols = c("approval_rating", "vote_share"),
+    names_to = "data_type",
+    values_to = "proportion"
+  )
+
+
+
 simulated_data_clean |>
   ggplot(mapping = aes(x = Year, y = Very_Important)) +
   geom_line(color="grey") +
   geom_point(shape=21, color="black", fill="#69b3a2", size=2) +
   theme_minimal() +
   labs(x = "Year", y = "Proportion Important (%)", caption = "Data source: World Bank.")
+
+
+
