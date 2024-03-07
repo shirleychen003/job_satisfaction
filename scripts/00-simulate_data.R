@@ -13,6 +13,7 @@ library(tidyverse)
 library(janitor)
 library(ggplot2)
 library(dplyr)
+seed(250)
 
 
 #### Simulate data ####
@@ -32,7 +33,6 @@ simulated_data <-
     )
   )
 
-simulated_data
 
 #### Simulate cleaned data ####
 simulated_data_clean <-
@@ -54,10 +54,9 @@ simulated_data_clean <-
     ),
   )
 
-simulated_data_clean
 
-
-#### Graph Simulated Data ####
+#### Graph simulated data ####
+# Pivot simulated data
 simulated_data_pivot <-
   simulated_data_clean |>
   pivot_longer(
@@ -66,8 +65,7 @@ simulated_data_pivot <-
     values_to = "Response_Proportion"
   )
 
-simulated_data_pivot
-
+# Graph data
 simulated_data_pivot |>
   ggplot(mapping = aes(x = Year, y = Response_Proportion, fill = Response_Type)) +
   geom_line(color="grey") +
