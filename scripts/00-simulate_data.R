@@ -61,15 +61,15 @@ simulated_data_clean
 simulated_data_pivot <-
   simulated_data_clean |>
   pivot_longer(
-    cols = c("approval_rating", "vote_share"),
-    names_to = "data_type",
-    values_to = "proportion"
+    cols = c("Important", "Very_Important"),
+    names_to = "Response_Type",
+    values_to = "Response_Proportion"
   )
 
+simulated_data_pivot
 
-
-simulated_data_clean |>
-  ggplot(mapping = aes(x = Year, y = Very_Important)) +
+simulated_data_pivot |>
+  ggplot(mapping = aes(x = Year, y = Response_Proportion, fill = Response_Type)) +
   geom_line(color="grey") +
   geom_point(shape=21, color="black", fill="#69b3a2", size=2) +
   theme_minimal() +
