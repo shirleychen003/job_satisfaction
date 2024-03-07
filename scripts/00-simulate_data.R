@@ -1,5 +1,5 @@
 #### Preamble ####
-# Purpose: Simulates... [...UPDATE THIS...]
+# Purpose: Simulates the change in rating of importance from 1998 to 2016
 # Author: Jessica Im
 # Date: 1 March 2024
 # Contact: jessica.im@mail.utoronto.ca
