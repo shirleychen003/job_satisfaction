@@ -1,0 +1,181 @@
+---
+title: "Navigating Factors Affecting Job Satisfaction Among Working Americans"
+author: "Shirley Chen, Jessica Im"
+thanks: ""
+platform available at: "TBA"
+date: March 4, 2024
+date-format: "long" 
+format: pdf
+editor: visual
+toc: true
+---
+
+```{r}
+#| include: false
+### Workspace Setup ###
+library(tidyverse)
+library(janitor)
+library(readr)
+library(opendatatoronto)
+library(here)
+library(ggplot2)
+library(knitr)
+library(usethis)
+library(gitcreds)
+library(kableExtra)
+
+#### Import data ####
+# Question 1 Dataset
+cleaned_GSS_data <-
+  read_csv("../data/cleaned_GSS_data.csv")
+
+ordered_responses <- c('very_important', 
+                       'important',
+                       'neutral',
+                       'not_important',
+                       'not_important_at_all')
+```
+
+# Introduction
+
+# Data
+
+Based at the University of Chicago since 1972, the General Social Survey (GSS) is a project with the objective of monitoring and analyzing the intricacies of American society (1). The GSS Data Explorer makes it so that data retrieved from the project is a publicly available resource, accessible to various types of people, such as educators, policymakers, or researchers through the National Opinion Research Center (NORC).
+
+The dataset used for this paper was retrieved from The General Social Survey (GSS) Data Explorer website (citation). We retrieved survey data relating to work and job in the years of 1989, 1998, 2006, and 2016.
+
+## Source Data
+
+All the survey data used was in relation to job and work in the Work Orientation Module; the specific variable names extracted from the dataset being intjob, hlpoths, and hlpsoc, as shown in Table 1.
+
+```{r}
+#| tbl-cap: yup 
+#| echo: false
+
+variable_data <- data.frame( 
+  Variable = c("intjob", 
+               "hlpoths", 
+               "hlpsoc"), 
+  NewName = c("interesting_work", 
+              "helping_others", 
+              "social_usefulness"), 
+  Description = c("Importance of interesting work in a job",
+                  "Importance of helping others in a job",
+                  "Importance of social usefulness in a job"), 
+  Example = c("Very Important", 
+              "Neither", 
+              "Not Important")
+)
+kable(variable_data, 
+      caption = "Variables used from GSS dataset",
+      format = "simple")
+
+```
+
+## Data Cleaning
+
+The open source statistical programming language R was used to clean and analyze the data, along with producing the graphs. The main packages that supported this process included tidyverse, ggplot2, knitr, kableExtra, here…
+
+The cleaning process involved filtering the specific data variables used for our analysis from the downloaded GSS dataset, and renaming any variables with meaningful names. For example, rather than “intjob” being the column name for “importance of interesting work in a job” , we renamed it to INSERT NAME HERE. Further, the numerical values representing the participants’ responses (1-5) were changed to the representative words/phrases (not important, very important, etc.). 
+
+```{r}
+#| echo: false
+#| fig-cap: Q1 - "A job that allows someone to help other people?"
+
+# Helping Others Data
+helping_others_data <- cleaned_GSS_data[c('year',
+                                          'helping_others')]
+
+helping_others_percentages <- helping_others_data |>
+  count(year, helping_others) |>
+  group_by(year) |>
+  mutate(percentage = n / sum(n) * 100) 
+
+helping_others_percentages$helping_others <- factor(
+  helping_others_percentages$helping_others, levels = ordered_responses)
+
+ggplot(helping_others_percentages, aes(
+  x = as.factor(year),
+  y = percentage, 
+  fill = helping_others)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(title = "Helping Others Responses by Year",
+       x = "Year",
+       y = "Percentage",
+       fill = "Response") +
+  scale_y_continuous(labels = scales::percent_format(scale = 1), 
+                     limits = c(0, 100)) + 
+  theme_minimal()
+```
+
+```{r}
+#| echo: false
+#| fig-cap: Q2 - "An interesting job?"
+
+# Interesting Work Data
+interesting_work_data <- cleaned_GSS_data[c('year', 'interesting_work')]
+
+interesting_work_percentages <- interesting_work_data |>
+  count(year, interesting_work) |>
+  group_by(year) |>
+  mutate(percentage = n / sum(n) * 100) 
+
+interesting_work_percentages$interesting_work <- factor(
+  interesting_work_percentages$interesting_work, levels = ordered_responses)
+
+ggplot(interesting_work_percentages, aes(
+  x = as.factor(year),
+  y = percentage, 
+  fill = interesting_work)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(title = "Interesting Work Responses by Year",
+       x = "Year",
+       y = "Percentage",
+       fill = "Response") +
+  scale_y_continuous(labels = scales::percent_format(scale = 1), 
+                     limits = c(0, 100)) + 
+  theme_minimal()
+```
+
+```{r}
+#| echo: false
+#| fig-cap: Q3 - "A job that is useful to society?"
+
+# Social Usefulness Data
+social_usefulness_data <- cleaned_GSS_data[c('year', 'social_usefulness')]
+
+social_usefulness_percentages <- social_usefulness_data |>
+  count(year, social_usefulness) |>
+  group_by(year) |>
+  mutate(percentage = n / sum(n) * 100) 
+
+social_usefulness_percentages$social_usefulness <- factor(
+  social_usefulness_percentages$social_usefulness, levels = ordered_responses)
+
+ggplot(social_usefulness_percentages, aes(
+  x = as.factor(year),
+  y = percentage, 
+  fill = social_usefulness)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(title = "Social Usefulness Responses by Year",
+       x = "Year",
+       y = "Percentage",
+       fill = "Response") +
+  scale_y_continuous(labels = scales::percent_format(scale = 1), 
+                     limits = c(0, 100)) + 
+  theme_minimal()
+```
+
+# Results
+
+The response choices for each question and their respective code are as follows: Inapplicable (-100), No Answer (-99), Do Not Know/Cannot Choose (-98), Very Important (1), Important (2), Neither (3), Not important (4), and Not Important At All (5). For our graphs, we did not include the Inapplicable, No Answer, and Do Not Know/Cannot choose responses to focus on the discernible participant responses. Each variable regarded a factor that 
+
+influencing job satisfaction succeeding the prompt “On the following list there are various aspects of jobs. Please circle one number to show how important you personally consider it is in a job:”. The results were drawn from the years 1989, 1998, 2006, and 2016.
+
+# Discussion
+
+## Gender?
+
+## Culture?
+
+# Sources
