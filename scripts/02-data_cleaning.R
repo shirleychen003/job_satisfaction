@@ -46,7 +46,7 @@ cleaned_GSS_data <- cleaned_GSS_data |>
   )
 
 # Rename responses
-cleaned_GSS_data <-cleaned_GSS_data |>
+cleaned_GSS_data_renamed <-cleaned_GSS_data |>
   mutate(
     helping_others = recode(helping_others, 
                             '1' = 'very_important',
@@ -75,3 +75,4 @@ ordered_responses <- c('very_important',
                        'not_important_at_all')
 #### Save data ####
 write_csv(cleaned_GSS_data, "outputs/data/cleaned_GSS_data.csv")
+write_csv(cleaned_GSS_data_renamed, "outputs/data/cleaned_GSS_data_renamed.csv")

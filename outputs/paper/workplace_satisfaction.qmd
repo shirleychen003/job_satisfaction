@@ -8,6 +8,7 @@ date-format: "long"
 format: pdf
 editor: visual
 toc: true
+number-sections: true
 ---
 
 ```{r}
@@ -28,6 +29,9 @@ library(kableExtra)
 # Question 1 Dataset
 cleaned_GSS_data <-
   read_csv("../data/cleaned_GSS_data.csv")
+
+cleaned_GSS_data_renamed <-
+  read_csv("../data/cleaned_GSS_data_renamed.csv")
 
 ordered_responses <- c('very_important', 
                        'important',
@@ -54,13 +58,22 @@ Based at the University of Chicago since 1972, the General Social Survey (GSS) i
 
 The dataset used for this paper was retrieved from The General Social Survey (GSS) Data Explorer website (citation). We retrieved survey data relating to work and job in the years of 1989, 1998, 2006, and 2016.
 
-## Source Data
+## Source Data and Methodology
 
-All the survey data used was in relation to job and work in the Work Orientation Module; the specific variable names extracted from the dataset being intjob, hlpoths, and hlpsoc, as shown in Table 1.
+Majority of the GSS data was collected through face-to-face interviews with the target population of adults (18+) residing in the United States, but starting in 2002, Computer-assisted personal interviewing methods were introduced (3).
+
+All the survey data used was in relation to job and work in the Work Orientation Module; the specific variable names extracted from the dataset being intjob, hlpoths, and hlpsoc.
+
+## Data Cleaning
+
+The open source statistical programming language R was used to clean and analyze the data, along with producing the graphs. The main packages that supported this process included tidyverse, ggplot2, knitr, kableExtra, here…
+
+The cleaning process involved filtering the specific data variables used for our analysis from the downloaded GSS dataset, and renaming any variables with meaningful names. For example, rather than “intjob” being the column name for “importance of interesting work in a job” , we renamed it to interesting_work, as shown in Table #. Further, the numerical values representing the participants’ responses (1-5) were changed to the representative words/phrases (not important, very important, etc.).  \
 
 ```{r}
-#| tbl-cap: yup 
-#| echo: false
+#|label: Variables used
+#|tbl-cap: Variables used from GSS dataset
+#|echo: false
 
 variable_data <- data.frame( 
   Variable = c("intjob", 
@@ -72,28 +85,33 @@ variable_data <- data.frame(
   Description = c("Importance of interesting work in a job",
                   "Importance of helping others in a job",
                   "Importance of social usefulness in a job"), 
-  Example = c("Very Important", 
+  ExampleResponse = c("Very Important", 
               "Neither", 
               "Not Important")
 )
 kable(variable_data, 
-      caption = "Variables used from GSS dataset",
       format = "simple")
-
 ```
 
-## Data Cleaning
+## Data Terminology
 
-The open source statistical programming language R was used to clean and analyze the data, along with producing the graphs. The main packages that supported this process included tidyverse, ggplot2, knitr, kableExtra, here…
+The response choices for each question and their respective code in brackets are as follows: Inapplicable (-100), No Answer (-99), Do Not Know/Cannot Choose (-98), Very Important (1), Important (2), Neither (3), Not important (4), and Not Important At All (5). For our graphs, we did not include the Inapplicable, No Answer, and Do Not Know/Cannot choose responses to focus on the discernible participant responses.
 
-The cleaning process involved filtering the specific data variables used for our analysis from the downloaded GSS dataset, and renaming any variables with meaningful names. For example, rather than “intjob” being the column name for “importance of interesting work in a job” , we renamed it to INSERT NAME HERE. Further, the numerical values representing the participants’ responses (1-5) were changed to the representative words/phrases (not important, very important, etc.). 
+## Graphs
+
+Each variable regarded a factor that influencing job satisfaction succeeding the prompt “On the following list there are various aspects of jobs. Please circle one number to show how important you personally consider it is in a job:”.
+
+### Helping Others
+
+Figure \# displays the proportion of responses after the prompt “A job that allows someone to help other people?” The “important” response option is consistently the most chosen response in years 1989, 1998 and 2006 while in 2016, the “Very Important” response option surpasses by one. There is a general increase trend for the “Very Important” responses across the years, conveying an increased preference for jobs that help other people. Further, there is a general decrease in “Neither” responses from 1989 - 2006 which is interrupted when there is a slight increase in 2016.
 
 ```{r}
+#| label: Helping Others Graph
 #| echo: false
 #| fig-cap: Q1 - "A job that allows someone to help other people?"
 
 # Helping Others Data
-helping_others_data <- cleaned_GSS_data[c('year',
+helping_others_data <- cleaned_GSS_data_renamed[c('year',
                                           'helping_others')]
 
 helping_others_percentages <- helping_others_data |>
@@ -130,12 +148,17 @@ ggplot(helping_others_percentages, aes(
   theme_minimal()
 ```
 
+### Interesting Work
+
+Figure \# displays the proportion of responses to a likert scale ranging from “Very Important” to “Not Important At All” after the prompt “An interesting job?”.
+
 ```{r}
+#| label: Interesting Work Graph
 #| echo: false
 #| fig-cap: Q2 - "An interesting job?"
 
 # Interesting Work Data
-interesting_work_data <- cleaned_GSS_data[c('year', 'interesting_work')]
+interesting_work_data <- cleaned_GSS_data_renamed[c('year', 'interesting_work')]
 
 interesting_work_percentages <- interesting_work_data |>
   count(year, interesting_work) |>
@@ -170,12 +193,17 @@ ggplot(interesting_work_percentages, aes(
   theme_minimal()
 ```
 
+### Social Usefulness
+
+Figure 3 displays the proportion of responses after the prompt “A job that is useful to society?”. Compared to the other figures, this graph has the most varying change in the “neutral” response. The “Very Important” responses increase significantly while the overall pattern of the other responses are decreasing.
+
 ```{r}
+#| label: Social Usefulness Graph
 #| echo: false
 #| fig-cap: Q3 - "A job that is useful to society?"
 
 # Social Usefulness Data
-social_usefulness_data <- cleaned_GSS_data[c('year', 'social_usefulness')]
+social_usefulness_data <- cleaned_GSS_data_renamed[c('year', 'social_usefulness')]
 
 social_usefulness_percentages <- social_usefulness_data |>
   count(year, social_usefulness) |>
@@ -212,11 +240,48 @@ ggplot(social_usefulness_percentages, aes(
 
 # Results
 
-The response choices for each question and their respective code are as follows: Inapplicable (-100), No Answer (-99), Do Not Know/Cannot Choose (-98), Very Important (1), Important (2), Neither (3), Not important (4), and Not Important At All (5). For our graphs, we did not include the Inapplicable, No Answer, and Do Not Know/Cannot choose responses to focus on the discernible participant responses. Each variable regarded a factor that 
-
-influencing job satisfaction succeeding the prompt “On the following list there are various aspects of jobs. Please circle one number to show how important you personally consider it is in a job:”. The results were drawn from the years 1989, 1998, 2006, and 2016.
+Table 2 summarizes the average of responses per year for each variable.
 
 ```{r}
+#| label: Average of Responses by Year
+#| tbl-cap: Average of Responses by Year
+#| echo: false
+
+helping_others_avg <- cleaned_GSS_data |>
+  group_by(year) |>
+  summarize(
+    avg_helping_others = round(mean(helping_others), 3))
+
+interesting_work_avg <- cleaned_GSS_data |>
+  group_by(year) |>
+  summarize(
+    avg_interesting_work = round(mean(interesting_work), 3))
+
+social_usefulness_avg <- cleaned_GSS_data |>
+  group_by(year) |>
+  summarize(
+    avg_helping_others = round(mean(social_usefulness), 3))
+
+combined_table <- cbind(
+  helping_others_avg, 
+  interesting_work_avg[, -1],
+  social_usefulness_avg[, -1])
+
+kable(combined_table,
+      format = "markdown", 
+      col.names = c("Year",
+                    "Helping Others",
+                    "Interesting Work",
+                    "Social Usefulness"),
+      digits = 3,
+      booktabs = TRUE,
+      linesep = "")
+```
+
+While all columns show a general increase in values, the Social Usefulness column is the only column that consistently conveys an increase.
+
+```{r}
+#| label: Average Change
 #| tbl-cap: avg change for very important and important responses for helping others 
 #| echo: false
 
@@ -301,23 +366,6 @@ interesting_work_I_1989 <- interesting_work_data |>
 avg_change_interesting_work_I <- round((
   interesting_work_I_2016 - interesting_work_I_1989) / 
     (2016-1989), 2)
-
-# Create Table
-avg_change <- data.frame( 
-  Response = c("Very Important", "Important"),
-  Interesting_Work = c(avg_change_interesting_work),
-  Helping_Others = c(avg_change_helping_others),
-  Social_Usefulness = c(avg_change_social_usefulness)
-)
-colnames(avg_change) <- c("Response Choice",
-                          "Interesting Work", 
-                          "Helping Others", 
-                          "Social Usefulness")
-
-kable(avg_change, 
-      caption = "Average Change in %",
-      format = "simple")
-
 ```
 
 # Discussion
