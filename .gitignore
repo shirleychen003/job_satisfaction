@@ -6,4 +6,5 @@
 GSS7218_R1.dta
 inputs/data/raw_GSS_data.csv
 gss72222_r2.dta
-raw_GSS_data.dta
+inputs/data/raw_GSS_data.dta
+outputs/data/cleaned_GSS_data.csv
