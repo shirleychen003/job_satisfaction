@@ -70,9 +70,18 @@ cleaned_GSS_data_renamed <-cleaned_GSS_data |>
 
 ordered_responses <- c('very_important', 
                        'important',
-                       'neither',
+                       'neutral',
                        'not_important',
                        'not_important_at_all')
+
+
+#Interesting Work Data
+
+
+
+#Social Usefulness Data
+
+
 #### Save data ####
 write_csv(cleaned_GSS_data, "outputs/data/cleaned_GSS_data.csv")
 write_csv(cleaned_GSS_data_renamed, "outputs/data/cleaned_GSS_data_renamed.csv")
