@@ -51,38 +51,27 @@ cleaned_GSS_data <-cleaned_GSS_data |>
     helping_others = recode(helping_others, 
                             '1' = 'very_important',
                             '2' = 'important',
-                            '3' = 'neutral',
+                            '3' = 'neither',
                             '4' = 'not_important',
                             '5' = 'not_important_at_all'),
     interesting_work = recode(interesting_work, 
                             '1' = 'very_important',
                             '2' = 'important',
-                            '3' = 'neutral',
+                            '3' = 'neither',
                             '4' = 'not_important',
                             '5' = 'not_important_at_all'),
     social_usefulness = recode(social_usefulness, 
                             '1' = 'very_important',
                             '2' = 'important',
-                            '3' = 'neutral',
+                            '3' = 'neither',
                             '4' = 'not_important',
                             '5' = 'not_important_at_all')
   )
 
 ordered_responses <- c('very_important', 
                        'important',
-                       'neutral',
+                       'neither',
                        'not_important',
                        'not_important_at_all')
-
-
-#Interesting Work Data
-
-
-
-#Social Usefulness Data
-
-
-
-
 #### Save data ####
 write_csv(cleaned_GSS_data, "outputs/data/cleaned_GSS_data.csv")
