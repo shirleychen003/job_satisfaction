@@ -51,21 +51,21 @@ cleaned_GSS_data <-cleaned_GSS_data |>
     helping_others = recode(helping_others, 
                             '1' = 'very_important',
                             '2' = 'important',
-                            '3' = 'neutral',
+                            '3' = 'neither',
                             '4' = 'not_important',
                             '5' = 'not_important_at_all'),
     interesting_work = recode(interesting_work, 
-                              '1' = 'very_important',
-                              '2' = 'important',
-                              '3' = 'neutral',
-                              '4' = 'not_important',
-                              '5' = 'not_important_at_all'),
+                            '1' = 'very_important',
+                            '2' = 'important',
+                            '3' = 'neither',
+                            '4' = 'not_important',
+                            '5' = 'not_important_at_all'),
     social_usefulness = recode(social_usefulness, 
-                               '1' = 'very_important',
-                               '2' = 'important',
-                               '3' = 'neutral',
-                               '4' = 'not_important',
-                               '5' = 'not_important_at_all')
+                            '1' = 'very_important',
+                            '2' = 'important',
+                            '3' = 'neither',
+                            '4' = 'not_important',
+                            '5' = 'not_important_at_all')
   )
 
 ordered_responses <- c('very_important', 
@@ -80,8 +80,6 @@ ordered_responses <- c('very_important',
 
 
 #Social Usefulness Data
-
-
 
 
 #### Save data ####
