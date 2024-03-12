@@ -1,7 +1,7 @@
 ---
 title: "Navigating Factors Affecting Job Satisfaction Among Working Americans"
 author: "Shirley Chen, Jessica Im"
-thanks: ""
+thanks: "Code and data in this report are available at:https://github.com/shirleychen003/job_satisfaction.git."
 platform available at: "TBA"
 date: March 4, 2024
 date-format: "long" 
@@ -74,6 +74,8 @@ The cleaning process involved filtering the specific data variables used for our
 ```{r}
 #| label: fig-cleaneddata
 #| echo: false
+#| warning: false
+#| tbl-cap: yus
 #| tbl-cap: GSS Dataset
 
 variable_data <- data.frame( 
@@ -119,6 +121,7 @@ kable(gender_demographic_data) |>
 ```{r}
 #| label: fig-age
 #| echo: false
+#| warning: false
 #| tbl-cap: Respondent Age Demographics by Year
 
 age_1989_data <- cleaned_GSS_data |>
@@ -279,6 +282,7 @@ ggplot(interesting_work_percentages, aes(
 ```{r}
 #| label: fig-useful
 #| echo: false
+#| warning: false
 #| fig-cap: Q3 - "A job that is useful to society?"
 
 # Social Usefulness Data
@@ -325,6 +329,7 @@ Table 2 summarizes the average of responses per year for each variable.
 ```{r}
 #| label: Average of Responses by Year
 #| tbl-cap: Average of Responses by Year
+#| warning: false
 #| echo: false
 
 helping_others_avg <- cleaned_GSS_data |>
@@ -359,8 +364,171 @@ kable(combined_table,
 ```
 
 ```{r}
+#| label: Helping Others 1989
+#| tbl-cap: Helping Others Reponse Proportions 1989
+#| warning: false
+#| echo: false
+
+HO_demographic_1989 <- 
+  cleaned_GSS_data_renamed[c('year',
+                             'helping_others',
+                             'sex')] 
+
+HO_demographic_1989 <- HO_demographic_1989 |>
+  filter(year==1989) |>
+  mutate(response = factor(helping_others, levels = ordered_responses)) |>
+  group_by(response, sex) |>
+  summarise(count = n()) |>
+  mutate(percentage = round((count / sum(count)) * 100, 2))
+
+HO_demographic_1989$response <- fct_recode(HO_demographic_1989$response,
+                                           "very important" = "very_important",
+                                           "important" = "important",
+                                           "neither" = "neither",
+                                           "not important" = "not_important",
+                                           "not important at all" = "not_important_at_all")
+
+kable(HO_demographic_1989, col.names = c('Response',
+                                         'Sex',
+                                         'Count',
+                                         'Percentage') 
+      )
+```
+
+```{r}
+#| label: Helping Others 2016
+#| tbl-cap: Helping Others Reponse Proportions 2016
+#| warning: false
+#| echo: false
+
+HO_demographic_2016 <- 
+  cleaned_GSS_data_renamed[c('year',
+                             'helping_others',
+                             'sex')] 
+
+HO_demographic_2016 <- HO_demographic_2016 |>
+  filter(year==2016) |>
+  mutate(response = factor(helping_others, levels = ordered_responses)) |>
+  group_by(response, sex) |>
+  summarise(count = n()) |>
+  mutate(percentage = round((count / sum(count)) * 100, 2))
+
+HO_demographic_2016$response <- fct_recode(HO_demographic_2016$response,
+                                           "very important" = "very_important",
+                                           "important" = "important",
+                                           "neither" = "neither",
+                                           "not important" = "not_important",
+                                           "not important at all" = "not_important_at_all")
+
+kable(HO_demographic_2016, col.names = c('Response',
+                                         'Sex',
+                                         'Count',
+                                         'Percentage') 
+      )
+```
+
+```{r}
+#| label: Interesting Work 1989
+#| tbl-cap: Interesting Work Reponse Proportions 1989
+#| warning: false
+#| echo: false
+
+IW_demographic_1989 <- 
+  cleaned_GSS_data_renamed[c('year',
+                             'interesting_work',
+                             'sex')] 
+
+IW_demographic_1989 <- IW_demographic_1989 |>
+  filter(year==1989) |>
+  mutate(response = factor(interesting_work, levels = ordered_responses)) |>
+  group_by(response, sex) |>
+  summarise(count = n()) |>
+  mutate(percentage = round((count / sum(count)) * 100, 2))
+
+IW_demographic_1989$response <- fct_recode(IW_demographic_1989$response,
+                                           "very important" = "very_important",
+                                           "important" = "important",
+                                           "neither" = "neither",
+                                           "not important" = "not_important",
+                                           "not important at all" =
+                                             "not_important_at_all")
+
+kable(IW_demographic_1989, col.names = c('Response',
+                                         'Sex',
+                                         'Count',
+                                         'Percentage') 
+      )
+```
+
+```{r}
+#| label: Interesting Work 2016
+#| tbl-cap: Interesting Work Reponse Proportions 2016
+#| warning: false
+#| echo: false
+
+IW_demographic_2016 <- 
+  cleaned_GSS_data_renamed[c('year',
+                             'interesting_work',
+                             'sex')] 
+
+IW_demographic_2016 <- IW_demographic_2016 |>
+  filter(year==2016) |>
+  mutate(response = factor(interesting_work, levels = ordered_responses)) |>
+  group_by(response, sex) |>
+  summarise(count = n()) |>
+  mutate(percentage = round((count / sum(count)) * 100, 2))
+
+IW_demographic_2016$response <- fct_recode(IW_demographic_2016$response,
+                                           "very important" = "very_important",
+                                           "important" = "important",
+                                           "neither" = "neither",
+                                           "not important" = "not_important",
+                                           "not important at all" =
+                                             "not_important_at_all")
+
+kable(IW_demographic_2016, col.names = c('Response',
+                                         'Sex',
+                                         'Count',
+                                         'Percentage') 
+      )
+```
+
+```{r}
+#| label: Social Usefulness 1989
+#| tbl-cap: Social Usefulness Reponse Proportions 1989
+#| warning: false
+#| echo: false
+
+SU_demographic_1989 <- 
+  cleaned_GSS_data_renamed[c('year',
+                             'social_usefulness',
+                             'sex')] 
+
+SU_demographic_1989 <- SU_demographic_1989 |>
+  filter(year==1989) |>
+  mutate(response = factor(social_usefulness, levels = ordered_responses)) |>
+  group_by(response, sex) |>
+  summarise(count = n()) |>
+  mutate(percentage = round((count / sum(count)) * 100, 2))
+
+SU_demographic_1989$response <- fct_recode(SU_demographic_1989$response,
+                                           "very important" = "very_important",
+                                           "important" = "important",
+                                           "neither" = "neither",
+                                           "not important" = "not_important",
+                                           "not important at all" = "not_important_at_all")
+
+kable(SU_demographic_1989, col.names = c('Response',
+                                         'Sex',
+                                         'Count',
+                                         'Percentage') 
+      )
+```
+
+```{r}
 #| label: Social Usefulness 2016
 #| tbl-cap: Social Usefulness Reponse Proportions 2016
+#| warning: false
 #| echo: false
 
 SU_demographic_2016 <- 
@@ -369,6 +537,7 @@ SU_demographic_2016 <-
                              'sex')] 
 
 SU_demographic_2016 <- SU_demographic_2016 |>
+  filter(year==2016) |>
   mutate(response = factor(social_usefulness, levels = ordered_responses)) |>
   group_by(response, sex) |>
   summarise(count = n()) |>
