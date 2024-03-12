@@ -69,13 +69,12 @@ All the survey data used was in relation to job and work in the Work Orientation
 
 The open source statistical programming language R was used to clean and analyze the data, along with producing the graphs. The main packages that supported this process included tidyverse, ggplot2, knitr, kableExtra, here…
 
-The cleaning process involved filtering the specific data variables used for our analysis from the downloaded GSS dataset, and renaming any variables with meaningful names. For example, rather than “intjob” being the column name for “importance of interesting work in a job” , we renamed it to interesting_work, as shown in Table #. Further, the numerical values representing the participants’ responses (1-5) were changed to the representative words/phrases (not important, very important, etc.). @fig-cleaneddata shows the old and new variable names used in cleaning, the description of variables, and sample responses. 
+The cleaning process involved filtering the specific data variables used for our analysis from the downloaded GSS dataset, and renaming any variables with meaningful names. For example, rather than “intjob” being the column name for “importance of interesting work in a job” , we renamed it to interesting_work, as shown in Table #. Further, the numerical values representing the participants’ responses (1-5) were changed to the representative words/phrases (not important, very important, etc.). @tbl-cleaneddata shows the old and new variable names used in cleaning, the description of variables, and sample responses. 
 
 ```{r}
-#| label: fig-cleaneddata
+#| label: tbl-cleaneddata
 #| echo: false
 #| warning: false
-#| tbl-cap: yus
 #| tbl-cap: GSS Dataset
 
 variable_data <- data.frame( 
@@ -101,11 +100,12 @@ kable(variable_data,
 The response choices for each question and their respective code in brackets are as follows: Inapplicable (-100), No Answer (-99), Do Not Know/Cannot Choose (-98), Very Important (1), Important (2), Neither (3), Not important (4), and Not Important At All (5). For our graphs, we did not include the Inapplicable, No Answer, and Do Not Know/Cannot choose responses to focus on the discernible participant responses.
 
 ## Respondent Demographics
-@fig-gender shows the number and percentage of male and female respondents for 1989, 1998, 2006, and 2016. @fig-age shows the mean, median, mode, min, and max of respondent age for all four years of data collection. 
+@tbl-gender shows the number and percentage of male and female respondents for 1989, 1998, 2006, and 2016. @tbl-age shows the mean, median, mode, min, and max of respondent age for all four years of data collection.  
 
 ```{r}
-#| label: fig-gender
+#| label: tbl-gender
 #| echo: false
+#| warning: false
 #| tbl-cap: "Respondent Gender Demographics by Year"
 
 gender_demographic_data <- cleaned_GSS_data |>
@@ -118,8 +118,9 @@ kable(gender_demographic_data) |>
   kable_styling()
 ```
 
+
 ```{r}
-#| label: fig-age
+#| label: tbl-age
 #| echo: false
 #| warning: false
 #| tbl-cap: Respondent Age Demographics by Year
@@ -189,6 +190,7 @@ In @fig-helpsothers, the proportion of respondents to the prompt "A job that all
 ```{r}
 #| label: fig-helpsothers
 #| echo: false
+#| warning: false
 #| fig-cap: Q1 - "A job that allows someone to help other people?"
 
 # Helping Others Data
@@ -237,6 +239,7 @@ ggplot(helping_others_percentages, aes(
 ```{r}
 #| label: fig-interestingwork
 #| echo: false
+#| warning: false
 #| fig-cap: Q2 - "An interesting job?"
 
 # Interesting Work Data
@@ -324,10 +327,12 @@ ggplot(social_usefulness_percentages, aes(
 
 # Results
 
-Table 2 summarizes the average of responses per year for each variable.
+## Responses and demographics
+
+@tbl-avgresponses summarizes the average of responses per year for each variable.
 
 ```{r}
-#| label: Average of Responses by Year
+#| label: tbl-avgresponses
 #| tbl-cap: Average of Responses by Year
 #| warning: false
 #| echo: false
@@ -363,8 +368,9 @@ kable(combined_table,
       linesep = "")
 ```
 
+@tbl-helpingothers1989
 ```{r}
-#| label: Helping Others 1989
+#| label: tbl-helpingothers1989
 #| tbl-cap: Helping Others Reponse Proportions 1989
 #| warning: false
 #| echo: false
@@ -394,9 +400,9 @@ kable(HO_demographic_1989, col.names = c('Response',
                                          'Percentage') 
       )
 ```
-
+@tbl-helpingothers2016
 ```{r}
-#| label: Helping Others 2016
+#| label: tbl-helpingothers2016
 #| tbl-cap: Helping Others Reponse Proportions 2016
 #| warning: false
 #| echo: false
@@ -427,8 +433,9 @@ kable(HO_demographic_2016, col.names = c('Response',
       )
 ```
 
+@tbl-interestingwork1989
 ```{r}
-#| label: Interesting Work 1989
+#| label: tbl-interestingwork1989
 #| tbl-cap: Interesting Work Reponse Proportions 1989
 #| warning: false
 #| echo: false
@@ -460,8 +467,9 @@ kable(IW_demographic_1989, col.names = c('Response',
       )
 ```
 
+@tbl-interestingwork2016
 ```{r}
-#| label: Interesting Work 2016
+#| label: tbl-interestingwork2016
 #| tbl-cap: Interesting Work Reponse Proportions 2016
 #| warning: false
 #| echo: false
@@ -493,8 +501,9 @@ kable(IW_demographic_2016, col.names = c('Response',
       )
 ```
 
+@tbl-socialusefulness1989
 ```{r}
-#| label: Social Usefulness 1989
+#| label: tbl-socialusefulness1989
 #| tbl-cap: Social Usefulness Reponse Proportions 1989
 #| warning: false
 #| echo: false
@@ -525,8 +534,9 @@ kable(SU_demographic_1989, col.names = c('Response',
       )
 ```
 
+@tbl-socialusefulness2016
 ```{r}
-#| label: Social Usefulness 2016
+#| label: tbl-socialusefulness2016
 #| tbl-cap: Social Usefulness Reponse Proportions 2016
 #| warning: false
 #| echo: false
@@ -558,102 +568,16 @@ kable(SU_demographic_2016, col.names = c('Response',
 
 ```
 
-While all columns show a general increase in values, the Social Usefulness column is the only column that consistently conveys an increase.
+
+## Change in importance over time
+@fig-allhelpingothers demonstrates the changing proportion of responses to how important is it for a job to help others. 
 
 ```{r}
-#| label: Average Change
-#| tbl-cap: avg change for very important and important responses for helping others 
+#| label: fig-allhelpingothers
 #| echo: false
-
-# Very Important Differences
-
-## Helping Others
-helping_others_VI_2016 <- helping_others_data |>
-  filter(year==2016, helping_others =="very_important") |>
-  summarise(count = n())
-  
-helping_others_VI_1989 <- helping_others_data |>
-  filter(year==1989, helping_others =="very_important") |>
-  summarise(count = n())
-
-avg_change_helping_others <- round((
-  helping_others_VI_2016 - helping_others_VI_1989) / 
-    (2016-1989), 2)
-
-## Social Usefulness
-social_usefulness_VI_2016 <- social_usefulness_data |>
-  filter(year==2016, social_usefulness =="very_important") |>
-  summarise(count = n())
-  
-social_usefulness_VI_1989 <- social_usefulness_data |>
-  filter(year==1989, social_usefulness =="very_important") |>
-  summarise(count = n())
-
-avg_change_social_usefulness <- round((
-  social_usefulness_VI_2016 - social_usefulness_VI_1989) / 
-    (2016-1989), 2)
-
-## Interesting Work
-interesting_work_VI_2016 <- interesting_work_data |>
-  filter(year==2016, interesting_work =="very_important") |>
-  summarise(count = n())
-  
-interesting_work_VI_1989 <- interesting_work_data |>
-  filter(year==1989, interesting_work =="very_important") |>
-  summarise(count = n())
-
-avg_change_interesting_work <- round((
-  interesting_work_VI_2016 - interesting_work_VI_1989) / 
-    (2016-1989), 2)
-
-# Important Differences
-
-## Helping Others
-helping_others_I_2016 <- helping_others_data |>
-  filter(year==2016, helping_others =="important") |>
-  summarise(count = n())
-  
-helping_others_I_1989 <- helping_others_data |>
-  filter(year==1989, helping_others =="important") |>
-  summarise(count = n())
-
-avg_change_helping_others_I <- round((
-  helping_others_I_2016 - helping_others_I_1989) / 
-    (2016-1989), 2)
-
-## Social Usefulness
-social_usefulness_I_2016 <- social_usefulness_data |>
-  filter(year==2016, social_usefulness =="important") |>
-  summarise(count = n())
-  
-social_usefulness_I_1989 <- social_usefulness_data |>
-  filter(year==1989, social_usefulness =="important") |>
-  summarise(count = n())
-
-avg_change_social_usefulness_I <- round((
-  social_usefulness_I_2016 - social_usefulness_I_1989) / 
-    (2016-1989), 2)
-
-## Interesting Work
-interesting_work_I_2016 <- interesting_work_data |>
-  filter(year==2016, interesting_work =="important") |>
-  summarise(count = n())
-  
-interesting_work_I_1989 <- interesting_work_data |>
-  filter(year==1989, interesting_work =="important") |>
-  summarise(count = n())
-
-avg_change_interesting_work_I <- round((
-  interesting_work_I_2016 - interesting_work_I_1989) / 
-    (2016-1989), 2)
-```
-
-@fig-allresponse-helpingothers demonstrates the changing proportion of responses to how important is it for a job to help others. 
-```{r}
-#|label: fig-allresponse-helpingothers
-#|echo: false
-#|message: false
-#|tbl-cap: Proportion of Responses to Importance of Job that Helps Other
+#| message: false
+#| warning: false
+#| fig-cap: Proportion of Responses to Importance of Job that Helps Other
 
 # Prepare data
 helping_others_data <- cleaned_GSS_data[c('year',
@@ -694,52 +618,6 @@ helping_others_percentages |>
   scale_fill_viridis_d(option = "viridis") 
 ```
 
-
-
-```{r}
-#|label: fig-allresponse-helpingothers
-#|echo: false
-#|message: false
-#|tbl-cap: Proportion of Responses to Importance of Job that Helps Other
-
-# Prepare data
-helping_others_data <- cleaned_GSS_data[c('year',
-                                          'helping_others')]
-
-helping_others_data <-helping_others_data |>
-  mutate(
-    helping_others = recode(helping_others, 
-                            '1' = 'Very Important',
-                            '2' = 'Important',
-                            '3' = 'Neither',
-                            '4' = 'Not Important',
-                            '5' = 'Not Important At All'),
-  )
-
-helping_others_data <-
-  helping_others_data |>
-  mutate(
-    year = (as.character(year)),
-  )
-
-helping_others_percentages <- 
-  helping_others_data |>
-  count(year, helping_others) |>
-  group_by(year) |>
-  mutate(percentage = n / sum(n) * 100)
-
-
-# Graph data
-helping_others_percentages |>
-  ggplot(mapping = aes(x = year, y = percentage, fill = helping_others)) +
-  geom_col() +
-  theme_minimal() +
-  theme(axis.text.x = element_text(angle=90, size = 10)) +
-  labs(x = "Year", y = "Proportion for each response (%)", fill = "Response") +
-  theme(legend.position = "bottom") +
-  theme(legend.text = element_text(size = 5)) +
-  scale_fill_viridis_d(option = "viridis") 
-```
 
 
 # Discussion
@@ -749,4 +627,3 @@ helping_others_percentages |>
 ## Culture?
 
 # Sources
-
