@@ -14,6 +14,7 @@ toc: true
 #| include: false
 ### Workspace Setup ###
 library(tidyverse)
+library(tinytex)
 library(janitor)
 library(readr)
 library(opendatatoronto)
@@ -86,9 +87,12 @@ kable(variable_data,
 
 The open source statistical programming language R was used to clean and analyze the data, along with producing the graphs. The main packages that supported this process included tidyverse, ggplot2, knitr, kableExtra, here…
 
-The cleaning process involved filtering the specific data variables used for our analysis from the downloaded GSS dataset, and renaming any variables with meaningful names. For example, rather than “intjob” being the column name for “importance of interesting work in a job” , we renamed it to INSERT NAME HERE. Further, the numerical values representing the participants’ responses (1-5) were changed to the representative words/phrases (not important, very important, etc.). 
+The cleaning process involved filtering the specific data variables used for our analysis from the downloaded GSS dataset, and renaming any variables with meaningful names. For example, rather than “intjob” being the column name for “importance of interesting work in a job” , we renamed it to INSERT NAME HERE. Further, the numerical values representing the participants’ responses (1-5) were changed to the representative words/phrases (not important, very important, etc.).
 
+### Importance of a Job that Helps Others
+@fig-helpothers displays the proportion of respondents to the prompt "A job that allows someone to help other people?". From the first year of data collection in 1989 to 2006, "Important" was the most selected response. In 2016, "Very Important" surpassed "Important" by 1%. In general, you can see an increase in "Very Important" respondents across the years while there is little change in the proportion of "Not Important" and "Not Important At All" responses.
 ```{r}
+#| label: fig-helpothers
 #| echo: false
 #| fig-cap: Q1 - "A job that allows someone to help other people?"
 
@@ -130,7 +134,11 @@ ggplot(helping_others_percentages, aes(
   theme_minimal()
 ```
 
+### Importance of a Job that is Interesting
+@fig-interestingwork shows the proportion of responses for the prompt "An interesting job?". In 1989, "Important" responses was most chosen at around 50%. The following survey, in 1998, showed an increase in "Very Important" responses, where it had a similar proportion to "Important" responses 1989 and "Important" decreased to a proportion similar to "Very Important".
+
 ```{r}
+#| label: fig-interestingwork
 #| echo: false
 #| fig-cap: Q2 - "An interesting job?"
 
@@ -170,7 +178,10 @@ ggplot(interesting_work_percentages, aes(
   theme_minimal()
 ```
 
+### Importance of a Job that is Useful to Society
+@fig-useful displays the proportion of responses for the prompt "A job that is useful to society?". There is a large increase in the proportion of "Very Important" responses from 1989 to 2016. In contrast, there is a gradual decline for both "Important" and "Neither". There is little change in "Not Important" and "Not Important At All".
 ```{r}
+#| label: fig-useful
 #| echo: false
 #| fig-cap: Q3 - "A job that is useful to society?"
 
@@ -209,6 +220,7 @@ ggplot(social_usefulness_percentages, aes(
                    'Not Important At All')) + 
   theme_minimal()
 ```
+
 
 # Results
 
