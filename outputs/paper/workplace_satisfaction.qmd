@@ -459,8 +459,14 @@ avg_change_interesting_work_I <- round((
 ```{r}
 cleaned_GSS_data
 ```
-
+@fig-allresponse-helpingothers demonstrates the changing proportion of responses to how important is it for a job to help others. 
 ```{r}
+#|label: fig-allresponse-helpingothers
+#|echo: false
+#|message: false
+#|tbl-cap: Proportion of Responses to Importance of Job that Helps Other
+
+# Prepare data
 helping_others_data <- cleaned_GSS_data[c('year',
                                           'helping_others')]
 
@@ -486,19 +492,66 @@ helping_others_percentages <-
   group_by(year) |>
   mutate(percentage = n / sum(n) * 100)
 
-helping_others_percentages
 
 # Graph data
 helping_others_percentages |>
   ggplot(mapping = aes(x = year, y = percentage, fill = helping_others)) +
   geom_col() +
   theme_minimal() +
-  theme(axis.text.x = element_text(angle=90, size = 8)) +
+  theme(axis.text.x = element_text(angle=90, size = 10)) +
   labs(x = "Year", y = "Proportion for each response (%)", fill = "Response") +
   theme(legend.position = "bottom") +
   theme(legend.text = element_text(size = 5)) +
   scale_fill_viridis_d(option = "viridis") 
 ```
+
+
+
+```{r}
+#|label: fig-allresponse-helpingothers
+#|echo: false
+#|message: false
+#|tbl-cap: Proportion of Responses to Importance of Job that Helps Other
+
+# Prepare data
+helping_others_data <- cleaned_GSS_data[c('year',
+                                          'helping_others')]
+
+helping_others_data <-helping_others_data |>
+  mutate(
+    helping_others = recode(helping_others, 
+                            '1' = 'Very Important',
+                            '2' = 'Important',
+                            '3' = 'Neither',
+                            '4' = 'Not Important',
+                            '5' = 'Not Important At All'),
+  )
+
+helping_others_data <-
+  helping_others_data |>
+  mutate(
+    year = (as.character(year)),
+  )
+
+helping_others_percentages <- 
+  helping_others_data |>
+  count(year, helping_others) |>
+  group_by(year) |>
+  mutate(percentage = n / sum(n) * 100)
+
+
+# Graph data
+helping_others_percentages |>
+  ggplot(mapping = aes(x = year, y = percentage, fill = helping_others)) +
+  geom_col() +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle=90, size = 10)) +
+  labs(x = "Year", y = "Proportion for each response (%)", fill = "Response") +
+  theme(legend.position = "bottom") +
+  theme(legend.text = element_text(size = 5)) +
+  scale_fill_viridis_d(option = "viridis") 
+```
+
 
 # Discussion
 
