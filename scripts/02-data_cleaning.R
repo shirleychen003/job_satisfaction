@@ -24,13 +24,14 @@ raw_GSS_data<-
     show_col_types = FALSE
   )
 
+# Cleaning
 cleaned_GSS_data <-
   clean_names(raw_GSS_data) |>
   drop_na(year, hlpoths, intjob, hlpsoc)
 
 # Remove uncessary columns
 cleaned_GSS_data <-
-  subset(cleaned_GSS_data, select = c(year, hlpoths, intjob, hlpsoc))
+  subset(cleaned_GSS_data, select = c(year, age, sex, hlpoths, intjob, hlpsoc))
 
 # Keep years 1989, 1998, 2006, 2016
 selected_years <- c("1989", "1998", "2006", "2016")
@@ -45,8 +46,14 @@ cleaned_GSS_data <- cleaned_GSS_data |>
     social_usefulness = hlpsoc
   )
 
-# Rename responses
+# Rename sex responses
 cleaned_GSS_data <-cleaned_GSS_data |>
+  mutate(sex = recode(sex,
+                      '1' = 'male',
+                      '2' = 'female'))
+
+# Rename variable responses
+cleaned_GSS_data_renamed <-cleaned_GSS_data |>
   mutate(
     helping_others = recode(helping_others, 
                             '1' = 'very_important',
@@ -55,17 +62,17 @@ cleaned_GSS_data <-cleaned_GSS_data |>
                             '4' = 'not_important',
                             '5' = 'not_important_at_all'),
     interesting_work = recode(interesting_work, 
-                            '1' = 'very_important',
-                            '2' = 'important',
-                            '3' = 'neither',
-                            '4' = 'not_important',
-                            '5' = 'not_important_at_all'),
+                              '1' = 'very_important',
+                              '2' = 'important',
+                              '3' = 'neither',
+                              '4' = 'not_important',
+                              '5' = 'not_important_at_all'),
     social_usefulness = recode(social_usefulness, 
-                            '1' = 'very_important',
-                            '2' = 'important',
-                            '3' = 'neither',
-                            '4' = 'not_important',
-                            '5' = 'not_important_at_all')
+                               '1' = 'very_important',
+                               '2' = 'important',
+                               '3' = 'neither',
+                               '4' = 'not_important',
+                               '5' = 'not_important_at_all')
   )
 
 ordered_responses <- c('very_important', 
@@ -75,12 +82,6 @@ ordered_responses <- c('very_important',
                        'not_important_at_all')
 
 
-#Interesting Work Data
-
-
-
-#Social Usefulness Data
-
-
 #### Save data ####
 write_csv(cleaned_GSS_data, "outputs/data/cleaned_GSS_data.csv")
+write_csv(cleaned_GSS_data_renamed,"outputs/data/cleaned_GSS_data_renamed.csv")

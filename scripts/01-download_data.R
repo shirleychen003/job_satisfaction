@@ -13,7 +13,7 @@ library(tidyverse)
 library(haven)
 
 #### Acquire data ####
-converted_gss_data <- read_dta("inputs/data/GSS7218_R1.dta")
+converted_gss_data <- read_dta("inputs/data/raw_GSS_data.dta")
 
 #### Save data as CSV file ####
 write_csv(converted_gss_data, "inputs/data/raw_GSS_data.csv")
