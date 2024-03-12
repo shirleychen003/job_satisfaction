@@ -98,8 +98,10 @@ kable(variable_data,
 The response choices for each question and their respective code in brackets are as follows: Inapplicable (-100), No Answer (-99), Do Not Know/Cannot Choose (-98), Very Important (1), Important (2), Neither (3), Not important (4), and Not Important At All (5). For our graphs, we did not include the Inapplicable, No Answer, and Do Not Know/Cannot choose responses to focus on the discernible participant responses.
 
 ## Respondent Demographics
+@fig-gender shows the number and percentage of male and female respondents for 1989, 1998, 2006, and 2016. @fig-age shows the mean, median, mode, min, and max of respondent age for all four years of data collection. 
 
 ```{r}
+#| label: fig-gender
 #| echo: false
 #| tbl-cap: Respondent Gender Demographics by Year
 
@@ -114,6 +116,7 @@ kable(gender_demographic_data) |>
 ```
 
 ```{r}
+#| label: fig-age
 #| echo: false
 #| tbl-cap: Respondent Age Demographics by Year
 
