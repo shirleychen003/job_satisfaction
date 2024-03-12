@@ -103,7 +103,7 @@ The response choices for each question and their respective code in brackets are
 ```{r}
 #| label: fig-gender
 #| echo: false
-#| tbl-cap: Respondent Gender Demographics by Year
+#| tbl-cap: "Respondent Gender Demographics by Year"
 
 gender_demographic_data <- cleaned_GSS_data |>
   filter(year %in% c(1989, 1998, 2006, 2016)) |>
