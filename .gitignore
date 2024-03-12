@@ -8,3 +8,4 @@ inputs/data/raw_GSS_data.csv
 gss72222_r2.dta
 inputs/data/raw_GSS_data.dta
 outputs/data/cleaned_GSS_data.csv
+outputs/data/cleaned_GSS_data_renamed.csv
