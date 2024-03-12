@@ -102,10 +102,12 @@ The cleaning process involved filtering the specific data variables used for our
 helping_others_data <- cleaned_GSS_data[c('year',
                                           'helping_others')]
 
-helping_others_percentages <- helping_others_data |>
+helping_others_percentages <- 
+  helping_others_data |>
   count(year, helping_others) |>
   group_by(year) |>
   mutate(percentage = n / sum(n) * 100) 
+helping_others_percentages
 
 helping_others_percentages$helping_others <- factor(
   helping_others_percentages$helping_others, levels =
@@ -231,7 +233,9 @@ ggplot(social_usefulness_percentages, aes(
 ## Respondent Demographics
 
 ### 1989
+
 @fig-demos1989 shows...
+
 ```{r}
 #| label: fig-demos1989
 #| echo: false
@@ -253,7 +257,9 @@ kable(demographic_1989,
 ```
 
 ### 1998
-In @fig-demos1998, the _ is shown.
+
+In @fig-demos1998, the \_ is shown.
+
 ```{r}
 #| label: fig-demos1998
 #| echo: false
@@ -275,7 +281,9 @@ kable(demographic_1998,
 ```
 
 ### 2006
-@fig-demos2006 shows 
+
+@fig-demos2006 shows
+
 ```{r}
 #| label: fig-demos2006 
 #| echo: false
@@ -296,7 +304,9 @@ kable(demographic_2006,
 ```
 
 ### 2016
-@fig-demos2016 shows 
+
+@fig-demos2016 shows
+
 ```{r}
 #| label: fig-demos2016
 #| echo: false
@@ -355,7 +365,8 @@ kable(combined_table,
 ```
 
 # Average change
-In @fig-avgchange, the average changer for "very important" and "important" responses to how important is a job in which you help others. 
+
+In @fig-avgchange, the average changer for "very important" and "important" responses to how important is a job in which you help others.
 
 ```{r}
 #| label: fig-avgchange
@@ -443,6 +454,50 @@ interesting_work_I_1989 <- interesting_work_data |>
 avg_change_interesting_work_I <- round((
   interesting_work_I_2016 - interesting_work_I_1989) / 
     (2016-1989), 2)
+```
+
+```{r}
+cleaned_GSS_data
+```
+
+```{r}
+helping_others_data <- cleaned_GSS_data[c('year',
+                                          'helping_others')]
+
+helping_others_data <-helping_others_data |>
+  mutate(
+    helping_others = recode(helping_others, 
+                            '1' = 'Very Important',
+                            '2' = 'Important',
+                            '3' = 'Neither',
+                            '4' = 'Not Important',
+                            '5' = 'Not Important At All'),
+  )
+
+helping_others_data <-
+  helping_others_data |>
+  mutate(
+    year = (as.character(year)),
+  )
+
+helping_others_percentages <- 
+  helping_others_data |>
+  count(year, helping_others) |>
+  group_by(year) |>
+  mutate(percentage = n / sum(n) * 100)
+
+helping_others_percentages
+
+# Graph data
+helping_others_percentages |>
+  ggplot(mapping = aes(x = year, y = percentage, fill = helping_others)) +
+  geom_col() +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle=90, size = 8)) +
+  labs(x = "Year", y = "Proportion for each response (%)", fill = "Response") +
+  theme(legend.position = "bottom") +
+  theme(legend.text = element_text(size = 5)) +
+  scale_fill_viridis_d(option = "viridis") 
 ```
 
 # Discussion
