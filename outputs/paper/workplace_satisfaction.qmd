@@ -1,0 +1,483 @@
+---
+title: "Navigating Factors Affecting Job Satisfaction Among Working Americans"
+author: "Shirley Chen, Jessica Im"
+thanks: ""
+platform available at: "TBA"
+date: March 4, 2024
+date-format: "long" 
+format: pdf
+editor: visual
+toc: true
+number-sections: true
+---
+
+```{r}
+#| include: false
+### Workspace Setup ###
+library(tidyverse)
+library(tinytex)
+library(janitor)
+library(readr)
+library(opendatatoronto)
+library(here)
+library(ggplot2)
+library(knitr)
+library(usethis)
+library(gitcreds)
+library(kableExtra)
+
+#### Import data ####
+# Question 1 Dataset
+cleaned_GSS_data <-
+  read_csv("../data/cleaned_GSS_data.csv")
+
+cleaned_GSS_data_renamed <-
+  read_csv("../data/cleaned_GSS_data_renamed.csv")
+
+ordered_responses <- c('very_important', 
+                       'important',
+                       'neither',
+                       'not_important',
+                       'not_important_at_all')
+legend_labels <- c('Very Important', 
+                   'Important',
+                   'Neither',
+                   'Not Important',
+                   'Not Important At All')
+custom_colours <- c('#FF5733', 
+                   '#33FF57',
+                   '#3366FF',
+                   '#FF33A6',
+                   '#FF7869')
+```
+
+# Introduction
+
+# Data
+
+Based at the University of Chicago since 1972, the General Social Survey (GSS) is a project with the objective of monitoring and analyzing the intricacies of American society (1). The GSS Data Explorer makes it so that data retrieved from the project is a publicly available resource, accessible to various types of people, such as educators, policymakers, or researchers through the National Opinion Research Center (NORC).
+
+The dataset used for this paper was retrieved from The General Social Survey (GSS) Data Explorer website (citation). We retrieved survey data relating to work and job in the years of 1989, 1998, 2006, and 2016.
+
+## Source Data and Methodology
+
+Majority of the GSS data was collected through face-to-face interviews with the target population of adults (18+) residing in the United States, but starting in 2002, Computer-assisted personal interviewing methods were introduced (3).
+
+All the survey data used was in relation to job and work in the Work Orientation Module; the specific variable names extracted from the dataset being intjob, hlpoths, and hlpsoc.
+
+## Data Cleaning
+
+The open source statistical programming language R was used to clean and analyze the data, along with producing the graphs. The main packages that supported this process included tidyverse, ggplot2, knitr, kableExtra, here…
+
+The cleaning process involved filtering the specific data variables used for our analysis from the downloaded GSS dataset, and renaming any variables with meaningful names. For example, rather than “intjob” being the column name for “importance of interesting work in a job” , we renamed it to interesting_work, as shown in Table #. Further, the numerical values representing the participants’ responses (1-5) were changed to the representative words/phrases (not important, very important, etc.). 
+
+```{r}
+#| echo: false
+#| tbl-cap: yus
+
+variable_data <- data.frame( 
+  Variable = c("intjob", 
+               "hlpoths", 
+               "hlpsoc"), 
+  NewName = c("interesting_work", 
+              "helping_others", 
+              "social_usefulness"), 
+  Description = c("Importance of interesting work in a job",
+                  "Importance of helping others in a job",
+                  "Importance of social usefulness in a job"), 
+  ExampleResponse = c("Very Important", 
+              "Neither", 
+              "Not Important")
+)
+kable(variable_data, 
+      format = "simple")
+```
+
+## Data Terminology
+
+The response choices for each question and their respective code in brackets are as follows: Inapplicable (-100), No Answer (-99), Do Not Know/Cannot Choose (-98), Very Important (1), Important (2), Neither (3), Not important (4), and Not Important At All (5). For our graphs, we did not include the Inapplicable, No Answer, and Do Not Know/Cannot choose responses to focus on the discernible participant responses.
+
+## Respondent Demographics
+
+```{r}
+#| echo: false
+#| tbl-cap: Respondent Gender Demographics by Year
+
+gender_demographic_data <- cleaned_GSS_data |>
+  filter(year %in% c(1989, 1998, 2006, 2016)) |>
+  group_by(year, sex) |>
+  summarise(count = n()) |>
+  mutate(percentage = round((count / sum(count)) * 100, 2))
+
+kable(gender_demographic_data) |>
+  kable_styling()
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: Respondent Age Demographics by Year
+
+age_1989_data <- cleaned_GSS_data |>
+  filter(year==1989) |>
+  select('age') |>
+   summarise(
+    mean = round(mean(age, na.rm = TRUE)),
+    median = round(median(age, na.rm = TRUE)),
+    mode = as.numeric(names(sort(table(age), decreasing = TRUE))[1]),
+    min = min(age, na.rm = TRUE),
+    max = round(max(age, na.rm = TRUE))
+  )
+
+age_1998_data <- cleaned_GSS_data |>
+  filter(year==1998) |>
+  select('age') |>
+   summarise(
+    mean = round(mean(age, na.rm = TRUE)),
+    median = round(median(age, na.rm = TRUE)),
+    mode = as.numeric(names(sort(table(age), decreasing = TRUE))[1]),
+    min = min(age, na.rm = TRUE),
+    max = round(max(age, na.rm = TRUE))
+  )
+age_2006_data <- cleaned_GSS_data |>
+  filter(year==2006) |>
+  select('age') |>
+   summarise(
+    mean = round(mean(age, na.rm = TRUE)),
+    median = round(median(age, na.rm = TRUE)),
+    mode = as.numeric(names(sort(table(age), decreasing = TRUE))[1]),
+    min = min(age, na.rm = TRUE),
+    max = round(max(age, na.rm = TRUE))
+  )
+
+age_2016_data <- cleaned_GSS_data |>
+  filter(year==2016) |>
+  select('age') |>
+   summarise(
+    mean = round(mean(age, na.rm = TRUE)),
+    median = round(median(age, na.rm = TRUE)),
+    mode = as.numeric(names(sort(table(age), decreasing = TRUE))[1]),
+    min = min(age, na.rm = TRUE),
+    max = round(max(age, na.rm = TRUE))
+  )
+
+years <- c("1989", "1998", "2006", "2016")
+combined_age_data <- bind_rows(age_1989_data, 
+                               age_1998_data, 
+                               age_2006_data, 
+                               age_2016_data)
+combined_age_data <- cbind(years, combined_age_data)
+
+
+kable(combined_age_data, col.names = c("Year", "Mean", "Median", "Mode", "Min", "Max")) |>
+  kable_styling()
+```
+
+## Graphs
+
+Each variable regarded a factor that influencing job satisfaction succeeding the prompt “On the following list there are various aspects of jobs. Please circle one number to show how important you personally consider it is in a job:”.
+
+### Helping Others
+
+Figure \# displays the proportion of responses after the prompt “A job that allows someone to help other people?” The “important” response option is consistently the most chosen response in years 1989, 1998 and 2006 while in 2016, the “Very Important” response option surpasses by one. There is a general increase trend for the “Very Important” responses across the years, conveying an increased preference for jobs that help other people. Further, there is a general decrease in “Neither” responses from 1989 - 2006 which is interrupted when there is a slight increase in 2016.
+
+```{r}
+#| label: Helping Others Graph
+#| echo: false
+#| fig-cap: Q1 - "A job that allows someone to help other people?"
+
+# Helping Others Data
+helping_others_data <- cleaned_GSS_data_renamed[c('year',
+                                          'helping_others')]
+
+helping_others_percentages <- helping_others_data |>
+  count(year, helping_others) |>
+  group_by(year) |>
+  mutate(percentage = n / sum(n) * 100) 
+
+helping_others_percentages$helping_others <- factor(
+  helping_others_percentages$helping_others, levels =
+    ordered_responses)
+
+ggplot(helping_others_percentages, aes(
+  x = as.factor(year),
+  y = percentage, 
+  fill = helping_others)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(title = "Helping Others Responses by Year",
+       x = "Year",
+       y = "Percentage",
+       fill = "Responses") +
+  scale_y_continuous(labels = scales::percent_format(scale = 1), 
+                     limits = c(0, 100)) + 
+  scale_fill_manual(values = custom_colours,
+                    breaks = c('very_important', 
+                       'important',
+                       'neither',
+                       'not_important',
+                       'not_important_at_all'),
+                    labels = c('Very Important', 
+                   'Important',
+                   'Neither',
+                   'Not Important',
+                   'Not Important At All')) + 
+  theme_minimal()
+```
+
+### Interesting Work
+
+Figure \# displays the proportion of responses to a likert scale ranging from “Very Important” to “Not Important At All” after the prompt “An interesting job?”.
+
+```{r}
+#| label: Interesting Work Graph
+#| echo: false
+#| fig-cap: Q2 - "An interesting job?"
+
+# Interesting Work Data
+interesting_work_data <- cleaned_GSS_data_renamed[c('year', 'interesting_work')]
+
+interesting_work_percentages <- interesting_work_data |>
+  count(year, interesting_work) |>
+  group_by(year) |>
+  mutate(percentage = n / sum(n) * 100) 
+
+interesting_work_percentages$interesting_work <- factor(
+  interesting_work_percentages$interesting_work, levels = ordered_responses)
+
+ggplot(interesting_work_percentages, aes(
+  x = as.factor(year),
+  y = percentage, 
+  fill = interesting_work)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(title = "Interesting Work Responses by Year",
+       x = "Year",
+       y = "Percentage",
+       fill = "Responses") +
+  scale_y_continuous(labels = scales::percent_format(scale = 1), 
+                     limits = c(0, 100)) + 
+  scale_fill_manual(values = custom_colours,
+                    breaks = c('very_important', 
+                       'important',
+                       'neither',
+                       'not_important',
+                       'not_important_at_all'),
+                    labels = c('Very Important', 
+                   'Important',
+                   'Neither',
+                   'Not Important',
+                   'Not Important At All')) + 
+  theme_minimal()
+```
+
+### Social Usefulness
+
+Figure 3 displays the proportion of responses after the prompt “A job that is useful to society?”. Compared to the other figures, this graph has the most varying change in the “neutral” response. The “Very Important” responses increase significantly while the overall pattern of the other responses are decreasing.
+
+```{r}
+#| label: Social Usefulness Graph
+#| echo: false
+#| fig-cap: Q3 - "A job that is useful to society?"
+
+# Social Usefulness Data
+social_usefulness_data <- cleaned_GSS_data_renamed[c('year', 'social_usefulness')]
+
+social_usefulness_percentages <- social_usefulness_data |>
+  count(year, social_usefulness) |>
+  group_by(year) |>
+  mutate(percentage = n / sum(n) * 100) 
+
+social_usefulness_percentages$social_usefulness <- factor(
+  social_usefulness_percentages$social_usefulness, levels = ordered_responses)
+
+ggplot(social_usefulness_percentages, aes(
+  x = as.factor(year),
+  y = percentage, 
+  fill = social_usefulness)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(title = "Social Usefulness Responses by Year",
+       x = "Year",
+       y = "Percentage",
+       fill = "Responses") +
+  scale_y_continuous(labels = scales::percent_format(scale = 1), 
+                     limits = c(0, 100)) + 
+  scale_fill_manual(values = custom_colours,
+                    breaks = c('very_important', 
+                       'important',
+                       'neither',
+                       'not_important',
+                       'not_important_at_all'),
+                    labels = c('Very Important', 
+                   'Important',
+                   'Neither',
+                   'Not Important',
+                   'Not Important At All')) + 
+  theme_minimal()
+```
+
+# Results
+
+Table 2 summarizes the average of responses per year for each variable.
+
+```{r}
+#| label: Average of Responses by Year
+#| tbl-cap: Average of Responses by Year
+#| echo: false
+
+helping_others_avg <- cleaned_GSS_data |>
+  group_by(year) |>
+  summarize(
+    avg_helping_others = round(mean(helping_others), 3))
+
+interesting_work_avg <- cleaned_GSS_data |>
+  group_by(year) |>
+  summarize(
+    avg_interesting_work = round(mean(interesting_work), 3))
+
+social_usefulness_avg <- cleaned_GSS_data |>
+  group_by(year) |>
+  summarize(
+    avg_helping_others = round(mean(social_usefulness), 3))
+
+combined_table <- cbind(
+  helping_others_avg, 
+  interesting_work_avg[, -1],
+  social_usefulness_avg[, -1])
+
+kable(combined_table,
+      format = "markdown", 
+      col.names = c("Year",
+                    "Helping Others",
+                    "Interesting Work",
+                    "Social Usefulness"),
+      digits = 3,
+      booktabs = TRUE,
+      linesep = "")
+```
+
+```{r}
+#| label: Social Usefulness 2016
+#| tbl-cap: Social Usefulness Reponse Proportions 2016
+#| echo: false
+
+SU_demographic_2016 <- 
+  cleaned_GSS_data_renamed[c('year',
+                             'social_usefulness',
+                             'sex')] 
+
+SU_demographic_2016 <- SU_demographic_2016 |>
+  mutate(response = factor(social_usefulness, levels = ordered_responses)) |>
+  group_by(response, sex) |>
+  summarise(count = n()) |>
+  mutate(percentage = round((count / sum(count)) * 100, 2))
+
+SU_demographic_2016$response <- fct_recode(SU_demographic_2016$response,
+                                           "very important" = "very_important",
+                                           "important" = "important",
+                                           "neither" = "neither",
+                                           "not important" = "not_important",
+                                           "not important at all" = "not_important_at_all")
+
+kable(SU_demographic_2016, col.names = c('Response',
+                                         'Sex',
+                                         'Count',
+                                         'Percentage') 
+      )
+
+```
+
+While all columns show a general increase in values, the Social Usefulness column is the only column that consistently conveys an increase.
+
+```{r}
+#| label: Average Change
+#| tbl-cap: avg change for very important and important responses for helping others 
+#| echo: false
+
+# Very Important Differences
+
+## Helping Others
+helping_others_VI_2016 <- helping_others_data |>
+  filter(year==2016, helping_others =="very_important") |>
+  summarise(count = n())
+  
+helping_others_VI_1989 <- helping_others_data |>
+  filter(year==1989, helping_others =="very_important") |>
+  summarise(count = n())
+
+avg_change_helping_others <- round((
+  helping_others_VI_2016 - helping_others_VI_1989) / 
+    (2016-1989), 2)
+
+## Social Usefulness
+social_usefulness_VI_2016 <- social_usefulness_data |>
+  filter(year==2016, social_usefulness =="very_important") |>
+  summarise(count = n())
+  
+social_usefulness_VI_1989 <- social_usefulness_data |>
+  filter(year==1989, social_usefulness =="very_important") |>
+  summarise(count = n())
+
+avg_change_social_usefulness <- round((
+  social_usefulness_VI_2016 - social_usefulness_VI_1989) / 
+    (2016-1989), 2)
+
+## Interesting Work
+interesting_work_VI_2016 <- interesting_work_data |>
+  filter(year==2016, interesting_work =="very_important") |>
+  summarise(count = n())
+  
+interesting_work_VI_1989 <- interesting_work_data |>
+  filter(year==1989, interesting_work =="very_important") |>
+  summarise(count = n())
+
+avg_change_interesting_work <- round((
+  interesting_work_VI_2016 - interesting_work_VI_1989) / 
+    (2016-1989), 2)
+
+# Important Differences
+
+## Helping Others
+helping_others_I_2016 <- helping_others_data |>
+  filter(year==2016, helping_others =="important") |>
+  summarise(count = n())
+  
+helping_others_I_1989 <- helping_others_data |>
+  filter(year==1989, helping_others =="important") |>
+  summarise(count = n())
+
+avg_change_helping_others_I <- round((
+  helping_others_I_2016 - helping_others_I_1989) / 
+    (2016-1989), 2)
+
+## Social Usefulness
+social_usefulness_I_2016 <- social_usefulness_data |>
+  filter(year==2016, social_usefulness =="important") |>
+  summarise(count = n())
+  
+social_usefulness_I_1989 <- social_usefulness_data |>
+  filter(year==1989, social_usefulness =="important") |>
+  summarise(count = n())
+
+avg_change_social_usefulness_I <- round((
+  social_usefulness_I_2016 - social_usefulness_I_1989) / 
+    (2016-1989), 2)
+
+## Interesting Work
+interesting_work_I_2016 <- interesting_work_data |>
+  filter(year==2016, interesting_work =="important") |>
+  summarise(count = n())
+  
+interesting_work_I_1989 <- interesting_work_data |>
+  filter(year==1989, interesting_work =="important") |>
+  summarise(count = n())
+
+avg_change_interesting_work_I <- round((
+  interesting_work_I_2016 - interesting_work_I_1989) / 
+    (2016-1989), 2)
+```
+
+# Discussion
+
+## Gender?
+
+## Culture?
+
+# Sources

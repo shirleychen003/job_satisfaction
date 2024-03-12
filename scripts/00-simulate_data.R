@@ -1,19 +1,77 @@
 #### Preamble ####
-# Purpose: Simulates... [...UPDATE THIS...]
-# Author: Rohan Alexander [...UPDATE THIS...]
-# Date: 11 February 2023 [...UPDATE THIS...]
-# Contact: rohan.alexander@utoronto.ca [...UPDATE THIS...]
+# Purpose: Simulates the change in rating of importance from 1998 to 2016
+# Author: Jessica Im
+# Date: 1 March 2024
+# Contact: jessica.im@mail.utoronto.ca
 # License: MIT
-# Pre-requisites: [...UPDATE THIS...]
-# Any other information needed? [...UPDATE THIS...]
+# Pre-requisites: None
+# Any other information needed? N/A
 
 
 #### Workspace setup ####
 library(tidyverse)
-# [...UPDATE THIS...]
+library(janitor)
+library(ggplot2)
+library(dplyr)
+seed(250)
+
 
 #### Simulate data ####
-# [...ADD CODE HERE...]
+simulated_data <-
+  tibble(
+    "Participant" = 1:160,
+    Response = sample(
+      x = c(1:5),
+      size = 160,
+      replace = TRUE
+    ),
+    # Randomly pick an option, with replacement, 160 times
+    "Year" = sample(
+      x = c("1989", "1998", "2006", "2016"),
+      size = 160,
+      replace = TRUE
+    )
+  )
+
+
+#### Simulate cleaned data ####
+simulated_data_clean <-
+  tibble(
+    "Year" = sample(
+      x = c(1989, 1998, 2006, 2016),
+      size = 4,
+      replace = FALSE
+      ),
+    Important = sample(
+      x = c(18:60),
+      size = 4,
+      replace = TRUE
+    ),
+    Very_Important = sample(
+      x = c(25:80),
+      size = 4,
+      replace = TRUE
+    ),
+  )
+
+
+#### Graph simulated data ####
+# Pivot simulated data
+simulated_data_pivot <-
+  simulated_data_clean |>
+  pivot_longer(
+    cols = c("Important", "Very_Important"),
+    names_to = "Response_Type",
+    values_to = "Response_Proportion"
+  )
+
+# Graph data
+simulated_data_pivot |>
+  ggplot(mapping = aes(x = Year, y = Response_Proportion, fill = Response_Type)) +
+  geom_line(color="grey") +
+  geom_point(shape=21, color="black", fill="#69b3a2", size=2) +
+  theme_minimal() +
+  labs(x = "Year", y = "Proportion Important (%)", caption = "Data source: World Bank.")
 
 
 
