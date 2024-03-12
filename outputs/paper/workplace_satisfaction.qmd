@@ -44,11 +44,11 @@ legend_labels <- c('Very Important',
                    'Neither',
                    'Not Important',
                    'Not Important At All')
-custom_colours <- c('#FF5733', 
-                   '#33FF57',
-                   '#3366FF',
-                   '#FF33A6',
-                   '#FF7869')
+custom_colours <- c('#FDE726', 
+                   '#440154',
+                   '#3B528B',
+                   '#21908D',
+                   '#5DC863')
 ```
 
 # Introduction
