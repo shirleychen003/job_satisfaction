@@ -48,7 +48,7 @@ custom_colours <- c('#FF5733',
                    '#33FF57',
                    '#3366FF',
                    '#FF33A6',
-                   '#FFFF33')
+                   '#FF7869')
 ```
 
 # Introduction
@@ -69,7 +69,7 @@ All the survey data used was in relation to job and work in the Work Orientation
 
 The open source statistical programming language R was used to clean and analyze the data, along with producing the graphs. The main packages that supported this process included tidyverse, ggplot2, knitr, kableExtra, here…
 
-The cleaning process involved filtering the specific data variables used for our analysis from the downloaded GSS dataset, and renaming any variables with meaningful names. For example, rather than “intjob” being the column name for “importance of interesting work in a job” , we renamed it to interesting_work, as shown in Table #. Further, the numerical values representing the participants’ responses (1-5) were changed to the representative words/phrases (not important, very important, etc.). \
+The cleaning process involved filtering the specific data variables used for our analysis from the downloaded GSS dataset, and renaming any variables with meaningful names. For example, rather than “intjob” being the column name for “importance of interesting work in a job” , we renamed it to interesting_work, as shown in Table #. Further, the numerical values representing the participants’ responses (1-5) were changed to the representative words/phrases (not important, very important, etc.). 
 
 ```{r}
 #| echo: false
@@ -96,6 +96,81 @@ kable(variable_data,
 ## Data Terminology
 
 The response choices for each question and their respective code in brackets are as follows: Inapplicable (-100), No Answer (-99), Do Not Know/Cannot Choose (-98), Very Important (1), Important (2), Neither (3), Not important (4), and Not Important At All (5). For our graphs, we did not include the Inapplicable, No Answer, and Do Not Know/Cannot choose responses to focus on the discernible participant responses.
+
+## Respondent Demographics
+
+```{r}
+#| echo: false
+#| tbl-cap: Respondent Gender Demographics by Year
+
+gender_demographic_data <- cleaned_GSS_data |>
+  filter(year %in% c(1989, 1998, 2006, 2016)) |>
+  group_by(year, sex) |>
+  summarise(count = n()) |>
+  mutate(percentage = round((count / sum(count)) * 100, 2))
+
+kable(gender_demographic_data) |>
+  kable_styling()
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: Respondent Age Demographics by Year
+
+age_1989_data <- cleaned_GSS_data |>
+  filter(year==1989) |>
+  select('age') |>
+   summarise(
+    mean = round(mean(age, na.rm = TRUE)),
+    median = round(median(age, na.rm = TRUE)),
+    mode = as.numeric(names(sort(table(age), decreasing = TRUE))[1]),
+    min = min(age, na.rm = TRUE),
+    max = round(max(age, na.rm = TRUE))
+  )
+
+age_1998_data <- cleaned_GSS_data |>
+  filter(year==1998) |>
+  select('age') |>
+   summarise(
+    mean = round(mean(age, na.rm = TRUE)),
+    median = round(median(age, na.rm = TRUE)),
+    mode = as.numeric(names(sort(table(age), decreasing = TRUE))[1]),
+    min = min(age, na.rm = TRUE),
+    max = round(max(age, na.rm = TRUE))
+  )
+age_2006_data <- cleaned_GSS_data |>
+  filter(year==2006) |>
+  select('age') |>
+   summarise(
+    mean = round(mean(age, na.rm = TRUE)),
+    median = round(median(age, na.rm = TRUE)),
+    mode = as.numeric(names(sort(table(age), decreasing = TRUE))[1]),
+    min = min(age, na.rm = TRUE),
+    max = round(max(age, na.rm = TRUE))
+  )
+
+age_2016_data <- cleaned_GSS_data |>
+  filter(year==2016) |>
+  select('age') |>
+   summarise(
+    mean = round(mean(age, na.rm = TRUE)),
+    median = round(median(age, na.rm = TRUE)),
+    mode = as.numeric(names(sort(table(age), decreasing = TRUE))[1]),
+    min = min(age, na.rm = TRUE),
+    max = round(max(age, na.rm = TRUE))
+  )
+
+years <- c("1989", "1998", "2006", "2016")
+combined_age_data <- bind_rows(age_1989_data, 
+                               age_1998_data, 
+                               age_2006_data, 
+                               age_2016_data)
+combined_age_data <- cbind(years, combined_age_data)
+
+
+kable(combined_age_data, col.names = c("Year", "Mean", "Median", "Mode", "Min", "Max")) |>
+  kable_styling()
+```
 
 ## Graphs
 
@@ -240,90 +315,6 @@ ggplot(social_usefulness_percentages, aes(
 
 # Results
 
-## Respondent Demographics
-
-### 1989
-
-```{r}
-#| echo: false
-demographic_1989 <- cleaned_GSS_data |>
-  filter(year==1989) |>
-  group_by(sex)|>
-  summarise(count = n())
-
-demographic_1989 <- demographic_1989 |>
-  mutate(percentage = round((count / sum(count)) * 100, 2))
-
-demographic_1989 <- demographic_1989 |>
-  select(-count)
-
-kable(demographic_1989,
-      col.names = c("Sex", "Percentage")) |>
-  kable_styling(full_width = FALSE)
-
-```
-
-### 1998
-
-```{r}
-#| echo: false
-demographic_1998 <- cleaned_GSS_data |>
-  filter(year==1998) |>
-  group_by(sex)|>
-  summarise(count = n())
-
-demographic_1998 <- demographic_1998 |>
-  mutate(percentage = round((count / sum(count)) * 100, 2))
-
-demographic_1998 <- demographic_1998 |>
-  select(-count)
-
-kable(demographic_1998,
-      col.names = c("Sex", "Percentage")) |>
-  kable_styling(full_width = FALSE)
-
-```
-
-### 2006
-
-```{r}
-#| echo: false
-demographic_2006 <- cleaned_GSS_data |>
-  filter(year==2006) |>
-  group_by(sex)|>
-  summarise(count = n())
-
-demographic_2006 <- demographic_2006 |>
-  mutate(percentage = round((count / sum(count)) * 100, 2))
-
-demographic_2006 <- demographic_2006 |>
-  select(-count)
-
-kable(demographic_2006,
-      col.names = c("Sex", "Percentage")) |>
-  kable_styling(full_width = FALSE)
-```
-
-### 2016
-
-```{r}
-#| echo: false
-demographic_2016 <- cleaned_GSS_data |>
-  filter(year==2016) |>
-  group_by(sex)|>
-  summarise(count = n())
-
-demographic_2016 <- demographic_2016 |>
-  mutate(percentage = round((count / sum(count)) * 100, 2))
-
-demographic_2016 <- demographic_2016 |>
-  select(-count)
-
-kable(demographic_2016,
-      col.names = c("Sex", "Percentage")) |>
-  kable_styling(full_width = FALSE)
-```
-
 Table 2 summarizes the average of responses per year for each variable.
 
 ```{r}
@@ -360,6 +351,37 @@ kable(combined_table,
       digits = 3,
       booktabs = TRUE,
       linesep = "")
+```
+
+```{r}
+#| label: Social Usefulness 2016
+#| tbl-cap: Social Usefulness Reponse Proportions 2016
+#| echo: false
+
+SU_demographic_2016 <- 
+  cleaned_GSS_data_renamed[c('year',
+                             'social_usefulness',
+                             'sex')] 
+
+SU_demographic_2016 <- SU_demographic_2016 |>
+  mutate(response = factor(social_usefulness, levels = ordered_responses)) |>
+  group_by(response, sex) |>
+  summarise(count = n()) |>
+  mutate(percentage = round((count / sum(count)) * 100, 2))
+
+SU_demographic_2016$response <- fct_recode(SU_demographic_2016$response,
+                                           "very important" = "very_important",
+                                           "important" = "important",
+                                           "neither" = "neither",
+                                           "not important" = "not_important",
+                                           "not important at all" = "not_important_at_all")
+
+kable(SU_demographic_2016, col.names = c('Response',
+                                         'Sex',
+                                         'Count',
+                                         'Percentage') 
+      )
+
 ```
 
 While all columns show a general increase in values, the Social Usefulness column is the only column that consistently conveys an increase.
