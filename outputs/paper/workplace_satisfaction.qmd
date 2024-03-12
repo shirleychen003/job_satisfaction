@@ -327,6 +327,8 @@ ggplot(social_usefulness_percentages, aes(
 
 # Results
 
+## Responses and demographics
+
 @tbl-avgresponses summarizes the average of responses per year for each variable.
 
 ```{r}
@@ -566,11 +568,12 @@ kable(SU_demographic_2016, col.names = c('Response',
 
 ```
 
-In @fig-avgchange, all columns show a general increase in values, while the Social Usefulness column is the only column that consistently conveys an increase.
+## Average change of importance
+In @tbl-avgchange, all columns show a general increase in values, while the Social Usefulness column is the only column that consistently conveys an increase.
 
 ```{r}
-#| label: fig-avgchange
-#| fig-cap: avg change for very important and important responses for helping others 
+#| label: tbl-avgchange
+#| tbl-cap: The average change for very important and important responses for helping others 
 #| echo: false
 #| warning: false
 
@@ -615,6 +618,7 @@ avg_change_interesting_work <- round((
   interesting_work_VI_2016 - interesting_work_VI_1989) / 
     (2016-1989), 2)
 
+
 # Important Differences
 
 ## Helping Others
@@ -657,15 +661,16 @@ avg_change_interesting_work_I <- round((
     (2016-1989), 2)
 ```
 
+
+## Change in importance over time
 @fig-allhelpingothers demonstrates the changing proportion of responses to how important is it for a job to help others. 
 
 ```{r}
-
-#|label: fig-allhelpingothers
-#|echo: false
-#|message: false
-#|warning: false
-#|fig-cap: Proportion of Responses to Importance of Job that Helps Other
+#| label: fig-allhelpingothers
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-cap: Proportion of Responses to Importance of Job that Helps Other
 
 # Prepare data
 helping_others_data <- cleaned_GSS_data[c('year',
