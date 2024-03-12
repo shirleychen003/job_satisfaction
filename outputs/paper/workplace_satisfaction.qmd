@@ -172,16 +172,15 @@ kable(combined_age_data, col.names = c("Year", "Mean", "Median", "Mode", "Min", 
   kable_styling()
 ```
 
-## Graphs
+## Graphs of Responses
+@fig-helpsothers, @fig-interestingwork, and @fig-useful, shows the responses to the prompt "On the following list there are various aspects of jobs. Please circle one number to show how important you personally consider it is in a job" where each graph represents one of the aspects. Respondents answered on a 1 to 5 likert scale where 1 represents "very important" and 5 represents "not important at all". 
 
-Each variable regarded a factor that influencing job satisfaction succeeding the prompt “On the following list there are various aspects of jobs. Please circle one number to show how important you personally consider it is in a job:”.
+### Helps Others
+In @fig-helpsothers, the proportion of respondents to the prompt "A job that allows someone to help other people?" is displayed. From the first year of data collection in 1989 to 2006, "Important" was the most selected response. In 2016, "Very Important" surpassed "Important" by 1%. In general, you can see an increase in "Very Important" respondents across the years while there is little change in the proportion of "Not Important" and "Not Important At All" responses. Further, there is a general decrease in “Neither” responses from 1989 - 2006 which is interrupted when there is a slight increase in 2016.
 
-### Helping Others
-
-Figure \# displays the proportion of responses after the prompt “A job that allows someone to help other people?” The “important” response option is consistently the most chosen response in years 1989, 1998 and 2006 while in 2016, the “Very Important” response option surpasses by one. There is a general increase trend for the “Very Important” responses across the years, conveying an increased preference for jobs that help other people. Further, there is a general decrease in “Neither” responses from 1989 - 2006 which is interrupted when there is a slight increase in 2016.
 
 ```{r}
-#| label: Helping Others Graph
+#| label: fig-helpsothers
 #| echo: false
 #| fig-cap: Q1 - "A job that allows someone to help other people?"
 
@@ -223,12 +222,13 @@ ggplot(helping_others_percentages, aes(
   theme_minimal()
 ```
 
-### Interesting Work
 
-Figure \# displays the proportion of responses to a likert scale ranging from “Very Important” to “Not Important At All” after the prompt “An interesting job?”.
+### Interesting Work
+@fig-interestingwork shows the proportion of responses for the prompt "An interesting job?". In 1989, "Important" responses was most chosen at around 50%. The following survey, in 1998, showed an increase in "Very Important" responses, where it had a similar proportion to "Important" responses 1989 and "Important" decreased to a proportion similar to "Very Important". 
+
 
 ```{r}
-#| label: Interesting Work Graph
+#| label: fig-interestingwork
 #| echo: false
 #| fig-cap: Q2 - "An interesting job?"
 
@@ -268,12 +268,12 @@ ggplot(interesting_work_percentages, aes(
   theme_minimal()
 ```
 
-### Social Usefulness
 
-Figure 3 displays the proportion of responses after the prompt “A job that is useful to society?”. Compared to the other figures, this graph has the most varying change in the “neutral” response. The “Very Important” responses increase significantly while the overall pattern of the other responses are decreasing.
+### Social Usefulness
+@fig-useful displays the proportion of responses for the prompt "A job that is useful to society?". There is a large increase in the proportion of "Very Important" responses from 1989 to 2016. In contrast, there is a gradual decline for both "Important" and "Neither". There is little change in "Not Important" and "Not Important At All". Compared to the other figures, this graph has the most varying change in the “neutral” response.
 
 ```{r}
-#| label: Social Usefulness Graph
+#| label: fig-useful
 #| echo: false
 #| fig-cap: Q3 - "A job that is useful to society?"
 
@@ -312,6 +312,7 @@ ggplot(social_usefulness_percentages, aes(
                    'Not Important At All')) + 
   theme_minimal()
 ```
+
 
 # Results
 
@@ -474,6 +475,100 @@ avg_change_interesting_work_I <- round((
     (2016-1989), 2)
 ```
 
+@fig-allresponse-helpingothers demonstrates the changing proportion of responses to how important is it for a job to help others. 
+```{r}
+#|label: fig-allresponse-helpingothers
+#|echo: false
+#|message: false
+#|tbl-cap: Proportion of Responses to Importance of Job that Helps Other
+
+# Prepare data
+helping_others_data <- cleaned_GSS_data[c('year',
+                                          'helping_others')]
+
+helping_others_data <-helping_others_data |>
+  mutate(
+    helping_others = recode(helping_others, 
+                            '1' = 'Very Important',
+                            '2' = 'Important',
+                            '3' = 'Neither',
+                            '4' = 'Not Important',
+                            '5' = 'Not Important At All'),
+  )
+
+helping_others_data <-
+  helping_others_data |>
+  mutate(
+    year = (as.character(year)),
+  )
+
+helping_others_percentages <- 
+  helping_others_data |>
+  count(year, helping_others) |>
+  group_by(year) |>
+  mutate(percentage = n / sum(n) * 100)
+
+
+# Graph data
+helping_others_percentages |>
+  ggplot(mapping = aes(x = year, y = percentage, fill = helping_others)) +
+  geom_col() +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle=90, size = 10)) +
+  labs(x = "Year", y = "Proportion for each response (%)", fill = "Response") +
+  theme(legend.position = "bottom") +
+  theme(legend.text = element_text(size = 5)) +
+  scale_fill_viridis_d(option = "viridis") 
+```
+
+
+
+```{r}
+#|label: fig-allresponse-helpingothers
+#|echo: false
+#|message: false
+#|tbl-cap: Proportion of Responses to Importance of Job that Helps Other
+
+# Prepare data
+helping_others_data <- cleaned_GSS_data[c('year',
+                                          'helping_others')]
+
+helping_others_data <-helping_others_data |>
+  mutate(
+    helping_others = recode(helping_others, 
+                            '1' = 'Very Important',
+                            '2' = 'Important',
+                            '3' = 'Neither',
+                            '4' = 'Not Important',
+                            '5' = 'Not Important At All'),
+  )
+
+helping_others_data <-
+  helping_others_data |>
+  mutate(
+    year = (as.character(year)),
+  )
+
+helping_others_percentages <- 
+  helping_others_data |>
+  count(year, helping_others) |>
+  group_by(year) |>
+  mutate(percentage = n / sum(n) * 100)
+
+
+# Graph data
+helping_others_percentages |>
+  ggplot(mapping = aes(x = year, y = percentage, fill = helping_others)) +
+  geom_col() +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle=90, size = 10)) +
+  labs(x = "Year", y = "Proportion for each response (%)", fill = "Response") +
+  theme(legend.position = "bottom") +
+  theme(legend.text = element_text(size = 5)) +
+  scale_fill_viridis_d(option = "viridis") 
+```
+
+
 # Discussion
 
 ## Gender?
@@ -481,3 +576,4 @@ avg_change_interesting_work_I <- round((
 ## Culture?
 
 # Sources
+
