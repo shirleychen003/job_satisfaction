@@ -75,7 +75,6 @@ The cleaning process involved filtering the specific data variables used for our
 #| label: fig-cleaneddata
 #| echo: false
 #| warning: false
-#| tbl-cap: yus
 #| tbl-cap: GSS Dataset
 
 variable_data <- data.frame( 
@@ -106,6 +105,7 @@ The response choices for each question and their respective code in brackets are
 ```{r}
 #| label: fig-gender
 #| echo: false
+#| warning: false
 #| tbl-cap: "Respondent Gender Demographics by Year"
 
 gender_demographic_data <- cleaned_GSS_data |>
@@ -189,6 +189,7 @@ In @fig-helpsothers, the proportion of respondents to the prompt "A job that all
 ```{r}
 #| label: fig-helpsothers
 #| echo: false
+#| warning: false
 #| fig-cap: Q1 - "A job that allows someone to help other people?"
 
 # Helping Others Data
@@ -237,6 +238,7 @@ ggplot(helping_others_percentages, aes(
 ```{r}
 #| label: fig-interestingwork
 #| echo: false
+#| warning: false
 #| fig-cap: Q2 - "An interesting job?"
 
 # Interesting Work Data
@@ -564,6 +566,7 @@ While all columns show a general increase in values, the Social Usefulness colum
 #| label: Average Change
 #| tbl-cap: avg change for very important and important responses for helping others 
 #| echo: false
+#| warning: false
 
 # Very Important Differences
 
@@ -653,6 +656,7 @@ avg_change_interesting_work_I <- round((
 #|label: fig-allresponse-helpingothers
 #|echo: false
 #|message: false
+#|warning: false
 #|tbl-cap: Proportion of Responses to Importance of Job that Helps Other
 
 # Prepare data
@@ -700,6 +704,7 @@ helping_others_percentages |>
 #|label: fig-allresponse-helpingothers
 #|echo: false
 #|message: false
+#|warning: false
 #|tbl-cap: Proportion of Responses to Importance of Job that Helps Other
 
 # Prepare data
