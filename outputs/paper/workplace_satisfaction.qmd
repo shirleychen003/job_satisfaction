@@ -720,4 +720,3 @@ helping_others_percentages |>
 ## Culture?
 
 # Sources
-
