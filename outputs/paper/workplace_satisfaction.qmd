@@ -52,6 +52,7 @@ custom_colours <- c('#FDE726',
 ```
 
 # Introduction
+In progress...
 
 # Data
 
@@ -621,9 +622,13 @@ helping_others_percentages |>
 
 
 # Discussion
+In progress...
+## Gender
 
-## Gender?
+## Age
 
-## Culture?
+## Culture
+
+## Technology
 
 # Sources
