@@ -1,6 +1,6 @@
 ---
 title: "Navigating Factors Affecting Job Satisfaction Among Working Americans"
-subtitle: "Analysis using US General Sopcial Survey (1989 to 2016)"
+subtitle: "Analysis using US General Social Survey (1989 to 2016)"
 author: 
 - Shirley Chen
 - Jessica Im
@@ -11,7 +11,6 @@ format: pdf
 editor: visual
 toc: true
 number-sections: true
-bibliography: references.bib
 ---
 
 ```{r}
@@ -45,6 +44,7 @@ legend_labels <- c('Very Important',
                    'Neither',
                    'Not Important',
                    'Not Important At All')
+
 custom_colours <- c('#FDE726', 
                    '#440154',
                    '#3B528B',
@@ -69,7 +69,7 @@ All the survey data used was in relation to job and work in the Work Orientation
 
 ## Data Cleaning
 
-The open source statistical programming language R was used to clean and analyze the data, along with producing the graphs. The main packages that supported this process included tidyverse, ggplot2, knitr, kableExtra, here…
+The open source statistical programming language `R` was used to clean and analyze the data, along with producing the graphs. The main packages that supported this process included `tidyverse`, `ggplot2`, `knitr`, `kableExtra`, here…
 
 The cleaning process involved filtering the specific data variables used for our analysis from the downloaded GSS dataset, and renaming any variables with meaningful names. For example, rather than “intjob” being the column name for “importance of interesting work in a job” , we renamed it to interesting_work, as shown in Table #. Further, the numerical values representing the participants’ responses (1-5) were changed to the representative words/phrases (not important, very important, etc.). @tbl-cleaneddata shows the old and new variable names used in cleaning, the description of variables, and sample responses. 
 
@@ -116,8 +116,89 @@ gender_demographic_data <- cleaned_GSS_data |>
   summarise(count = n()) |>
   mutate(percentage = round((count / sum(count)) * 100, 2))
 
-kable(gender_demographic_data) |>
-  kable_styling()
+kable(gender_demographic_data, col.names = c("Year","Sex", "Count","Percentage"),
+      format = "simple")
+```
+
+
+```{r}
+#| label: tbl-age-groups
+#| echo: false
+#| warning: false
+#| tbl-cap: Respondent Age Groups by Year
+
+age_group_1989 <- cleaned_GSS_data |>
+  filter(year == 1989) |>
+  mutate(age_group = case_when(
+    age >= 18 & age <= 24 ~ "18-24",
+    age >= 25 & age <= 34 ~ "25-34",
+    age >= 35 & age <= 44 ~ "35-44",
+    age >= 45 & age <= 54 ~ "45-54",
+    age >= 55 & age <= 64 ~ "55-64",
+    age >= 65 ~ "65+"
+  )) |>
+  count(age_group) |>
+  pivot_wider(names_from = age_group, values_from = n) |>
+  rename("N/A" = `NA`)
+
+age_group_1998 <- cleaned_GSS_data |>
+  filter(year == 1998) |>
+  mutate(age_group = case_when(
+    age >= 18 & age <= 24 ~ "18-24",
+    age >= 25 & age <= 34 ~ "25-34",
+    age >= 35 & age <= 44 ~ "35-44",
+    age >= 45 & age <= 54 ~ "45-54",
+    age >= 55 & age <= 64 ~ "55-64",
+    age >= 65 ~ "65+"
+  )) |>
+  count(age_group) |>
+  pivot_wider(names_from = age_group, values_from = n) |>
+  rename("N/A" = `NA`)
+
+age_group_2006 <- cleaned_GSS_data |>
+  filter(year == 2006) |>
+  mutate(age_group = case_when(
+    age >= 18 & age <= 24 ~ "18-24",
+    age >= 25 & age <= 34 ~ "25-34",
+    age >= 35 & age <= 44 ~ "35-44",
+    age >= 45 & age <= 54 ~ "45-54",
+    age >= 55 & age <= 64 ~ "55-64",
+    age >= 65 ~ "65+"
+  )) |>
+  count(age_group) |>
+  pivot_wider(names_from = age_group, values_from = n) |>
+  rename("N/A" = `NA`)
+
+age_group_2016 <- cleaned_GSS_data |>
+  filter(year == 2016) |>
+  mutate(age_group = case_when(
+    age >= 18 & age <= 24 ~ "18-24",
+    age >= 25 & age <= 34 ~ "25-34",
+    age >= 35 & age <= 44 ~ "35-44",
+    age >= 45 & age <= 54 ~ "45-54",
+    age >= 55 & age <= 64 ~ "55-64",
+    age >= 65 ~ "65+"
+  )) |>
+  count(age_group) |>
+  pivot_wider(names_from = age_group, values_from = n) |>
+  rename("N/A" = `NA`)
+
+# Put the Year column back
+age_group_1989 <- mutate(age_group_1989, Year = 1989)
+age_group_1998 <- mutate(age_group_1998, Year = 1998)
+age_group_2006 <- mutate(age_group_2006, Year = 2006)
+age_group_2016 <- mutate(age_group_2016, Year = 2016)
+
+combined_age_group_table <- bind_rows(age_group_1989,
+                                      age_group_1998,
+                                      age_group_2006,
+                                      age_group_2016)
+
+combined_age_group_table <- combined_age_group_table |>
+  select(Year, everything())
+
+kable(combined_age_group_table, format = "simple")
+  
 ```
 
 
@@ -178,12 +259,16 @@ combined_age_data <- bind_rows(age_1989_data,
 combined_age_data <- cbind(years, combined_age_data)
 
 
-kable(combined_age_data, col.names = c("Year", "Mean", "Median", "Mode", "Min", "Max")) |>
-  kable_styling()
+kable(combined_age_data, col.names = c("Year",
+                                       "Mean", 
+                                       "Median",
+                                       "Mode", 
+                                       "Min", 
+                                       "Max"), format = "simple")
 ```
 
 ## Graphs of Responses
-@fig-helpsothers, @fig-interestingwork, and @fig-useful, shows the responses to the prompt "On the following list there are various aspects of jobs. Please circle one number to show how important you personally consider it is in a job" where each graph represents one of the aspects. Respondents answered on a 1 to 5 likert scale where 1 represents "very important" and 5 represents "not important at all". 
+@fig-helpsothers, @fig-interestingwork, and @fig-useful, shows the responses to the prompt "On the following list there are various aspects of jobs. Please circle one number to show how important you personally consider it is in a job" where each graph represents one of the aspects. Respondents answered on a 1 to 5 Likert scale where 1 represents "very important" and 5 represents "not important at all". 
 
 ### Helps Others
 In @fig-helpsothers, the proportion of respondents to the prompt "A job that allows someone to help other people?" is displayed. From the first year of data collection in 1989 to 2006, "Important" was the most selected response. In 2016, "Very Important" surpassed "Important" by 1%. In general, you can see an increase in "Very Important" respondents across the years while there is little change in the proportion of "Not Important" and "Not Important At All" responses. Further, there is a general decrease in “Neither” responses from 1989 - 2006 which is interrupted when there is a slight increase in 2016.
@@ -373,7 +458,7 @@ kable(combined_table,
 @tbl-helpingothers1989
 ```{r}
 #| label: tbl-helpingothers1989
-#| tbl-cap: Helping Others Reponse Proportions 1989
+#| tbl-cap: Helping Others Response Proportions 1989
 #| warning: false
 #| echo: false
 
@@ -399,13 +484,12 @@ HO_demographic_1989$response <- fct_recode(HO_demographic_1989$response,
 kable(HO_demographic_1989, col.names = c('Response',
                                          'Sex',
                                          'Count',
-                                         'Percentage') 
-      )
+                                         'Percentage'), format = "simple")
 ```
 @tbl-helpingothers2016
 ```{r}
 #| label: tbl-helpingothers2016
-#| tbl-cap: Helping Others Reponse Proportions 2016
+#| tbl-cap: Helping Others Response Proportions 2016
 #| warning: false
 #| echo: false
 
@@ -431,14 +515,13 @@ HO_demographic_2016$response <- fct_recode(HO_demographic_2016$response,
 kable(HO_demographic_2016, col.names = c('Response',
                                          'Sex',
                                          'Count',
-                                         'Percentage') 
-      )
+                                         'Percentage'), format = "simple")
 ```
 
 @tbl-interestingwork1989
 ```{r}
 #| label: tbl-interestingwork1989
-#| tbl-cap: Interesting Work Reponse Proportions 1989
+#| tbl-cap: Interesting Work Response Proportions 1989
 #| warning: false
 #| echo: false
 
@@ -465,14 +548,13 @@ IW_demographic_1989$response <- fct_recode(IW_demographic_1989$response,
 kable(IW_demographic_1989, col.names = c('Response',
                                          'Sex',
                                          'Count',
-                                         'Percentage') 
-      )
+                                         'Percentage'), format = "simple")
 ```
 
 @tbl-interestingwork2016
 ```{r}
 #| label: tbl-interestingwork2016
-#| tbl-cap: Interesting Work Reponse Proportions 2016
+#| tbl-cap: Interesting Work Response Proportions 2016
 #| warning: false
 #| echo: false
 
@@ -499,15 +581,14 @@ IW_demographic_2016$response <- fct_recode(IW_demographic_2016$response,
 kable(IW_demographic_2016, col.names = c('Response',
                                          'Sex',
                                          'Count',
-                                         'Percentage') 
-      )
+                                         'Percentage'), format = "simple")
 ```
 
 
 @tbl-socialusefulness1989
 ```{r}
 #| label: tbl-socialusefulness1989
-#| tbl-cap: Social Usefulness Reponse Proportions 1989
+#| tbl-cap: Social Usefulness Response Proportions 1989
 #| warning: false
 #| echo: false
 
@@ -533,14 +614,13 @@ SU_demographic_1989$response <- fct_recode(SU_demographic_1989$response,
 kable(SU_demographic_1989, col.names = c('Response',
                                          'Sex',
                                          'Count',
-                                         'Percentage') 
-      )
+                                         'Percentage'), format = "simple")
 ```
 
 @tbl-socialusefulness2016
 ```{r}
 #| label: tbl-socialusefulness2016
-#| tbl-cap: Social Usefulness Reponse Proportions 2016
+#| tbl-cap: Social Usefulness Response Proportions 2016
 #| warning: false
 #| echo: false
 
@@ -566,8 +646,7 @@ SU_demographic_2016$response <- fct_recode(SU_demographic_2016$response,
 kable(SU_demographic_2016, col.names = c('Response',
                                          'Sex',
                                          'Count',
-                                         'Percentage') 
-      )
+                                         'Percentage'), format = "simple")
 
 ```
 
