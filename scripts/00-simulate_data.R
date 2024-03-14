@@ -11,8 +11,6 @@
 #### Workspace setup ####
 library(tidyverse)
 library(janitor)
-library(ggplot2)
-library(dplyr)
 seed(250)
 
 
