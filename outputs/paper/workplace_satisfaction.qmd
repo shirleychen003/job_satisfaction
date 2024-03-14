@@ -1,14 +1,17 @@
 ---
 title: "Navigating Factors Affecting Job Satisfaction Among Working Americans"
-author: "Shirley Chen, Jessica Im"
-thanks: "Code and data in this report are available at:https://github.com/shirleychen003/job_satisfaction.git."
-platform available at: "TBA"
-date: March 4, 2024
+subtitle: "Analysis using US General Sopcial Survey (1989 to 2016)"
+author: 
+- Shirley Chen
+- Jessica Im
+thanks: "Code and data in this report are available at: https://github.com/shirleychen003/job_satisfaction.git."
+date: today
 date-format: "long" 
 format: pdf
 editor: visual
 toc: true
 number-sections: true
+bibliography: references.bib
 ---
 
 ```{r}
@@ -17,10 +20,8 @@ number-sections: true
 library(tidyverse)
 library(tinytex)
 library(janitor)
-library(readr)
 library(opendatatoronto)
 library(here)
-library(ggplot2)
 library(knitr)
 library(usethis)
 library(gitcreds)
@@ -501,6 +502,7 @@ kable(IW_demographic_2016, col.names = c('Response',
                                          'Percentage') 
       )
 ```
+
 
 @tbl-socialusefulness1989
 ```{r}

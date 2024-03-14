@@ -9,12 +9,10 @@
 # 01-download_data.R
 
 #### Workspace setup ####
-library(dplyr)
 library(tidyverse)
 library(knitr)
 library(janitor)
 library(lubridate)
-library(readr)
 library(scales)
 
 # Open data
