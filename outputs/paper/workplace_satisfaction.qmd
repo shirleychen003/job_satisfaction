@@ -416,7 +416,7 @@ ggplot(social_usefulness_percentages, aes(
 
 ## Responses and demographics
 
-@tbl-avgresponses summarizes the average of responses per year for each variable.
+@tbl-avgresponses summarizes the average responses per year for each question, where 1 represents “Very Important” and 5 represents “Not Important At All”. There is a general decrease in scores, meaning importance increased, each year. The largest change from 1989 to 2016 was “Social Usefulness”, with an average response decrease of 0.311. Overall, interesting work was consistently more important than helping others and social usefulness with an average of 0.264 points lower. As time passed, interesting work became rated more similarly with the other two factors, and in 2016 the average difference was only 0.144 points. 
 
 ```{r}
 #| label: tbl-avgresponses
@@ -455,7 +455,8 @@ kable(combined_table,
       linesep = "")
 ```
 
-@tbl-helpingothers1989
+In @tbl-helpingothers1989 and @tbl-helpingothers2016, we see the percentage distribution of responses by respondent sex for the importance of helping others. In 1989, female respondents took the more extremes, and had much higher percentages for “very important” compared to their male counterparts. In 2016, the trend continues but at a lesser scale, with the proportions evening more.
+
 ```{r}
 #| label: tbl-helpingothers1989
 #| tbl-cap: Helping Others Response Proportions 1989
@@ -486,7 +487,7 @@ kable(HO_demographic_1989, col.names = c('Response',
                                          'Count',
                                          'Percentage'), format = "simple")
 ```
-@tbl-helpingothers2016
+
 ```{r}
 #| label: tbl-helpingothers2016
 #| tbl-cap: Helping Others Response Proportions 2016
@@ -518,7 +519,8 @@ kable(HO_demographic_2016, col.names = c('Response',
                                          'Percentage'), format = "simple")
 ```
 
-@tbl-interestingwork1989
+@tbl-interestingwork1989 and @tbl-interestingwork2016  show the proportion of responses by sex for the importance of interesting work. Women again generally favour importance more than men, and similarly to the tables for helping others, the difference in proportion decreases in 2016. Interesting work 2016 has the lowest disparity in responses compared to the other two questions. 
+
 ```{r}
 #| label: tbl-interestingwork1989
 #| tbl-cap: Interesting Work Response Proportions 1989
@@ -551,7 +553,7 @@ kable(IW_demographic_1989, col.names = c('Response',
                                          'Percentage'), format = "simple")
 ```
 
-@tbl-interestingwork2016
+
 ```{r}
 #| label: tbl-interestingwork2016
 #| tbl-cap: Interesting Work Response Proportions 2016
@@ -585,7 +587,10 @@ kable(IW_demographic_2016, col.names = c('Response',
 ```
 
 
-@tbl-socialusefulness1989
+In @tbl-socialusefulness1989 and @tbl-socialusefulness2016, the previous trend continues, with more women favouring importance and a decrease in gender differences in 2016. Social usefulness and interesting work had similar differences in proportions, while 1989 helping others had the largest disparity. 
+
+
+
 ```{r}
 #| label: tbl-socialusefulness1989
 #| tbl-cap: Social Usefulness Response Proportions 1989
@@ -700,7 +705,55 @@ helping_others_percentages |>
   scale_fill_viridis_d(option = "viridis") 
 ```
 
+@fig-allinterestingwork demonstrates the changing proportion of responses to how important is it for a job to help others. 
 
+```{r}
+#| label: fig-allinterestingwork
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-cap: Proportion of Responses to Importance of Interesting Work in Job
+
+# Prepare data
+interesting_work_data <- cleaned_GSS_data[c('year',
+                                          'interesting_work')]
+
+interesting_work_data <-
+  interesting_work_data |>
+  mutate(
+    interesting_work = recode(interesting_work, 
+                            '1' = 'Very Important',
+                            '2' = 'Important',
+                            '3' = 'Neither',
+                            '4' = 'Not Important',
+                            '5' = 'Not Important At All'),
+  )
+
+interesting_work_data <-
+  interesting_work_data |>
+  mutate(
+    year = (as.character(year)),
+  )
+
+interesting_work_percentages <- 
+  interesting_work_data |>
+  count(year, interesting_work) |>
+  group_by(year) |>
+  mutate(percentage = n / sum(n) * 100)
+
+
+# Graph data
+interesting_work_percentages |>
+  ggplot(mapping = aes(x = year, y = percentage, fill = interesting_work)) +
+  geom_col() +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle=90, size = 10)) +
+  labs(x = "Year", y = "Proportion for each response (%)", fill = "Response") +
+  theme(legend.position = "bottom") +
+  theme(legend.text = element_text(size = 5)) +
+  scale_fill_viridis_d(option = "viridis") 
+  scale_fill_viridis_d(option = "viridis") 
+```
 
 # Discussion
 In progress...
