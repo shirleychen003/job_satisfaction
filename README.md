@@ -1,5 +1,4 @@
-# Navigating Factors Affecting Job Satisfaction Among Working Americans
-## Analysis using US General Social Survey (1989 to 2016)
+# Navigating Factors Deemed Important Among Working Americans
 
 ## Overview
 This paper explores the public opinions of American adults on 3 factors that could be considered important in an occupation. Respondents were instructed to use a Likert Scale (1 - very important, 2 - important, 3 - neither, 4 - not important, 5 - not important at all) to rank their perspective for the following 3 prompts:
