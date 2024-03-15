@@ -757,7 +757,11 @@ interesting_work_percentages |>
 ```
 
 # Discussion
-In progress...
+
+## Economic Factors
+
+
+
 ## Gender
 Women generally placed more importance on occupations that help others, are interesting, and are useful to society. The disparity between attitudes of women and men was largest for the importance of occupations that help others, and it is evident how this translates to women working in care work. In 2021, 77.6% of the 21.2 million U.S. care workers were women [@womencareworkus]. Care work includes occupations in which workers care for others like children, persons with disabilities, seniors, and include industries such as education, healthcare, personal services, and more [@womencareworkcanada]. Despite the essential work the care industry does, it has historically been underpaid work and home health care workers had an average salary of $13.81 from 2018 to 2020 [@womencareworkusepi]. The issue worsens when intersectional impacts are considered, as care workers are disproportionately women of colour. The change in attitude disparity between 1989 and 2016 may be a sign of more supportive views for care work and lowered inequality; however, the continued low pay of care workers is evidence that changing attitudes have not largely improved the care economy. 
 
