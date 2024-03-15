@@ -9,7 +9,7 @@ This paper explores the public opinions of American adults on 3 factors that cou
 ## Repo  Structure
 `inputs` contains the sketches part of the planning process and a LLM usage statement.
 
-`outputs/paper` contains the cleaned data files used for data visualization, along with the files used to generate the paper, including the Quarto document, the bibliography file, and the finalized version of the paper in the form of a PDF.
+`outputs` contains the cleaned data files used for data visualization, along with the files used to generate the paper, including the Quarto document, the bibliography file, and the finalized version of the paper in the form of a PDF.
 
 `scripts` contains the graph replications and R scripts used to simulate, download, clean, and test the data.
 
