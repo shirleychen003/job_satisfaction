@@ -2,9 +2,9 @@
 
 ## Overview
 This paper explores the public opinions of American adults on 3 factors that could be considered important in an occupation. Respondents were instructed to use a Likert Scale (1 - very important, 2 - important, 3 - neither, 4 - not important, 5 - not important at all) to rank their perspective for the following 3 prompts:
-A job that allows someone to help other people?
-An interesting job?
-A job that is useful to society?
+1. A job that allows someone to help other people?
+2. An interesting job?
+3. A job that is useful to society?
 
 ## Repo  Structure
 `inputs` contains the sketches part of the planning process and a LLM usage statement.
