@@ -11,6 +11,7 @@ format: pdf
 editor: visual
 toc: true
 number-sections: true
+bibliography: bibliography.bib
 ---
 
 ```{r}
@@ -25,6 +26,8 @@ library(knitr)
 library(usethis)
 library(gitcreds)
 library(kableExtra)
+
+references()
 
 #### Import data ####
 # Question 1 Dataset
@@ -69,7 +72,7 @@ All the survey data used was in relation to job and work in the Work Orientation
 
 ## Data Cleaning
 
-The open source statistical programming language `R` was used to clean and analyze the data, along with producing the graphs. The main packages that supported this process included `tidyverse`, `ggplot2`, `knitr`, `kableExtra`, here…
+The open source statistical programming language [@R-base] was used to clean and analyze the data, along with producing the graphs. The main packages that supported this process included [@R-tidyverse], [@R-ggplot2], [@R-knitr], [@R-janitor], and [@R-lubridate]
 
 The cleaning process involved filtering the specific data variables used for our analysis from the downloaded GSS dataset, and renaming any variables with meaningful names. For example, rather than “intjob” being the column name for “importance of interesting work in a job” , we renamed it to interesting_work, as shown in Table #. Further, the numerical values representing the participants’ responses (1-5) were changed to the representative words/phrases (not important, very important, etc.). @tbl-cleaneddata shows the old and new variable names used in cleaning, the description of variables, and sample responses. 
 
@@ -753,6 +756,10 @@ interesting_work_percentages |>
   theme(legend.text = element_text(size = 5)) +
   scale_fill_viridis_d(option = "viridis") 
   scale_fill_viridis_d(option = "viridis") 
+```
+
+```{r}
+write_bib()
 ```
 
 # Discussion
