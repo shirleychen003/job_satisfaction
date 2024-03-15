@@ -13,9 +13,10 @@ This paper explores the public opinions of American adults on 3 factors that cou
 
 `scripts` contains the graph replications and R scripts used to simulate, download, clean, and test the data.
 
-Follow the steps in the GSS Data section below to retrieve the raw data.
-Run `scripts/02-data_cleaning.R` to generate cleaned data
-Render `outputs/paper/workplace_satisfaction.qmd` to generate the PDF of the paper
+## Replication 
+1. Follow the steps in the GSS Data section below to retrieve the raw data.
+2. Run `scripts/02-data_cleaning.R` to generate cleaned data
+3. Render `outputs/paper/workplace_satisfaction.qmd` to generate the PDF of the paper
 
 ## GSS Data
 Due to the file’s large size and Github limitations, we were unable to upload the raw data retrieved from the GSS Data Explorer website and the converted CSV version of the raw data to this repository. In order to run the files in the scripts folder (more specifically, the `01-download_data.R file`), attend to the following instructions:
