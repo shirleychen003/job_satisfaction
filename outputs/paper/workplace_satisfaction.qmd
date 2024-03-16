@@ -58,19 +58,18 @@ In progress...
 
 # Data
 
-Based at the University of Chicago since 1972, the General Social Survey (GSS) is a project with the objective of monitoring and analyzing the intricacies of American society (1). The GSS Data Explorer makes it so that data retrieved from the project is a publicly available resource, accessible to various types of people, such as educators, policymakers, or researchers through the National Opinion Research Center (NORC).
-
-The dataset used for this paper was retrieved from The General Social Survey (GSS) Data Explorer website (citation). We retrieved survey data relating to work and job in the years of 1989, 1998, 2006, and 2016.
-
 ## Source Data and Methodology
 
-Majority of the GSS data was collected through face-to-face interviews with the target population of adults (18+) residing in the United States, but starting in 2002, Computer-assisted personal interviewing methods were introduced (3).
+Based at the University of Chicago since 1972, the General Social Survey (GSS) is a project with the objective of monitoring and analyzing the intricacies of American society (1). The GSS Data Explorer makes it so that data retrieved from the project is a publicly available resource, accessible to various types of people, such as educators, policymakers, or researchers through the National Opinion Research Center (NORC). The dataset used for this paper was retrieved from The General Social Survey (GSS) Data Explorer website (citation). We retrieved survey data relating to work and job in the years of 1989, 1998, 2006, and 2016.
 
-All the survey data used was in relation to job and work in the Work Orientation Module; the specific variable names extracted from the dataset being intjob, hlpoths, and hlpsoc.
+Majority of the GSS data was collected through face-to-face interviews with the target population of adults (18+) residing in the United States; however, starting in 2002, Computer-assisted personal interviewing methods were introduced (3). The use of manual edits and keypunching were eliminated, and training to learn how to use CAPI was included. 
+
+All the survey data used was in relation to job and work in the Work Orientation Module; the specific variable names extracted from the dataset being intjob, hlpoths, and hlpsoc. For the years and demographic data, the specific variable names extracted were year, age and sex. 
+
 
 ## Data Cleaning
 
-The open source statistical programming language [@R-base] was used to clean and analyze the data, along with producing the graphs. The main packages that supported this process included [@R-tidyverse], [@R-ggplot2], [@R-knitr], [@R-janitor], and [@R-lubridate]
+The open source statistical programming language [@R-base] was used to clean and analyze the data, along with producing the graphs. The main packages that supported this process included [@R-tidyverse], [@R-ggplot2], [@R-knitr], [@R-janitor], and [@R-lubridate].
 
 The cleaning process involved filtering the specific data variables used for our analysis from the downloaded GSS dataset, and renaming any variables with meaningful names. For example, rather than “intjob” being the column name for “importance of interesting work in a job” , we renamed it to interesting_work, as shown in Table #. Further, the numerical values representing the participants’ responses (1-5) were changed to the representative words/phrases (not important, very important, etc.). @tbl-cleaneddata shows the old and new variable names used in cleaning, the description of variables, and sample responses. 
 
@@ -103,13 +102,15 @@ kable(variable_data,
 The response choices for each question and their respective code in brackets are as follows: Inapplicable (-100), No Answer (-99), Do Not Know/Cannot Choose (-98), Very Important (1), Important (2), Neither (3), Not important (4), and Not Important At All (5). For our graphs, we did not include the Inapplicable, No Answer, and Do Not Know/Cannot choose responses to focus on the discernible participant responses.
 
 ## Respondent Demographics
-@tbl-gender shows the number and percentage of male and female respondents for 1989, 1998, 2006, and 2016. @tbl-age shows the mean, median, mode, min, and max of respondent age for all four years of data collection.  
+@tbl-gender shows the number and percentage of male and female respondents for 1989, 1998, 2006, and 2016. The percentages of female participants were consistently higher than the male participants, as the female participant percentages were always above 50% while the male participant percentages ranged from low to high 40s.
+
+@tbl-agegroups displays the number of respondents within different age groups for 1989, 1998, 2006, and 2016. The classified age groups are ‘18-24’, ‘25-34’, ‘45-54’, ‘55-64’, and ‘65+’. Further, there is a column labelled “N/A”  for the respondents who did not disclose their age. As shown by the table, the 18-24 age group had the least amount of participants every year, while the age group with the most participants per year varied; however, the age range of the most participants per year stayed between 25-54.
 
 ```{r}
 #| label: tbl-gender
 #| echo: false
 #| warning: false
-#| tbl-cap: "Respondent Gender Demographics by Year"
+#| tbl-cap: Respondent Gender Demographics for 1989, 1989, 2006, and 2016
 
 gender_demographic_data <- cleaned_GSS_data |>
   filter(year %in% c(1989, 1998, 2006, 2016)) |>
@@ -123,10 +124,10 @@ kable(gender_demographic_data, col.names = c("Year","Sex", "Count","Percentage")
 
 
 ```{r}
-#| label: tbl-age-groups
+#| label: tbl-agegroups
 #| echo: false
 #| warning: false
-#| tbl-cap: Respondent Age Groups by Year
+#| tbl-cap: Respondent Count of Participants in Age Groups by Year
 
 age_group_1989 <- cleaned_GSS_data |>
   filter(year == 1989) |>
