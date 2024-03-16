@@ -760,7 +760,7 @@ interesting_work_percentages |>
 # Discussion
 
 ## Economic Factors
-
+In the early 1990s, much of the Western world, including the United States, entered a recession[@wikiemployment1990s]. The 1980s had a very slow productivity growth at 1.5 each year and at the end of the early 90s recession, the Federal budget had a $298 billion deficit [@useconomy]. In 2000, the U.S. had their highest unemployment rate in three decades at 4.0% [@useconomy]. The low employment rates from late 1989 to 1992 possibly contributed to the lower amount of importance workers placed on their occupation being one which helps others, is interesting, and is useful to society; at the time, workers may have prioritized pay and stability. In contrast, the 2010s had the lowest unemployment rate, low inflation rates, and low interest [@pbs2010seconomy]. The decade was the first since the 1850s to skip a recession and low unemployment broke a 50-year record. These factors may have contributed to participants putting higher value on occupation factors outside of stability and pay.
 
 
 ## Gender
