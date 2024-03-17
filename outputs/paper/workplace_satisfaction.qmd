@@ -589,9 +589,7 @@ kable(IW_demographic_2016, col.names = c('Response',
 ```
 
 
-In @tbl-socialusefulness1989 and @tbl-socialusefulness2016, the previous trend continues, with more women favouring importance and a decrease in gender differences in 2016. Social usefulness and interesting work had similar differences in proportions, while 1989 helping others had the largest disparity. 
-
-
+In @tbl-socialusefulness1989 and @tbl-socialusefulness2016, the previous trend continues, with more women favouring importance and a decrease in gender differences in 2016. Social usefulness and interesting work had similar differences in proportions, while 1989 helping others had the largest disparity.
 
 ```{r}
 #| label: tbl-socialusefulness1989
@@ -624,7 +622,6 @@ kable(SU_demographic_1989, col.names = c('Response',
                                          'Percentage'), format = "simple")
 ```
 
-@tbl-socialusefulness2016
 ```{r}
 #| label: tbl-socialusefulness2016
 #| tbl-cap: Social Usefulness Response Proportions 2016
@@ -757,10 +754,60 @@ interesting_work_percentages |>
   scale_fill_viridis_d(option = "viridis") 
 ```
 
+```{r}
+#| label: fig-allsocialusefulness
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-cap: Proportion of Responses to Importance of Interesting Work in Job
+
+# Prepare data
+social_usefulness_data <- cleaned_GSS_data[c('year',
+                                          'social_usefulness')]
+
+social_usefulness_data <-
+  social_usefulness_data |>
+  mutate(
+    social_usefulness = recode(social_usefulness, 
+                            '1' = 'Very Important',
+                            '2' = 'Important',
+                            '3' = 'Neither',
+                            '4' = 'Not Important',
+                            '5' = 'Not Important At All'),
+  )
+
+social_usefulness_data <-
+  social_usefulness_data |>
+  mutate(
+    year = (as.character(year)),
+  )
+
+social_usefulness_percentages <- 
+  social_usefulness_data |>
+  count(year, social_usefulness) |>
+  group_by(year) |>
+  mutate(percentage = n / sum(n) * 100)
+
+
+# Graph data
+social_usefulness_percentages |>
+  ggplot(mapping = aes(x = year, y = percentage, fill = social_usefulness)) +
+  geom_col() +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle=90, size = 10)) +
+  labs(x = "Year", y = "Proportion for each response (%)", fill = "Response") +
+  theme(legend.position = "bottom") +
+  theme(legend.text = element_text(size = 5)) +
+  scale_fill_viridis_d(option = "viridis") 
+  scale_fill_viridis_d(option = "viridis") 
+```
+
+
+
 # Discussion
 
 ## Economic Factors
-In the early 1990s, much of the Western world, including the United States, entered a recession[@wikiemployment1990s]. The 1980s had a very slow productivity growth at 1.5 each year and at the end of the early 90s recession, the Federal budget had a $298 billion deficit [@useconomy]. In 2000, the U.S. had their highest unemployment rate in three decades at 4.0% [@useconomy]. The low employment rates from late 1989 to 1992 possibly contributed to the lower amount of importance workers placed on their occupation being one which helps others, is interesting, and is useful to society; at the time, workers may have prioritized pay and stability. In contrast, the 2010s had the lowest unemployment rate, low inflation rates, and low interest [@pbs2010seconomy]. The decade was the first since the 1850s to skip a recession and low unemployment broke a 50-year record. These factors may have contributed to participants putting higher value on occupation factors outside of stability and pay.
+In the early 1990s, much of the Western world, including the United States, entered a recession [@wikiemployment1990s]. The 1980s had a very slow productivity growth at 1.5 each year and at the end of the early 90s recession, the Federal budget had a $298 billion deficit [@useconomy]. In 2000, the U.S. had their highest unemployment rate in three decades at 4.0% [@useconomy]. The low employment rates from late 1989 to 1992 possibly contributed to the lower amount of importance workers placed on their occupation being one which helps others, is interesting, and is useful to society; at the time, workers may have prioritized pay and stability. In contrast, the 2010s had the lowest unemployment rate, low inflation rates, and low interest [@pbs2010seconomy]. The decade was the first since the 1850s to skip a recession and low unemployment broke a 50-year record. These factors may have contributed to participants putting higher value on occupation factors outside of stability and pay.
 
 
 ## Gender
@@ -772,7 +819,7 @@ The general trend of lower importance across all three factors for men may also 
 ## Age
 
 ## Culture
-Generally, the data shows an increasing support for occupations that help others, contribute to society, and are interesting. These factors can be categorized into intrinsic motivations which are aspects of an occupation which are desired because they are enjoyable in themselves, while extrinsic motivations refer to aspects sought for reasons outside of work [@diffintrinsicextrinsic]. In individualistic cultures, intrinsic motivations have a stronger link to job satisfaction whereas in collectivist countries, extrinsic factors are intrinsically motivating [@monnot], [@hu]. [@santos] has found that there are more individualistic relational practices in the United States and that the use of individualistic words has increased over time. The relation between individualistic culture and intrinsic motivations in combination with increasing individualism in the U.S. may explain the increase in importance of occupations with intrinsic value. The U.S. also scores below average on uncertainty avoidance according to the Culture Factor Group, perhaps contributing to an increased openness to taking a riskier job that may be more interesting or rewarding [@hofstede]. An exploration to pursue in the future is comparing various intrinsically and extrinsically motivating factors with changes in individualism and uncertainty avoidance over time and across cultures. 
+Generally, the data shows an increasing support for occupations that help others, contribute to society, and are interesting. These factors can be categorized into intrinsic motivations which are aspects of an occupation which are desired because they are enjoyable in themselves, while extrinsic motivations refer to aspects sought for reasons outside of work [@diffintrinsicextrinsic]. In individualistic cultures, intrinsic motivations have a stronger link to job satisfaction whereas in collectivist countries, extrinsic factors are intrinsically motivating [@monnot], [@huang]. [@santos] has found that there are more individualistic relational practices in the United States and that the use of individualistic words has increased over time. The relation between individualistic culture and intrinsic motivations in combination with increasing individualism in the U.S. may explain the increase in importance of occupations with intrinsic value. The U.S. also scores below average on uncertainty avoidance according to the Culture Factor Group, perhaps contributing to an increased openness to taking a riskier job that may be more interesting or rewarding [@hofstede]. An exploration to pursue in the future is comparing various intrinsically and extrinsically motivating factors with changes in individualism and uncertainty avoidance over time and across cultures. 
 
 ## Technology
 
