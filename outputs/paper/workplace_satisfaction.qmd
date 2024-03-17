@@ -772,6 +772,7 @@ The general trend of lower importance across all three factors for men may also 
 ## Age
 
 ## Culture
+Generally, the data shows an increasing support for occupations that help others, contribute to society, and are interesting. These factors can be categorized into intrinsic motivations which are aspects of an occupation which are desired because they are enjoyable in themselves, while extrinsic motivations refer to aspects sought for reasons outside of work [@diffintrinsicextrinsic]. In individualistic cultures, intrinsic motivations have a stronger link to job satisfaction whereas in collectivist countries, extrinsic factors are intrinsically motivating [@monnot], [@hu]. [@santos] has found that there are more individualistic relational practices in the United States and that the use of individualistic words has increased over time. The relation between individualistic culture and intrinsic motivations in combination with increasing individualism in the U.S. may explain the increase in importance of occupations with intrinsic value. The U.S. also scores below average on uncertainty avoidance according to the Culture Factor Group, perhaps contributing to an increased openness to taking a riskier job that may be more interesting or rewarding [@hofstede]. An exploration to pursue in the future is comparing various intrinsically and extrinsically motivating factors with changes in individualism and uncertainty avoidance over time and across cultures. 
 
 ## Technology
 
