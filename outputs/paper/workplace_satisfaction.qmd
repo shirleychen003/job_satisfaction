@@ -315,7 +315,7 @@ ggplot(helping_others_percentages, aes(
   y = percentage, 
   fill = helping_others)) +
   geom_bar(stat = "identity", position = "dodge") +
-  labs(title = "Helping Others Responses by Year",
+  labs(
        x = "Year",
        y = "Percentage",
        fill = "Responses") +
@@ -361,7 +361,7 @@ ggplot(social_usefulness_percentages, aes(
   y = percentage, 
   fill = social_usefulness)) +
   geom_bar(stat = "identity", position = "dodge") +
-  labs(title = "Social Usefulness Responses by Year",
+  labs(
        x = "Year",
        y = "Percentage",
        fill = "Responses") +
@@ -633,7 +633,10 @@ kable(age_group_percentage_SU, format = "simple")
 
 
 ## Change in importance over time
-@fig-allhelpingothers demonstrates the changing proportion of responses to how important is it for a job to help others. 
+@fig-allhelpingothers graphically demonstrates the changing proportion of responses to how important it is for a job to help others. As mentioned in previous sections, although the proportion of “Important” responses decrease, the graph illustrates the increase in “Very Important” responses proportions. Additionally, the proportions of “Not Important” and “Not Important At All” are visually less significant than the other responses, as their colours are barely seen on the graph. 
+
+Similarly, in @fig-allsocialusefulness, there is an illustrated increase in recognition of altruistic motivations in the workplace, as there is an increase in “Very Important” and “Important responses; these responses evidently take up the majority of the graph. This visualization further conveys the prevalence of American employees that deem helping others and social usefulness in their job important in their occupation. Not only does this portray the changing mindset of working individuals, but also supposedly the evolving attitudes of members of society. 
+
 
 ```{r}
 #| label: fig-allhelpingothers
@@ -749,13 +752,14 @@ Women generally placed more importance on occupations that help others and are u
 ## Age
 Age is a crucial factor to consider when evaluating employees in the job force. Gradual aging often eventually  leads to a decreasing ability to work due to increased health problems [@agingandwork]. In general, as adults age and indulge in more life experiences, values and motivational priorities tend to shift. This idea is supported by various lifespan developmental theories and can explain the assorted percentages that are shown in @tbl-age_helpingothers and @tbl-age_socialusefulness. Aging and altruism studies have shown that while age-varying limiting factors, older age can be associated with higher levels of altruistic motivation [@ageandaltruism].
 
-In the aforementioned tables, we see a significantly higher proportion in responses when comparing the 24 and lower age range to the 24 and higher age range. This could be attributed to the fact that 62.2% of Americans who enroll in college at 19, graduate within 5 years of their bachelor’s degree [@americangrad]. New graduates in this age group are usually in a transitional phase of life, and open to exploration, establishing careers, and personal growth.
+ In the aforementioned tables, we see a significantly higher proportion in responses when comparing the 24 and lower age range to the 24 and higher age range. This could be attributed to the fact that 62.2% of Americans who enroll in college at 19, graduate within 5 years of their bachelor’s degree [@americangrad]. New graduates in this age group are usually in a transitional phase of life, and open to exploration, establishing careers, and personal growth.
+ 
+However,  percentages are not consistently increasing as the age increases, accounting for the limitations within these types of studies. Although positive linear relationships have been demonstrated in cross-sectional studies of subjective, behavioral, and neural measures of altruism, the reasoning behind why older adults tend to be more altruistic is still not fully developed. Psychological stress levels were seen as an affecting factor of prosocial behaviour, as studies showed that stressors had the ability to provoke or reduce altruism in young adults [@adultaltruism]. Changes in cognitive ability and socioemotional development have also been explored as elements that promote altruistic behaviour. 
 
-However,  percentages are not consistently increasing as the age increases, accounting for the limitations within these types of studies. Although positive linear relationships have been demonstrated in cross-sectional studies of subjective, behavioral, and neural measures of altruism, the reasoning behind why older adults tend to be more altruistic is still not fully developed. Psychological stress levels were seen as an affecting factor of prosocial behaviour, as studies showed that stressors had the ability to provoke or reduce altruism in young adults [@adultaltruism]. 
 
 
 ## Culture
-Generally, the data shows an increasing support for occupations that help others and contribute to society. These factors can be categorized into intrinsic motivations which are aspects of an occupation which are desired because they are enjoyable in themselves, while extrinsic motivations refer to aspects sought for reasons outside of work [@diffintrinsicextrinsic]. In individualistic cultures, intrinsic motivations have a stronger link to job satisfaction whereas in collectivist countries, extrinsic factors are intrinsically motivating [@monnot], [@hu]. [@santos] has found that there are more individualistic relational practices in the United States and that the use of individualistic words has increased over time. The relation between individualistic culture and intrinsic motivations in combination with increasing individualism in the U.S. may explain the increase in importance of occupations with intrinsic value. The U.S. also scores below average on uncertainty avoidance according to the Culture Factor Group, perhaps contributing to an increased openness to taking a riskier job that may be more rewarding [@hofstede]. An exploration to pursue in the future is comparing various intrinsically and extrinsically motivating factors with changes in individualism and uncertainty avoidance over time and across cultures. 
+Generally, the data shows an increasing support for occupations that help others and contribute to society. These factors can be categorized into intrinsic motivations which are aspects of an occupation which are desired because they are enjoyable in themselves, while extrinsic motivations refer to aspects sought for reasons outside of work [@diffintrinsicextrinsic]. In individualistic cultures, intrinsic motivations have a stronger link to job satisfaction whereas in collectivist countries, extrinsic factors are intrinsically motivating [@monnot], [@huang]. [@santos] has found that there are more individualistic relational practices in the United States and that the use of individualistic words has increased over time. The relation between individualistic culture and intrinsic motivations in combination with increasing individualism in the U.S. may explain the increase in importance of occupations with intrinsic value. The U.S. also scores below average on uncertainty avoidance according to the Culture Factor Group, perhaps contributing to an increased openness to taking a riskier job that may be more rewarding [@hofstede]. An exploration to pursue in the future is comparing various intrinsically and extrinsically motivating factors with changes in individualism and uncertainty avoidance over time and across cultures. 
 
 # Appendix
 
