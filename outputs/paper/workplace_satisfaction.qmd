@@ -70,11 +70,11 @@ total_participants <-cleaned_GSS_data_renamed |>
 # Introduction
 Altruism has been on the rise and in a 2016 report by the Charities Aid Foundation, volunteering, charitable giving, and providing everyday help had increased for the previous five years [@marsh]. Altruism is defined by Merriam-Webster as the unselfish quality possessed by those who focus on the welfare of others [@merriamwebster]. While altruism is generally associated with donating and selfless acts of kindness, how altruistic motivations are impacted in the context of job satisfaction has not been thoroughly explored. Altruistic occupations tend to have harsher consequences on a worker’s mental and physical health; however, many altruistic jobs are still undervalued in society. The COVID-19 pandemic worsened pre-existing strains on healthcare labour shortages and the overworked, underpaid nurses took the brunt of the damage. In 34 out of 49 countries assessed by the International Labour Organization, despite their extensive contributions to a global pandemic, nurses and midwives were paid below average wage for high-skilled workers [@ILO2023]. To understand why care workers are undervalued and what changing perspectives may exist, perspectives on the importance of altruistic work must be investigated.
 
-Interested in American perspectives on the importance of a job that helps others and a job that is useful to society, we gathered data from the United States General Social Surveys (GSS) [@GSS]. We analyzed our estimand, the proportion of responses in favour of our two intrinsically motivating factors being important in 1989, 1998, 2006, and 2016. Additionally, comparing this data to the ages and gender of participants allowed further investigation of what factors could influence responses. By investigating the perceived importance of these altruistic motivators, a more comprehensive perspective on what influences the occupations Americans seek and prioritize is revealed.
+Interested in American perspectives on the importance of a job that helps others and a job that is useful to society, we gathered data from the United States General Social Surveys (GSS) [@GSS]. We analyzed our estimand, the proportion of responses in favour of our two intrinsically motivating factors being important in 1989, 1998, 2006, and 2016. Additionally, comparing this data to the ages and sex of participants allowed further investigation of what factors could influence responses. By investigating the perceived importance of these altruistic motivators, a more comprehensive perspective on what influences the occupations Americans seek and prioritize is revealed.
 
 Overall, reported importance of the two factors increased from 1989 to 2016 in importance. We also found that female respondents felt the factors were more important than the male respondents did, but the difference decreased from 1989 to 2016. Finally, analyzing the relationship between age and responses revealed...!!!
 
-In [Data], the data collection methodology, the data cleaning processes, and key variables. In [Results], the relationship between demographic information of participants and their responses as well as the overall change in importance is analyzed with supportive figures. Finally, in [Discussion], the significance and possible causes of our findings are explored within economic stability, gender, age, and culture. 
+In [Data], the data collection methodology, the data cleaning processes, and key variables. In [Results], the relationship between demographic information of participants and their responses as well as the overall change in importance is analyzed with supportive figures. Finally, in [Discussion], the significance and possible causes of our findings are explored within economic stability, sex, age, and culture. 
 
 
 # Data
@@ -125,7 +125,7 @@ The response choices for each question and their respective code in brackets are
 #| label: tbl-gender
 #| echo: false
 #| warning: false
-#| tbl-cap: Respondent Gender Demographics for 1989, 1989, 2006, and 2016
+#| tbl-cap: Respondent Gender Count and Percentage for 1989, 1989, 2006, and 2016
 
 gender_demographic_data <- cleaned_GSS_data |>
   filter(year %in% c(1989, 1998, 2006, 2016)) |>
@@ -223,7 +223,7 @@ kable(combined_age_group_table, format = "simple")
 #| label: tbl-age
 #| echo: false
 #| warning: false
-#| tbl-cap: Respondent Age Demographics by Year
+#| tbl-cap: Total Respondent Mean, Median, Mode, Min, and Max Age by Year
 
 age_1989_data <- cleaned_GSS_data |>
   filter(year==1989) |>
@@ -295,7 +295,7 @@ In @fig-helpsothers, the proportion of respondents to the prompt "A job that all
 #| label: fig-helpsothers
 #| echo: false
 #| warning: false
-#| fig-cap: Q1 - "A job that allows someone to help other people?"
+#| fig-cap: Proportion of Responses to Q1 - "A job that allows someone to help other people?"
 
 # Helping Others Data
 helping_others_data <- cleaned_GSS_data_renamed[c('year',
@@ -343,7 +343,7 @@ ggplot(helping_others_percentages, aes(
 #| label: fig-useful
 #| echo: false
 #| warning: false
-#| fig-cap: Q3 - "A job that is useful to society?"
+#| fig-cap: Proportion of Responses to Q3 - "A job that is useful to society?"
 
 # Social Usefulness Data
 social_usefulness_data <- cleaned_GSS_data_renamed[c('year', 'social_usefulness')]
@@ -390,7 +390,7 @@ ggplot(social_usefulness_percentages, aes(
 
 ```{r}
 #| label: tbl-avgresponses
-#| tbl-cap: Average of Responses by Year
+#| tbl-cap: Average of Responses by Year Dvidied by Question
 #| warning: false
 #| echo: false
 
@@ -418,13 +418,13 @@ kable(combined_table,
       linesep = "")
 ```
 
-### Gender
+### Sex
 
 In @tbl-helpingothers1989 and @tbl-helpingothers2016, we see the percentage distribution of responses by respondent sex for the importance of helping others. In 1989, female respondents took the more extremes, and had much higher percentages for “very important” compared to their male counterparts. In 2016, the trend continues but at a lesser scale, with the proportions evening more.
 
 ```{r}
 #| label: tbl-helpingothers1989
-#| tbl-cap: Helping Others Response Proportions 1989
+#| tbl-cap: Helping Others Response Count and Proportions (%) 1989 by Sex
 #| warning: false
 #| echo: false
 
@@ -455,7 +455,7 @@ kable(HO_demographic_1989, col.names = c('Response',
 
 ```{r}
 #| label: tbl-helpingothers2016
-#| tbl-cap: Helping Others Response Proportions 2016
+#| tbl-cap: Helping Others Response Count and Proportions (%) 2016 by Sex
 #| warning: false
 #| echo: false
 
@@ -485,11 +485,11 @@ kable(HO_demographic_2016, col.names = c('Response',
 ```
 
 
-In @tbl-socialusefulness1989 and @tbl-socialusefulness2016, the previous trend continues, with more women favouring importance and a decrease in gender differences in 2016. Social usefulness and interesting work had similar differences in proportions, while 1989 helping others had the largest disparity.
+In @tbl-socialusefulness1989 and @tbl-socialusefulness2016, the previous trend continues, with more women favouring importance and a decrease in differences in 2016. Social usefulness and interesting work had similar differences in proportions, while 1989 helping others had the largest disparity.
 
 ```{r}
 #| label: tbl-socialusefulness1989
-#| tbl-cap: Social Usefulness Response Proportions 1989
+#| tbl-cap: Social Usefulness Response Count and Proportions (%) 1989 by Sex
 #| warning: false
 #| echo: false
 
@@ -520,7 +520,7 @@ kable(SU_demographic_1989, col.names = c('Response',
 
 ```{r}
 #| label: tbl-socialusefulness2016
-#| tbl-cap: Social Usefulness Response Proportions 2016
+#| tbl-cap: Social Usefulness Response Count and Proportions (%) 2016 by Sex
 #| warning: false
 #| echo: false
 
@@ -556,7 +556,7 @@ kable(SU_demographic_2016, col.names = c('Response',
 
 ```{r}
 #| label: tbl-age_helpingothers
-#| tbl-cap: Helping Others Response Percentages (%) by Age
+#| tbl-cap: Helping Others Response Proportion (%) by Age
 #| warning: false
 #| echo: false
 #| message: false
@@ -596,7 +596,7 @@ kable(age_group_percentage_HO, format = "simple")
 
 ```{r}
 #| label: tbl-age_socialusefulness
-#| tbl-cap: Social Usefulness Response Percentages (%) by Age
+#| tbl-cap: Social Usefulness Response Proportion (%) by Age
 #| warning: false
 #| echo: false
 #| message: false
@@ -643,7 +643,7 @@ Similarly, in @fig-allsocialusefulness, there is an illustrated increase in reco
 #| echo: false
 #| message: false
 #| warning: false
-#| fig-cap: Proportion of Responses to Importance of Job that Helps Other
+#| fig-cap: Proportion (%) of Responses to Importance of Job that Helps Others
 
 # Prepare data
 helping_others_data <- cleaned_GSS_data[c('year',
@@ -693,7 +693,7 @@ helping_others_percentages |>
 #| echo: false
 #| message: false
 #| warning: false
-#| fig-cap: Proportion of Responses to Importance of Social Usefulness in Job
+#| fig-cap: Proportion (%) of Responses to Importance of Social Usefulness in Job
 
 # Prepare data
 social_usefulness_data <- cleaned_GSS_data[c('year',
@@ -745,7 +745,7 @@ social_usefulness_percentages |>
 In the early 1990s, much of the Western world, including the United States, entered a recession [@wikiemployment1990s]. The 1980s had a very slow productivity growth at 1.5 each year and at the end of the early 90s recession, the Federal budget had a $298 billion deficit [@useconomy]. In 2000, the U.S. had their highest unemployment rate in three decades at 4.0% [@useconomy]. These low employment rates from late 1989 to 1992 likely contributed to the lower amount of importance workers placed on their occupation being one which helps others and is useful to society; instead, workers may have prioritized pay and stability. In contrast, the 2010s had the lowest unemployment rate, low inflation rates, and low interest [@pbs2010seconomy]. The decade was the first since the 1850s to skip a recession and low unemployment broke a 50-year record. These factors may have contributed to participants putting higher value on altruistic occupation factors.
 
 
-## Gender
+## Sex
 Women generally placed more importance on occupations that help others and are useful to society. The disparity between attitudes of women and men was largest for the importance of occupations that help others, and it is evident how this translates to women working in care work. In 2021, 77.6% of the 21.2 million U.S. care workers were women [@womencareworkus]. Care work includes occupations in which workers care for others like children, persons with disabilities, seniors, and include industries such as education, healthcare, personal services, and more [@womencareworkcanada]. Despite the essential work the care industry does, it has historically been underpaid work and home health care workers had an average salary of $13.81 from 2018 to 2020 [@womencareworkusepi]. The issue worsens when intersectional impacts are considered, as care workers are disproportionately women of colour. The change in attitude disparity between 1989 and 2016 may be a sign of more supportive views for care work and lowered inequality; however, the continued low pay of care workers is evidence that changing attitudes have not largely improved the care economy. The general trend of lower importance across both factors for men may also be an indication of persisting stereotypes that men need to prioritize pay and supporting their own family. This may be a feedback loop, where men believe they must be making more money to support their family while women believe their value is in care work, and when men receive higher pay than their female counterparts it is confirmed that they are responsible for monetarily supporting the family. 
 
 
