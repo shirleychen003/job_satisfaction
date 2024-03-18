@@ -8,6 +8,7 @@ thanks: "Code and data in this report are available at: https://github.com/shirl
 date: today
 date-format: "long" 
 format: pdf
+abstract: Rising altruism has been reported globally; however, many altruistic occupations have continued to be undervalued in society. To investigate perceived importance of altruistic motivations in work, data from the U.S. General Social Survey on the reported importance of jobs that help others and have social usefulness from 1989 to 2016 was analyzed. Our exploration revealed that the importance of altruistic motivations has increased overall across 35 years, that women view them as more important than men but the gap has decreased over time, and that older participants tend to view the motivations as more important and most between ages 35 and 44. These findings highlight the various factors influencing perspectives on the importance of altruistic occupations, and underscore a need for further research on impacts of rising altruism in occupational perspectives on care work and desired careers.
 editor: visual
 toc: true
 number-sections: true
