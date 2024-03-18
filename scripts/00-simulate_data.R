@@ -11,9 +11,9 @@
 #### Workspace setup ####
 library(tidyverse)
 library(janitor)
-seed(250)
+set.seed(250)
 
-
+# 160 selected to represent total participants and years selected based on GSS data
 #### Simulate data ####
 simulated_data <-
   tibble(
@@ -31,7 +31,7 @@ simulated_data <-
     )
   )
 
-
+# Clean the previously simulated data by creating a number of responses for "Important" and "Very Important"
 #### Simulate cleaned data ####
 simulated_data_clean <-
   tibble(
@@ -52,7 +52,7 @@ simulated_data_clean <-
     ),
   )
 
-
+# Pivot and graph simulated data to create a connected dot graph
 #### Graph simulated data ####
 # Pivot simulated data
 simulated_data_pivot <-
