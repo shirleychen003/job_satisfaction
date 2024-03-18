@@ -54,6 +54,12 @@ custom_colours <- c('#FDE726',
                    '#21908D',
                    '#5DC863')
 
+custom_order <- c("Very Important",
+                  "Important",
+                  "Neither",
+                  "Not Important",
+                  "Not Important At All")
+
 chosen_responses <- c("very_important", "important")
 
 total_participants <-cleaned_GSS_data_renamed |>
@@ -662,6 +668,8 @@ helping_others_percentages <-
   group_by(year) |>
   mutate(percentage = n / sum(n) * 100)
 
+helping_others_percentages$helping_others <- factor(
+  helping_others_percentages$helping_others, levels = custom_order)
 
 # Graph data
 helping_others_percentages |>
@@ -672,7 +680,7 @@ helping_others_percentages |>
   labs(x = "Year", y = "Proportion for each response (%)", fill = "Response") +
   theme(legend.position = "bottom") +
   theme(legend.text = element_text(size = 5)) +
-  scale_fill_viridis_d(option = "viridis") 
+  scale_fill_manual(values = custom_colours)
 
 ```
 
@@ -712,6 +720,9 @@ social_usefulness_percentages <-
   mutate(percentage = n / sum(n) * 100)
 
 
+social_usefulness_percentages$social_usefulness <- factor(
+  social_usefulness_percentages$social_usefulness, levels = custom_order)
+
 # Graph data
 social_usefulness_percentages |>
   ggplot(mapping = aes(x = year, y = percentage, fill = social_usefulness)) +
@@ -721,7 +732,7 @@ social_usefulness_percentages |>
   labs(x = "Year", y = "Proportion for each response (%)", fill = "Response") +
   theme(legend.position = "bottom") +
   theme(legend.text = element_text(size = 5)) +
-  scale_fill_viridis_d(option = "viridis") 
+  scale_fill_manual(values = custom_colours)
 
 ```
 
