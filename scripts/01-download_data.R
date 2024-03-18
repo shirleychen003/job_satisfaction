@@ -4,8 +4,8 @@
 # Date: 29 February, 2024
 # Contact: sshirleyy.chen@mail.utoronto.ca
 # License: MIT
-# Pre-requisites: [...UPDATE THIS...]
-# Any other information needed? [...UPDATE THIS...]
+# Pre-requisites: https://gssdataexplorer.norc.org/gss_data 
+# Any other information needed? N/A
 
 
 #### Workspace setup ####
