@@ -1,6 +1,6 @@
 ---
-title: "Navigating Factors Affecting Job Satisfaction Among Working Americans"
-subtitle: "Analysis using US General Social Survey (1989 to 2016)"
+title: "Increased Importance of Altruistic Factors in Jobs"
+subtitle: "Analysis of US General Social Survey from 1989 to 2016"
 author: 
 - Shirley Chen
 - Jessica Im
