@@ -736,6 +736,11 @@ Women generally placed more importance on occupations that help others and are u
 
 
 ## Age
+Age is a crucial factor to consider when evaluating employees in the job force. Gradual aging often eventually  leads to a decreasing ability to work due to increased health problems [@agingandwork]. In general, as adults age and indulge in more life experiences, values and motivational priorities tend to shift. This idea is supported by various lifespan developmental theories and can explain the assorted percentages that are shown in @tbl-age_helpingothers and @tbl-age_socialusefulness. Aging and altruism studies have shown that while age-varying limiting factors, older age can be associated with higher levels of altruistic motivation [@ageandaltruism].
+
+In the aforementioned tables, we see a significantly higher proportion in responses when comparing the 24 and lower age range to the 24 and higher age range. This could be attributed to the fact that 62.2% of Americans who enroll in college at 19, graduate within 5 years of their bachelor’s degree [@americangrad]. New graduates in this age group are usually in a transitional phase of life, and open to exploration, establishing careers, and personal growth.
+
+However,  percentages are not consistently increasing as the age increases, accounting for the limitations within these types of studies. Although positive linear relationships have been demonstrated in cross-sectional studies of subjective, behavioral, and neural measures of altruism, the reasoning behind why older adults tend to be more altruistic is still not fully developed. Psychological stress levels were seen as an affecting factor of prosocial behaviour, as studies showed that stressors had the ability to provoke or reduce altruism in young adults [@adultaltruism]. 
 
 
 ## Culture
