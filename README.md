@@ -1,9 +1,8 @@
-# Navigating Factors Deemed Important Among Working Americans
+# Increased Importance of Altruistic Factors in Jobs: Analysis of US General Social Survey from 1989 to 2016
 
 ## Overview
 This paper explores the public opinions of American adults on 3 factors that could be considered important in an occupation. Respondents were instructed to use a Likert Scale (1 - very important, 2 - important, 3 - neither, 4 - not important, 5 - not important at all) to rank their perspective on the importance the participant personally considers it in a job:
 1. A job that allows someone to help other people?
-2. An interesting job?
 3. A job that is useful to society?
 
 ## Repo  Structure
