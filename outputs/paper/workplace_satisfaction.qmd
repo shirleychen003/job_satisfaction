@@ -92,7 +92,7 @@ The GSS conducted countless surveys both in person and online to collect their d
 
 Despite the many strengths of the GSS, it is inevitable that issues and concerns arise. With the online surveys and the older generations, there may be a learning curve due to low technological literacy. This potential discrepancy can cause older individuals to not engage in the surveys, eliminating a large chunk of the American adult population from experiencing the survey. On the other hand, in person surveys are not always cost friendly, as more time and resources are typically required. There are also various biases that can arise during in person surveys. Finally, since the GSS only did start surveying non-English speakers in 2006, there are limitations in the representativeness in the data collected prior to then. Efforts have been shown by the GSS team to improve their survey methodologies  to promote accessibility and inclusivity. 
 
-### Biases and Ethics to Consider
+### Biases to Consider
 When conducting a survey, many biases can impact the validity of your results. For example, survey bias is when participants tend to agree with statements in surveys regardless of how they truly feel. While biases can be ignored if they were randomized across your sample, it is the often systematic response bias affecting your results that becomes problematic. In terms of our questions, extreme responding, neutral responding,  and question order bias can become an issue. Extreme and neutral responding bias is when participants answering on a Likert scale choose answers that don’t reflect their beliefs. To combat these biases, survey designers can ensure clear question wording, randomly assign different ordered surveys, and keep surveys short. 
 
 ## Data Cleaning
