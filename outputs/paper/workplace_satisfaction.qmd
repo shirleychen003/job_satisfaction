@@ -19,7 +19,6 @@ number-sections: true
 library(tidyverse)
 library(tinytex)
 library(janitor)
-library(opendatatoronto)
 library(here)
 library(knitr)
 library(usethis)
@@ -701,9 +700,9 @@ helping_others_percentages |>
 ```
 
 
-
 # Discussion
 In progress...
+
 ## Gender
 
 ## Age
