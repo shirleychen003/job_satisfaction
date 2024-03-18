@@ -93,7 +93,7 @@ The dataset used for this paper was retrieved from the GSS Data Explorer website
 
 The open source statistical programming language [@R-base] was used to clean and analyze the data, along with producing the graphs. The main packages that supported this process included [@R-tidyverse], [@R-ggplot2], [@R-knitr], [@R-janitor], and [@R-lubridate].
 
-The cleaning process involved filtering the specific data variables used for our analysis from the downloaded GSS dataset, and renaming any variables with meaningful names. For example, rather than “hlpoths” being the column name for “importance of helping others in a job” , we renamed it to helping_others, as shown in Table #. Further, the numerical values representing the participants’ responses (1-5) were changed to the representative words/phrases (not important, very important, etc.). @tbl-cleaneddata shows the old and new variable names used in cleaning, the description of variables, and sample responses. 
+The cleaning process involved filtering the specific data variables used for our analysis from the downloaded GSS dataset, and renaming any variables with meaningful names. For example, rather than “hlpoths” being the column name for “Importance of helping others in a job” , we renamed it to ‘helping_others’, as shown in @​​tbl-cleaneddata. Further, the numerical values representing the participants’ responses (1-5) were changed to the representative words/phrases (not important, very important, etc.). @tbl-cleaneddata shows the old and new variable names used in cleaning, the description of variables, and sample responses.
 
 ```{r}
 #| label: tbl-cleaneddata
