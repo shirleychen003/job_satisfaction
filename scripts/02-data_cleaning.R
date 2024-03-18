@@ -12,8 +12,6 @@
 library(tidyverse)
 library(knitr)
 library(janitor)
-library(lubridate)
-library(scales)
 
 # Open data
 raw_GSS_data<-
