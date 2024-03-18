@@ -746,12 +746,10 @@ However,  percentages are not consistently increasing as the age increases, acco
 ## Culture
 Generally, the data shows an increasing support for occupations that help others and contribute to society. These factors can be categorized into intrinsic motivations which are aspects of an occupation which are desired because they are enjoyable in themselves, while extrinsic motivations refer to aspects sought for reasons outside of work [@diffintrinsicextrinsic]. In individualistic cultures, intrinsic motivations have a stronger link to job satisfaction whereas in collectivist countries, extrinsic factors are intrinsically motivating [@monnot], [@hu]. [@santos] has found that there are more individualistic relational practices in the United States and that the use of individualistic words has increased over time. The relation between individualistic culture and intrinsic motivations in combination with increasing individualism in the U.S. may explain the increase in importance of occupations with intrinsic value. The U.S. also scores below average on uncertainty avoidance according to the Culture Factor Group, perhaps contributing to an increased openness to taking a riskier job that may be more rewarding [@hofstede]. An exploration to pursue in the future is comparing various intrinsically and extrinsically motivating factors with changes in individualism and uncertainty avoidance over time and across cultures. 
 
-# References
-
 # Appendix
 
 ## Survey
-Survey available at: https://forms.gle/ezXF9ADu7phXJGM87
+Survey available at: <https://forms.gle/ezXF9ADu7phXJGM87>
 
 ### Survey Introduction
 The following survey aims to investigate the importance of various factors in jobs. From analyzing 1989 to 2016 data in the United States General Social Survey, our paper revealed the increasing importance of intrinsic motivations over 35 years. To deepen our understanding of the relationship between demographic factors and the importance of occupational motivations, we created this short survey. 
@@ -794,31 +792,43 @@ The following survey aims to investigate the importance of various factors in jo
   + Student
   + Other:
 
-For the following questions, rank them on the how important you personally consider it is in a job. 
 7. What is the importance of a job that allows someone to help other people?
   + Likert scale 1 (Very Important) - 5 (Not Important At All)
+
 8. What is the importance of a job that pays well?
   + Likert scale 1 (Very Important) - 5 (Not Important At All)
+
 9. What is the importance of a job that is interesting?
   + Likert scale 1 (Very Important) - 5 (Not Important At All)
+
 10. What is the importance of job security?
   + Likert scale 1 (Very Important) - 5 (Not Important At All)
+
 11. What is the importance of a job that is collaborative?
   + Likert scale 1 (Very Important) - 5 (Not Important At All)
+
 12. What is the importance of a job that has autonomy?
   + Likert scale 1 (Very Important) - 5 (Not Important At All)
+
 13. What is the importance of a job that is useful to society?
   + Likert scale 1 (Very Important) - 5 (Not Important At All)
+
 14. What is the importance of a job that has growth opportunities?
   + Likert scale 1 (Very Important) - 5 (Not Important At All)
+
 15. What is the importance of a job that has work-life balance?
   + Likert scale 1 (Very Important) - 5 (Not Important At All)
+
 16. What is the importance of a job that has flexible hours?
   + Likert scale 1 (Very Important) - 5 (Not Important At All)
+
 17. What is the importance of a job that has a flexible location?
   + Likert scale 1 (Very Important) - 5 (Not Important At All)
+
 18. What is the importance of a job that has a positive social impact?
   + Likert scale 1 (Very Important) - 5 (Not Important At All)
 
 ### Survey Confirmation Message
 Thank you for completing our survey, your submission has been recorded and your answers may be requested to be sent to the email you entered. Your participation is valued and impactful in our quest to better understand occupational motivations. By participating, you have helped reveal what types of jobs are desired and valued.
+
+# References
