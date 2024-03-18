@@ -11,6 +11,7 @@ format: pdf
 editor: visual
 toc: true
 number-sections: true
+bibliography: bibliography.bib
 ---
 
 ```{r}
@@ -56,19 +57,18 @@ In progress...
 
 # Data
 
-Based at the University of Chicago since 1972, the General Social Survey (GSS) is a project with the objective of monitoring and analyzing the intricacies of American society (1). The GSS Data Explorer makes it so that data retrieved from the project is a publicly available resource, accessible to various types of people, such as educators, policymakers, or researchers through the National Opinion Research Center (NORC).
-
-The dataset used for this paper was retrieved from The General Social Survey (GSS) Data Explorer website (citation). We retrieved survey data relating to work and job in the years of 1989, 1998, 2006, and 2016.
-
 ## Source Data and Methodology
 
-Majority of the GSS data was collected through face-to-face interviews with the target population of adults (18+) residing in the United States, but starting in 2002, Computer-assisted personal interviewing methods were introduced (3).
+Based at the University of Chicago since 1972, the General Social Survey (GSS) is a project with the objective of monitoring and analyzing the intricacies of American society (1). The GSS Data Explorer makes it so that data retrieved from the project is a publicly available resource, accessible to various types of people, such as educators, policymakers, or researchers through the National Opinion Research Center (NORC). The dataset used for this paper was retrieved from The General Social Survey (GSS) Data Explorer website (citation). We retrieved survey data relating to work and job in the years of 1989, 1998, 2006, and 2016.
 
-All the survey data used was in relation to job and work in the Work Orientation Module; the specific variable names extracted from the dataset being intjob, hlpoths, and hlpsoc.
+Majority of the GSS data was collected through face-to-face interviews with the target population of adults (18+) residing in the United States; however, starting in 2002, Computer-assisted personal interviewing methods were introduced (3). The use of manual edits and keypunching were eliminated, and training to learn how to use CAPI was included. 
+
+All the survey data used was in relation to job and work in the Work Orientation Module; the specific variable names extracted from the dataset being intjob, hlpoths, and hlpsoc. For the years and demographic data, the specific variable names extracted were year, age and sex. 
+
 
 ## Data Cleaning
 
-The open source statistical programming language `R` was used to clean and analyze the data, along with producing the graphs. The main packages that supported this process included `tidyverse`, `ggplot2`, `knitr`, `kableExtra`, here…
+The open source statistical programming language [@R-base] was used to clean and analyze the data, along with producing the graphs. The main packages that supported this process included [@R-tidyverse], [@R-ggplot2], [@R-knitr], [@R-janitor], and [@R-lubridate].
 
 The cleaning process involved filtering the specific data variables used for our analysis from the downloaded GSS dataset, and renaming any variables with meaningful names. For example, rather than “intjob” being the column name for “importance of interesting work in a job” , we renamed it to interesting_work, as shown in Table #. Further, the numerical values representing the participants’ responses (1-5) were changed to the representative words/phrases (not important, very important, etc.). @tbl-cleaneddata shows the old and new variable names used in cleaning, the description of variables, and sample responses. 
 
@@ -101,13 +101,15 @@ kable(variable_data,
 The response choices for each question and their respective code in brackets are as follows: Inapplicable (-100), No Answer (-99), Do Not Know/Cannot Choose (-98), Very Important (1), Important (2), Neither (3), Not important (4), and Not Important At All (5). For our graphs, we did not include the Inapplicable, No Answer, and Do Not Know/Cannot choose responses to focus on the discernible participant responses.
 
 ## Respondent Demographics
-@tbl-gender shows the number and percentage of male and female respondents for 1989, 1998, 2006, and 2016. @tbl-age shows the mean, median, mode, min, and max of respondent age for all four years of data collection.  
+@tbl-gender shows the number and percentage of male and female respondents for 1989, 1998, 2006, and 2016. The percentages of female participants were consistently higher than the male participants, as the female participant percentages were always above 50% while the male participant percentages ranged from low to high 40s.
+
+@tbl-agegroups displays the number of respondents within different age groups for 1989, 1998, 2006, and 2016. The classified age groups are ‘18-24’, ‘25-34’, ‘45-54’, ‘55-64’, and ‘65+’. Further, there is a column labelled “N/A”  for the respondents who did not disclose their age. As shown by the table, the 18-24 age group had the least amount of participants every year, while the age group with the most participants per year varied; however, the age range of the most participants per year stayed between 25-54.
 
 ```{r}
 #| label: tbl-gender
 #| echo: false
 #| warning: false
-#| tbl-cap: "Respondent Gender Demographics by Year"
+#| tbl-cap: Respondent Gender Demographics for 1989, 1989, 2006, and 2016
 
 gender_demographic_data <- cleaned_GSS_data |>
   filter(year %in% c(1989, 1998, 2006, 2016)) |>
@@ -121,10 +123,10 @@ kable(gender_demographic_data, col.names = c("Year","Sex", "Count","Percentage")
 
 
 ```{r}
-#| label: tbl-age-groups
+#| label: tbl-agegroups
 #| echo: false
 #| warning: false
-#| tbl-cap: Respondent Age Groups by Year
+#| tbl-cap: Respondent Count of Participants in Age Groups by Year
 
 age_group_1989 <- cleaned_GSS_data |>
   filter(year == 1989) |>
@@ -415,7 +417,7 @@ ggplot(social_usefulness_percentages, aes(
 
 ## Responses and demographics
 
-@tbl-avgresponses summarizes the average of responses per year for each variable.
+@tbl-avgresponses summarizes the average responses per year for each question, where 1 represents “Very Important” and 5 represents “Not Important At All”. There is a general decrease in scores, meaning importance increased, each year. The largest change from 1989 to 2016 was “Social Usefulness”, with an average response decrease of 0.311. Overall, interesting work was consistently more important than helping others and social usefulness with an average of 0.264 points lower. As time passed, interesting work became rated more similarly with the other two factors, and in 2016 the average difference was only 0.144 points. 
 
 ```{r}
 #| label: tbl-avgresponses
@@ -454,7 +456,8 @@ kable(combined_table,
       linesep = "")
 ```
 
-@tbl-helpingothers1989
+In @tbl-helpingothers1989 and @tbl-helpingothers2016, we see the percentage distribution of responses by respondent sex for the importance of helping others. In 1989, female respondents took the more extremes, and had much higher percentages for “very important” compared to their male counterparts. In 2016, the trend continues but at a lesser scale, with the proportions evening more.
+
 ```{r}
 #| label: tbl-helpingothers1989
 #| tbl-cap: Helping Others Response Proportions 1989
@@ -485,7 +488,7 @@ kable(HO_demographic_1989, col.names = c('Response',
                                          'Count',
                                          'Percentage'), format = "simple")
 ```
-@tbl-helpingothers2016
+
 ```{r}
 #| label: tbl-helpingothers2016
 #| tbl-cap: Helping Others Response Proportions 2016
@@ -517,7 +520,8 @@ kable(HO_demographic_2016, col.names = c('Response',
                                          'Percentage'), format = "simple")
 ```
 
-@tbl-interestingwork1989
+@tbl-interestingwork1989 and @tbl-interestingwork2016  show the proportion of responses by sex for the importance of interesting work. Women again generally favour importance more than men, and similarly to the tables for helping others, the difference in proportion decreases in 2016. Interesting work 2016 has the lowest disparity in responses compared to the other two questions. 
+
 ```{r}
 #| label: tbl-interestingwork1989
 #| tbl-cap: Interesting Work Response Proportions 1989
@@ -550,7 +554,7 @@ kable(IW_demographic_1989, col.names = c('Response',
                                          'Percentage'), format = "simple")
 ```
 
-@tbl-interestingwork2016
+
 ```{r}
 #| label: tbl-interestingwork2016
 #| tbl-cap: Interesting Work Response Proportions 2016
@@ -584,7 +588,8 @@ kable(IW_demographic_2016, col.names = c('Response',
 ```
 
 
-@tbl-socialusefulness1989
+In @tbl-socialusefulness1989 and @tbl-socialusefulness2016, the previous trend continues, with more women favouring importance and a decrease in gender differences in 2016. Social usefulness and interesting work had similar differences in proportions, while 1989 helping others had the largest disparity.
+
 ```{r}
 #| label: tbl-socialusefulness1989
 #| tbl-cap: Social Usefulness Response Proportions 1989
@@ -616,7 +621,6 @@ kable(SU_demographic_1989, col.names = c('Response',
                                          'Percentage'), format = "simple")
 ```
 
-@tbl-socialusefulness2016
 ```{r}
 #| label: tbl-socialusefulness2016
 #| tbl-cap: Social Usefulness Response Proportions 2016
@@ -699,16 +703,126 @@ helping_others_percentages |>
   scale_fill_viridis_d(option = "viridis") 
 ```
 
+@fig-allinterestingwork demonstrates the changing proportion of responses to how important is it for a job to help others. 
+
+```{r}
+#| label: fig-allinterestingwork
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-cap: Proportion of Responses to Importance of Interesting Work in Job
+
+# Prepare data
+interesting_work_data <- cleaned_GSS_data[c('year',
+                                          'interesting_work')]
+
+interesting_work_data <-
+  interesting_work_data |>
+  mutate(
+    interesting_work = recode(interesting_work, 
+                            '1' = 'Very Important',
+                            '2' = 'Important',
+                            '3' = 'Neither',
+                            '4' = 'Not Important',
+                            '5' = 'Not Important At All'),
+  )
+
+interesting_work_data <-
+  interesting_work_data |>
+  mutate(
+    year = (as.character(year)),
+  )
+
+interesting_work_percentages <- 
+  interesting_work_data |>
+  count(year, interesting_work) |>
+  group_by(year) |>
+  mutate(percentage = n / sum(n) * 100)
+
+
+# Graph data
+interesting_work_percentages |>
+  ggplot(mapping = aes(x = year, y = percentage, fill = interesting_work)) +
+  geom_col() +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle=90, size = 10)) +
+  labs(x = "Year", y = "Proportion for each response (%)", fill = "Response") +
+  theme(legend.position = "bottom") +
+  theme(legend.text = element_text(size = 5)) +
+  scale_fill_viridis_d(option = "viridis") 
+  scale_fill_viridis_d(option = "viridis") 
+```
+
+```{r}
+#| label: fig-allsocialusefulness
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-cap: Proportion of Responses to Importance of Interesting Work in Job
+
+# Prepare data
+social_usefulness_data <- cleaned_GSS_data[c('year',
+                                          'social_usefulness')]
+
+social_usefulness_data <-
+  social_usefulness_data |>
+  mutate(
+    social_usefulness = recode(social_usefulness, 
+                            '1' = 'Very Important',
+                            '2' = 'Important',
+                            '3' = 'Neither',
+                            '4' = 'Not Important',
+                            '5' = 'Not Important At All'),
+  )
+
+social_usefulness_data <-
+  social_usefulness_data |>
+  mutate(
+    year = (as.character(year)),
+  )
+
+social_usefulness_percentages <- 
+  social_usefulness_data |>
+  count(year, social_usefulness) |>
+  group_by(year) |>
+  mutate(percentage = n / sum(n) * 100)
+
+
+# Graph data
+social_usefulness_percentages |>
+  ggplot(mapping = aes(x = year, y = percentage, fill = social_usefulness)) +
+  geom_col() +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle=90, size = 10)) +
+  labs(x = "Year", y = "Proportion for each response (%)", fill = "Response") +
+  theme(legend.position = "bottom") +
+  theme(legend.text = element_text(size = 5)) +
+  scale_fill_viridis_d(option = "viridis") 
+  scale_fill_viridis_d(option = "viridis") 
+```
+
 
 # Discussion
+<<<<<<< HEAD
 In progress...
+=======
+
+## Economic Factors
+In the early 1990s, much of the Western world, including the United States, entered a recession [@wikiemployment1990s]. The 1980s had a very slow productivity growth at 1.5 each year and at the end of the early 90s recession, the Federal budget had a $298 billion deficit [@useconomy]. In 2000, the U.S. had their highest unemployment rate in three decades at 4.0% [@useconomy]. The low employment rates from late 1989 to 1992 possibly contributed to the lower amount of importance workers placed on their occupation being one which helps others, is interesting, and is useful to society; at the time, workers may have prioritized pay and stability. In contrast, the 2010s had the lowest unemployment rate, low inflation rates, and low interest [@pbs2010seconomy]. The decade was the first since the 1850s to skip a recession and low unemployment broke a 50-year record. These factors may have contributed to participants putting higher value on occupation factors outside of stability and pay.
+
+>>>>>>> 5021f7358b5a89c9fa02a1b82dcddc2f825332c1
 
 ## Gender
+Women generally placed more importance on occupations that help others, are interesting, and are useful to society. The disparity between attitudes of women and men was largest for the importance of occupations that help others, and it is evident how this translates to women working in care work. In 2021, 77.6% of the 21.2 million U.S. care workers were women [@womencareworkus]. Care work includes occupations in which workers care for others like children, persons with disabilities, seniors, and include industries such as education, healthcare, personal services, and more [@womencareworkcanada]. Despite the essential work the care industry does, it has historically been underpaid work and home health care workers had an average salary of $13.81 from 2018 to 2020 [@womencareworkusepi]. The issue worsens when intersectional impacts are considered, as care workers are disproportionately women of colour. The change in attitude disparity between 1989 and 2016 may be a sign of more supportive views for care work and lowered inequality; however, the continued low pay of care workers is evidence that changing attitudes have not largely improved the care economy. 
+
+The general trend of lower importance across all three factors for men may also be an indication of persisting stereotypes that men need to prioritize pay and supporting their own family. This may be a feedback loop, where men believe they must be making more money to support their family while women believe their value is in care work, and when men receive higher pay than their female counterparts it is confirmed that they are responsible for monetarily supporting the family. 
+
 
 ## Age
 
 ## Culture
+Generally, the data shows an increasing support for occupations that help others, contribute to society, and are interesting. These factors can be categorized into intrinsic motivations which are aspects of an occupation which are desired because they are enjoyable in themselves, while extrinsic motivations refer to aspects sought for reasons outside of work [@diffintrinsicextrinsic]. In individualistic cultures, intrinsic motivations have a stronger link to job satisfaction whereas in collectivist countries, extrinsic factors are intrinsically motivating [@monnot], [@huang]. [@santos] has found that there are more individualistic relational practices in the United States and that the use of individualistic words has increased over time. The relation between individualistic culture and intrinsic motivations in combination with increasing individualism in the U.S. may explain the increase in importance of occupations with intrinsic value. The U.S. also scores below average on uncertainty avoidance according to the Culture Factor Group, perhaps contributing to an increased openness to taking a riskier job that may be more interesting or rewarding [@hofstede]. An exploration to pursue in the future is comparing various intrinsically and extrinsically motivating factors with changes in individualism and uncertainty avoidance over time and across cultures. 
 
 ## Technology
 
-# Sources
+# References
