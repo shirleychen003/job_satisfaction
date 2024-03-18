@@ -23,11 +23,11 @@ raw_GSS_data<-
 # Cleaning
 cleaned_GSS_data <-
   clean_names(raw_GSS_data) |>
-  drop_na(year, hlpoths, intjob, hlpsoc)
+  drop_na(year, hlpoths, hlpsoc)
 
 # Remove uncessary columns
 cleaned_GSS_data <-
-  subset(cleaned_GSS_data, select = c(year, age, sex, hlpoths, intjob, hlpsoc))
+  subset(cleaned_GSS_data, select = c(year, age, sex, hlpoths, hlpsoc))
 
 # Keep years 1989, 1998, 2006, 2016
 selected_years <- c("1989", "1998", "2006", "2016")
@@ -38,7 +38,6 @@ cleaned_GSS_data <- cleaned_GSS_data |>
 cleaned_GSS_data <- cleaned_GSS_data |>
   rename(
     helping_others = hlpoths,
-    interesting_work = intjob,
     social_usefulness = hlpsoc
   )
 
@@ -52,12 +51,6 @@ cleaned_GSS_data <-cleaned_GSS_data |>
 cleaned_GSS_data_renamed <-cleaned_GSS_data |>
   mutate(
     helping_others = recode(helping_others, 
-                            '1' = 'very_important',
-                            '2' = 'important',
-                            '3' = 'neither',
-                            '4' = 'not_important',
-                            '5' = 'not_important_at_all'),
-    interesting_work = recode(interesting_work, 
                             '1' = 'very_important',
                             '2' = 'important',
                             '3' = 'neither',

@@ -34,6 +34,8 @@ cleaned_GSS_data <-
 cleaned_GSS_data_renamed <-
   read_csv("../data/cleaned_GSS_data_renamed.csv")
 
+#### Variables ####
+
 ordered_responses <- c('very_important', 
                        'important',
                        'neither',
@@ -50,6 +52,12 @@ custom_colours <- c('#FDE726',
                    '#3B528B',
                    '#21908D',
                    '#5DC863')
+
+chosen_responses <- c("very_important", "important")
+
+total_participants <-cleaned_GSS_data_renamed |>
+  summarise(count = n())
+
 ```
 
 # Introduction
@@ -70,7 +78,7 @@ All the survey data used was in relation to job and work in the Work Orientation
 
 The open source statistical programming language [@R-base] was used to clean and analyze the data, along with producing the graphs. The main packages that supported this process included [@R-tidyverse], [@R-ggplot2], [@R-knitr], [@R-janitor], and [@R-lubridate].
 
-The cleaning process involved filtering the specific data variables used for our analysis from the downloaded GSS dataset, and renaming any variables with meaningful names. For example, rather than “intjob” being the column name for “importance of interesting work in a job” , we renamed it to interesting_work, as shown in Table #. Further, the numerical values representing the participants’ responses (1-5) were changed to the representative words/phrases (not important, very important, etc.). @tbl-cleaneddata shows the old and new variable names used in cleaning, the description of variables, and sample responses. 
+The cleaning process involved filtering the specific data variables used for our analysis from the downloaded GSS dataset, and renaming any variables with meaningful names. For example, rather than “hlpoths” being the column name for “importance of helping others in a job” , we renamed it to helping_others, as shown in Table #. Further, the numerical values representing the participants’ responses (1-5) were changed to the representative words/phrases (not important, very important, etc.). @tbl-cleaneddata shows the old and new variable names used in cleaning, the description of variables, and sample responses. 
 
 ```{r}
 #| label: tbl-cleaneddata
@@ -79,21 +87,14 @@ The cleaning process involved filtering the specific data variables used for our
 #| tbl-cap: GSS Dataset
 
 variable_data <- data.frame( 
-  Variable = c("intjob", 
-               "hlpoths", 
-               "hlpsoc"), 
-  "New Name" = c("interesting_work", 
-              "helping_others", 
-              "social_usefulness"), 
-  Description = c("Importance of interesting work in a job",
-                  "Importance of helping others in a job",
+  Variable = c("hlpoths","hlpsoc"), 
+  "New Name" = c("helping_others", "social_usefulness"), 
+  Description = c("Importance of helping others in a job",
                   "Importance of social usefulness in a job"), 
-  "Example Response" = c("Very Important", 
-              "Neither", 
-              "Not Important")
+  "Example Response" = c("Very Important", "Not Important")
 )
-kable(variable_data, 
-      format = "simple")
+
+kable(variable_data, format = "simple")
 ```
 
 ## Data Terminology
@@ -269,7 +270,7 @@ kable(combined_age_data, col.names = c("Year",
 ```
 
 ## Graphs of Responses
-@fig-helpsothers, @fig-interestingwork, and @fig-useful, shows the responses to the prompt "On the following list there are various aspects of jobs. Please circle one number to show how important you personally consider it is in a job" where each graph represents one of the aspects. Respondents answered on a 1 to 5 Likert scale where 1 represents "very important" and 5 represents "not important at all". 
+@fig-helpsothers and @fig-useful, shows the responses to the prompt "On the following list there are various aspects of jobs. Please circle one number to show how important you personally consider it is in a job" where each graph represents one of the aspects. Respondents answered on a 1 to 5 Likert scale where 1 represents "very important" and 5 represents "not important at all". 
 
 ### Helps Others
 In @fig-helpsothers, the proportion of respondents to the prompt "A job that allows someone to help other people?" is displayed. From the first year of data collection in 1989 to 2006, "Important" was the most selected response. In 2016, "Very Important" surpassed "Important" by 1%. In general, you can see an increase in "Very Important" respondents across the years while there is little change in the proportion of "Not Important" and "Not Important At All" responses. Further, there is a general decrease in “Neither” responses from 1989 - 2006 which is interrupted when there is a slight increase in 2016.
@@ -300,53 +301,6 @@ ggplot(helping_others_percentages, aes(
   fill = helping_others)) +
   geom_bar(stat = "identity", position = "dodge") +
   labs(title = "Helping Others Responses by Year",
-       x = "Year",
-       y = "Percentage",
-       fill = "Responses") +
-  scale_y_continuous(labels = scales::percent_format(scale = 1), 
-                     limits = c(0, 100)) + 
-  scale_fill_manual(values = custom_colours,
-                    breaks = c('very_important', 
-                       'important',
-                       'neither',
-                       'not_important',
-                       'not_important_at_all'),
-                    labels = c('Very Important', 
-                   'Important',
-                   'Neither',
-                   'Not Important',
-                   'Not Important At All')) + 
-  theme_minimal()
-```
-
-
-### Interesting Work
-@fig-interestingwork shows the proportion of responses for the prompt "An interesting job?". In 1989, "Important" responses was most chosen at around 50%. The following survey, in 1998, showed an increase in "Very Important" responses, where it had a similar proportion to "Important" responses 1989 and "Important" decreased to a proportion similar to "Very Important". 
-
-
-```{r}
-#| label: fig-interestingwork
-#| echo: false
-#| warning: false
-#| fig-cap: Q2 - "An interesting job?"
-
-# Interesting Work Data
-interesting_work_data <- cleaned_GSS_data_renamed[c('year', 'interesting_work')]
-
-interesting_work_percentages <- interesting_work_data |>
-  count(year, interesting_work) |>
-  group_by(year) |>
-  mutate(percentage = n / sum(n) * 100) 
-
-interesting_work_percentages$interesting_work <- factor(
-  interesting_work_percentages$interesting_work, levels = ordered_responses)
-
-ggplot(interesting_work_percentages, aes(
-  x = as.factor(year),
-  y = percentage, 
-  fill = interesting_work)) +
-  geom_bar(stat = "identity", position = "dodge") +
-  labs(title = "Interesting Work Responses by Year",
        x = "Year",
        y = "Percentage",
        fill = "Responses") +
@@ -415,7 +369,7 @@ ggplot(social_usefulness_percentages, aes(
 
 # Results
 
-## Responses and demographics
+## Overall Trends
 
 @tbl-avgresponses summarizes the average responses per year for each question, where 1 represents “Very Important” and 5 represents “Not Important At All”. There is a general decrease in scores, meaning importance increased, each year. The largest change from 1989 to 2016 was “Social Usefulness”, with an average response decrease of 0.311. Overall, interesting work was consistently more important than helping others and social usefulness with an average of 0.264 points lower. As time passed, interesting work became rated more similarly with the other two factors, and in 2016 the average difference was only 0.144 points. 
 
@@ -430,31 +384,26 @@ helping_others_avg <- cleaned_GSS_data |>
   summarize(
     avg_helping_others = round(mean(helping_others), 3))
 
-interesting_work_avg <- cleaned_GSS_data |>
-  group_by(year) |>
-  summarize(
-    avg_interesting_work = round(mean(interesting_work), 3))
-
 social_usefulness_avg <- cleaned_GSS_data |>
   group_by(year) |>
   summarize(
     avg_helping_others = round(mean(social_usefulness), 3))
 
 combined_table <- cbind(
-  helping_others_avg, 
-  interesting_work_avg[, -1],
+  helping_others_avg,
   social_usefulness_avg[, -1])
 
 kable(combined_table,
       format = "markdown", 
       col.names = c("Year",
                     "Helping Others",
-                    "Interesting Work",
                     "Social Usefulness"),
       digits = 3,
       booktabs = TRUE,
       linesep = "")
 ```
+
+### Gender
 
 In @tbl-helpingothers1989 and @tbl-helpingothers2016, we see the percentage distribution of responses by respondent sex for the importance of helping others. In 1989, female respondents took the more extremes, and had much higher percentages for “very important” compared to their male counterparts. In 2016, the trend continues but at a lesser scale, with the proportions evening more.
 
@@ -515,73 +464,6 @@ HO_demographic_2016$response <- fct_recode(HO_demographic_2016$response,
                                            "not important at all" = "not_important_at_all")
 
 kable(HO_demographic_2016, col.names = c('Response',
-                                         'Sex',
-                                         'Count',
-                                         'Percentage'), format = "simple")
-```
-
-@tbl-interestingwork1989 and @tbl-interestingwork2016  show the proportion of responses by sex for the importance of interesting work. Women again generally favour importance more than men, and similarly to the tables for helping others, the difference in proportion decreases in 2016. Interesting work 2016 has the lowest disparity in responses compared to the other two questions. 
-
-```{r}
-#| label: tbl-interestingwork1989
-#| tbl-cap: Interesting Work Response Proportions 1989
-#| warning: false
-#| echo: false
-
-IW_demographic_1989 <- 
-  cleaned_GSS_data_renamed[c('year',
-                             'interesting_work',
-                             'sex')] 
-
-IW_demographic_1989 <- IW_demographic_1989 |>
-  filter(year==1989) |>
-  mutate(response = factor(interesting_work, levels = ordered_responses)) |>
-  group_by(response, sex) |>
-  summarise(count = n()) |>
-  mutate(percentage = round((count / sum(count)) * 100, 2))
-
-IW_demographic_1989$response <- fct_recode(IW_demographic_1989$response,
-                                           "very important" = "very_important",
-                                           "important" = "important",
-                                           "neither" = "neither",
-                                           "not important" = "not_important",
-                                           "not important at all" =
-                                             "not_important_at_all")
-
-kable(IW_demographic_1989, col.names = c('Response',
-                                         'Sex',
-                                         'Count',
-                                         'Percentage'), format = "simple")
-```
-
-
-```{r}
-#| label: tbl-interestingwork2016
-#| tbl-cap: Interesting Work Response Proportions 2016
-#| warning: false
-#| echo: false
-
-IW_demographic_2016 <- 
-  cleaned_GSS_data_renamed[c('year',
-                             'interesting_work',
-                             'sex')] 
-
-IW_demographic_2016 <- IW_demographic_2016 |>
-  filter(year==2016) |>
-  mutate(response = factor(interesting_work, levels = ordered_responses)) |>
-  group_by(response, sex) |>
-  summarise(count = n()) |>
-  mutate(percentage = round((count / sum(count)) * 100, 2))
-
-IW_demographic_2016$response <- fct_recode(IW_demographic_2016$response,
-                                           "very important" = "very_important",
-                                           "important" = "important",
-                                           "neither" = "neither",
-                                           "not important" = "not_important",
-                                           "not important at all" =
-                                             "not_important_at_all")
-
-kable(IW_demographic_2016, col.names = c('Response',
                                          'Sex',
                                          'Count',
                                          'Percentage'), format = "simple")
@@ -653,6 +535,87 @@ kable(SU_demographic_2016, col.names = c('Response',
 
 ```
 
+### Age
+
+@tbl-age_helpingothers
+
+```{r}
+#| label: tbl-age_helpingothers
+#| tbl-cap: Helping Others Response Percentages (%) by Age
+#| warning: false
+#| echo: false
+#| message: false
+
+age_group_HO <- cleaned_GSS_data_renamed |>
+  group_by(helping_others) |>
+  filter(helping_others %in% chosen_responses) |>
+  mutate(age_group_HO = case_when(
+    age >= 18 & age <= 24 ~ "18-24",
+    age >= 25 & age <= 34 ~ "25-34",
+    age >= 35 & age <= 44 ~ "35-44",
+    age >= 45 & age <= 54 ~ "45-54",
+    age >= 55 & age <= 64 ~ "55-64",
+    age >= 65 ~ "65+"
+  )) |>
+  count(age_group_HO) |>
+  pivot_wider(names_from = age_group_HO, values_from = n) |>
+  rename("Response" = `helping_others`) |>
+  mutate(Response = fct_recode(Response, "very important" = "very_important"))
+
+age_group_HO <- age_group_HO |>
+  select(-`NA`)
+
+age_group_percentage_HO <- age_group_HO |>
+  mutate(`18-24` = round(`18-24` / total_participants$count * 100, 2),
+         `25-34` = round(`25-34` / total_participants$count * 100, 2),
+         `35-44` = round(`35-44` / total_participants$count * 100, 2),
+         `45-54` = round(`45-54` / total_participants$count * 100, 2),
+         `55-64` = round(`55-64` / total_participants$count * 100, 2),
+         `65+` = round(`65+` / total_participants$count * 100, 2))
+
+kable(age_group_percentage_HO, format = "simple")
+
+```
+
+@tbl-age_socialusefulness
+
+```{r}
+#| label: tbl-age_socialusefulness
+#| tbl-cap: Social Usefulness Response Percentages (%) by Age
+#| warning: false
+#| echo: false
+#| message: false
+
+age_group_SU <- cleaned_GSS_data_renamed |>
+  group_by(social_usefulness) |>
+  filter(social_usefulness %in% chosen_responses) |>
+  mutate(age_group_SU = case_when(
+    age >= 18 & age <= 24 ~ "18-24",
+    age >= 25 & age <= 34 ~ "25-34",
+    age >= 35 & age <= 44 ~ "35-44",
+    age >= 45 & age <= 54 ~ "45-54",
+    age >= 55 & age <= 64 ~ "55-64",
+    age >= 65 ~ "65+"
+  )) |>
+  count(age_group_SU) |>
+  pivot_wider(names_from = age_group_SU, values_from = n) |>
+  rename("Response" = `social_usefulness`) |>
+  mutate(Response = fct_recode(Response, "very important" = "very_important"))
+
+age_group_SU <- age_group_SU |>
+  select(-`NA`)
+
+age_group_percentage_SU <- age_group_SU |>
+  mutate(`18-24` = round(`18-24` / total_participants$count * 100, 2),
+         `25-34` = round(`25-34` / total_participants$count * 100, 2),
+         `35-44` = round(`35-44` / total_participants$count * 100, 2),
+         `45-54` = round(`45-54` / total_participants$count * 100, 2),
+         `55-64` = round(`55-64` / total_participants$count * 100, 2),
+         `65+` = round(`65+` / total_participants$count * 100, 2))
+
+kable(age_group_percentage_SU, format = "simple")
+```
+
 
 ## Change in importance over time
 @fig-allhelpingothers demonstrates the changing proportion of responses to how important is it for a job to help others. 
@@ -703,62 +666,13 @@ helping_others_percentages |>
   scale_fill_viridis_d(option = "viridis") 
 ```
 
-@fig-allinterestingwork demonstrates the changing proportion of responses to how important is it for a job to help others. 
-
-```{r}
-#| label: fig-allinterestingwork
-#| echo: false
-#| message: false
-#| warning: false
-#| fig-cap: Proportion of Responses to Importance of Interesting Work in Job
-
-# Prepare data
-interesting_work_data <- cleaned_GSS_data[c('year',
-                                          'interesting_work')]
-
-interesting_work_data <-
-  interesting_work_data |>
-  mutate(
-    interesting_work = recode(interesting_work, 
-                            '1' = 'Very Important',
-                            '2' = 'Important',
-                            '3' = 'Neither',
-                            '4' = 'Not Important',
-                            '5' = 'Not Important At All'),
-  )
-
-interesting_work_data <-
-  interesting_work_data |>
-  mutate(
-    year = (as.character(year)),
-  )
-
-interesting_work_percentages <- 
-  interesting_work_data |>
-  count(year, interesting_work) |>
-  group_by(year) |>
-  mutate(percentage = n / sum(n) * 100)
-
-
-# Graph data
-interesting_work_percentages |>
-  ggplot(mapping = aes(x = year, y = percentage, fill = interesting_work)) +
-  geom_col() +
-  theme_minimal() +
-  theme(axis.text.x = element_text(angle=90, size = 10)) +
-  labs(x = "Year", y = "Proportion for each response (%)", fill = "Response") +
-  theme(legend.position = "bottom") +
-  theme(legend.text = element_text(size = 5)) +
-  scale_fill_viridis_d(option = "viridis") 
-  scale_fill_viridis_d(option = "viridis") 
-```
 
 ```{r}
 #| label: fig-allsocialusefulness
 #| echo: false
 #| message: false
 #| warning: false
-#| fig-cap: Proportion of Responses to Importance of Interesting Work in Job
+#| fig-cap: Proportion of Responses to Importance of Social Usefulness in Job
 
 # Prepare data
 social_usefulness_data <- cleaned_GSS_data[c('year',
@@ -803,14 +717,9 @@ social_usefulness_percentages |>
 
 
 # Discussion
-<<<<<<< HEAD
-In progress...
-=======
 
 ## Economic Factors
 In the early 1990s, much of the Western world, including the United States, entered a recession [@wikiemployment1990s]. The 1980s had a very slow productivity growth at 1.5 each year and at the end of the early 90s recession, the Federal budget had a $298 billion deficit [@useconomy]. In 2000, the U.S. had their highest unemployment rate in three decades at 4.0% [@useconomy]. The low employment rates from late 1989 to 1992 possibly contributed to the lower amount of importance workers placed on their occupation being one which helps others, is interesting, and is useful to society; at the time, workers may have prioritized pay and stability. In contrast, the 2010s had the lowest unemployment rate, low inflation rates, and low interest [@pbs2010seconomy]. The decade was the first since the 1850s to skip a recession and low unemployment broke a 50-year record. These factors may have contributed to participants putting higher value on occupation factors outside of stability and pay.
-
->>>>>>> 5021f7358b5a89c9fa02a1b82dcddc2f825332c1
 
 ## Gender
 Women generally placed more importance on occupations that help others, are interesting, and are useful to society. The disparity between attitudes of women and men was largest for the importance of occupations that help others, and it is evident how this translates to women working in care work. In 2021, 77.6% of the 21.2 million U.S. care workers were women [@womencareworkus]. Care work includes occupations in which workers care for others like children, persons with disabilities, seniors, and include industries such as education, healthcare, personal services, and more [@womencareworkcanada]. Despite the essential work the care industry does, it has historically been underpaid work and home health care workers had an average salary of $13.81 from 2018 to 2020 [@womencareworkusepi]. The issue worsens when intersectional impacts are considered, as care workers are disproportionately women of colour. The change in attitude disparity between 1989 and 2016 may be a sign of more supportive views for care work and lowered inequality; however, the continued low pay of care workers is evidence that changing attitudes have not largely improved the care economy. 
