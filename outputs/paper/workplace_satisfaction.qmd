@@ -61,7 +61,14 @@ total_participants <-cleaned_GSS_data_renamed |>
 ```
 
 # Introduction
-In progress...
+Altruism has been on the rise and in a 2016 report by the Charities Aid Foundation, volunteering, charitable giving, and providing everyday help had increased for the previous five years [@marsh]. While altruism is generally associated with donating and selfless acts, how altruistic motivations are impacted in the context of job satisfaction has not been thoroughly explored. Altruistic occupations tend to have harsher consequences on a worker’s mental and physical health; however, many altruistic jobs are still undervalued in society. The COVID-19 pandemic worsened pre-existing strains on healthcare labour shortages and the overworked, underpaid nurses took the brunt of the damage. In 34 out of 49 countries assessed by the International Labour Organization, despite their extensive contributions to a global pandemic, nurses and midwives were paid below average wage for high-skilled workers [@ILO2023]. To understand why care workers are undervalued and what changing perspectives may exist, perspectives on the importance of altruistic work must be investigated.
+
+Interested in American perspectives on the importance of a job that helps others and a job that is useful to society, we gathered data from the United States General Social Surveys (GSS) [@GSSdata]. We analyzed our estimand, the proportion of responses in favour of our two intrinsically motivating factors being important in 1989, 1998, 2006, and 2016. Additionally, comparing this data to the ages and gender of participants allowed further investigation of what factors could influence responses. By investigating the perceived importance of these altruistic motivators, a more comprehensive perspective on what influences the occupations Americans seek and prioritize is revealed.
+
+Overall, reported importance of the two factors increased from 1989 to 2016 in importance. We also found that female respondents felt the factors were more important than the male respondents did, but the difference decreased from 1989 to 2016. Finally, analyzing the relationship between age and responses revealed...!!!
+
+In [Data], the data collection methodology, the data cleaning processes, and key variables. In [Results], the relationship between demographic information of participants and their responses as well as the overall change in importance is analyzed with supportive figures. Finally, in [Discussion], the significance and possible causes of our findings are explored within economic stability, gender, age, and culture. 
+
 
 # Data
 
@@ -719,13 +726,11 @@ social_usefulness_percentages |>
 # Discussion
 
 ## Economic Factors
-In the early 1990s, much of the Western world, including the United States, entered a recession [@wikiemployment1990s]. The 1980s had a very slow productivity growth at 1.5 each year and at the end of the early 90s recession, the Federal budget had a $298 billion deficit [@useconomy]. In 2000, the U.S. had their highest unemployment rate in three decades at 4.0% [@useconomy]. The low employment rates from late 1989 to 1992 possibly contributed to the lower amount of importance workers placed on their occupation being one which helps others and is useful to society; at the time, workers may have prioritized pay and stability. In contrast, the 2010s had the lowest unemployment rate, low inflation rates, and low interest [@pbs2010seconomy]. The decade was the first since the 1850s to skip a recession and low unemployment broke a 50-year record. These factors may have contributed to participants putting higher value on occupation factors outside of stability and pay. 
+In the early 1990s, much of the Western world, including the United States, entered a recession [@wikiemployment1990s]. The 1980s had a very slow productivity growth at 1.5 each year and at the end of the early 90s recession, the Federal budget had a $298 billion deficit [@useconomy]. In 2000, the U.S. had their highest unemployment rate in three decades at 4.0% [@useconomy]. These low employment rates from late 1989 to 1992 likely contributed to the lower amount of importance workers placed on their occupation being one which helps others and is useful to society; instead, workers may have prioritized pay and stability. In contrast, the 2010s had the lowest unemployment rate, low inflation rates, and low interest [@pbs2010seconomy]. The decade was the first since the 1850s to skip a recession and low unemployment broke a 50-year record. These factors may have contributed to participants putting higher value on altruistic occupation factors.
 
 
 ## Gender
-Women generally placed more importance on occupations that help others, are interesting, and are useful to society. The disparity between attitudes of women and men was largest for the importance of occupations that help others, and it is evident how this translates to women working in care work. In 2021, 77.6% of the 21.2 million U.S. care workers were women [@womencareworkus]. Care work includes occupations in which workers care for others like children, persons with disabilities, seniors, and include industries such as education, healthcare, personal services, and more [@womencareworkcanada]. Despite the essential work the care industry does, it has historically been underpaid work and home health care workers had an average salary of $13.81 from 2018 to 2020 [@womencareworkusepi]. The issue worsens when intersectional impacts are considered, as care workers are disproportionately women of colour. The change in attitude disparity between 1989 and 2016 may be a sign of more supportive views for care work and lowered inequality; however, the continued low pay of care workers is evidence that changing attitudes have not largely improved the care economy. 
-
-The general trend of lower importance across all three factors for men may also be an indication of persisting stereotypes that men need to prioritize pay and supporting their own family. This may be a feedback loop, where men believe they must be making more money to support their family while women believe their value is in care work, and when men receive higher pay than their female counterparts it is confirmed that they are responsible for monetarily supporting the family. 
+Women generally placed more importance on occupations that help others and are useful to society. The disparity between attitudes of women and men was largest for the importance of occupations that help others, and it is evident how this translates to women working in care work. In 2021, 77.6% of the 21.2 million U.S. care workers were women [@womencareworkus]. Care work includes occupations in which workers care for others like children, persons with disabilities, seniors, and include industries such as education, healthcare, personal services, and more [@womencareworkcanada]. Despite the essential work the care industry does, it has historically been underpaid work and home health care workers had an average salary of $13.81 from 2018 to 2020 [@womencareworkusepi]. The issue worsens when intersectional impacts are considered, as care workers are disproportionately women of colour. The change in attitude disparity between 1989 and 2016 may be a sign of more supportive views for care work and lowered inequality; however, the continued low pay of care workers is evidence that changing attitudes have not largely improved the care economy. The general trend of lower importance across both factors for men may also be an indication of persisting stereotypes that men need to prioritize pay and supporting their own family. This may be a feedback loop, where men believe they must be making more money to support their family while women believe their value is in care work, and when men receive higher pay than their female counterparts it is confirmed that they are responsible for monetarily supporting the family. 
 
 
 ## Age
@@ -734,7 +739,79 @@ The general trend of lower importance across all three factors for men may also 
 ## Culture
 Generally, the data shows an increasing support for occupations that help others and contribute to society. These factors can be categorized into intrinsic motivations which are aspects of an occupation which are desired because they are enjoyable in themselves, while extrinsic motivations refer to aspects sought for reasons outside of work [@diffintrinsicextrinsic]. In individualistic cultures, intrinsic motivations have a stronger link to job satisfaction whereas in collectivist countries, extrinsic factors are intrinsically motivating [@monnot], [@hu]. [@santos] has found that there are more individualistic relational practices in the United States and that the use of individualistic words has increased over time. The relation between individualistic culture and intrinsic motivations in combination with increasing individualism in the U.S. may explain the increase in importance of occupations with intrinsic value. The U.S. also scores below average on uncertainty avoidance according to the Culture Factor Group, perhaps contributing to an increased openness to taking a riskier job that may be more rewarding [@hofstede]. An exploration to pursue in the future is comparing various intrinsically and extrinsically motivating factors with changes in individualism and uncertainty avoidance over time and across cultures. 
 
-
-## Technology
-
 # References
+
+# Appendix
+
+## Survey
+Survey available at: https://forms.gle/ezXF9ADu7phXJGM87
+
+### Survey Introduction
+The following survey aims to investigate the importance of various factors in jobs. From analyzing 1989 to 2016 data in the United States General Social Survey, our paper revealed the increasing importance of intrinsic motivations over 35 years. To deepen our understanding of the relationship between demographic factors and the importance of occupational motivations, we created this short survey. 
+
+### Questions
+1. All responses to this survey are completely confidential and will only be used for research purposes. Your email will only be used if you request your responses to be sent to you. You may withdraw consent and close this survey at any time. For any further inquiries, please email jessica.im@mail.utoronto.ca or sshirleyy.chen@mail.utoronto.ca.
+* I consent.
+
+2. What is your age group?
+  + 18-24
+  + 25-34
+  + 35-44
+  + 45-54
+  + 55-64
+  + 65+
+
+3. What gender do you identify with?
+  + Woman
+  + Man
+  + Non-Binary
+  + Other:
+
+4. What race do you identify with?
+  + Asian or Pacific Islander
+  + Black or African American
+  + Hispanic or Latino
+  + First Nations or Indigenous
+  + White or Caucasian
+  + Multiracial/Biracial
+  + Other:
+
+5. What nationality/nationalities do you identify with?
+  + Type...
+
+6. What is your current employment status?
+  + Full-time employee
+  + Part-time employee
+  + Unemployed
+  + Retired
+  + Student
+  + Other:
+
+For the following questions, rank them on the how important you personally consider it is in a job. 
+7. What is the importance of a job that allows someone to help other people?
+  + Likert scale 1 (Very Important) - 5 (Not Important At All)
+8. What is the importance of a job that pays well?
+  + Likert scale 1 (Very Important) - 5 (Not Important At All)
+9. What is the importance of a job that is interesting?
+  + Likert scale 1 (Very Important) - 5 (Not Important At All)
+10. What is the importance of job security?
+  + Likert scale 1 (Very Important) - 5 (Not Important At All)
+11. What is the importance of a job that is collaborative?
+  + Likert scale 1 (Very Important) - 5 (Not Important At All)
+12. What is the importance of a job that has autonomy?
+  + Likert scale 1 (Very Important) - 5 (Not Important At All)
+13. What is the importance of a job that is useful to society?
+  + Likert scale 1 (Very Important) - 5 (Not Important At All)
+14. What is the importance of a job that has growth opportunities?
+  + Likert scale 1 (Very Important) - 5 (Not Important At All)
+15. What is the importance of a job that has work-life balance?
+  + Likert scale 1 (Very Important) - 5 (Not Important At All)
+16. What is the importance of a job that has flexible hours?
+  + Likert scale 1 (Very Important) - 5 (Not Important At All)
+17. What is the importance of a job that has a flexible location?
+  + Likert scale 1 (Very Important) - 5 (Not Important At All)
+18. What is the importance of a job that has a positive social impact?
+  + Likert scale 1 (Very Important) - 5 (Not Important At All)
+
+### Survey Confirmation Message
+Thank you for completing our survey, your submission has been recorded and your answers may be requested to be sent to the email you entered. Your participation is valued and impactful in our quest to better understand occupational motivations. By participating, you have helped reveal what types of jobs are desired and valued.
