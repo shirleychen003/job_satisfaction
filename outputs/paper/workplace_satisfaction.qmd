@@ -74,11 +74,12 @@ In [Data], the data collection methodology, the data cleaning processes, and key
 
 ## Source Data and Methodology
 
-Based at the University of Chicago since 1972, the General Social Survey (GSS) is a project with the objective of monitoring and analyzing the intricacies of American society (1). The GSS Data Explorer makes it so that data retrieved from the project is a publicly available resource, accessible to various types of people, such as educators, policymakers, or researchers through the National Opinion Research Center (NORC). The dataset used for this paper was retrieved from The General Social Survey (GSS) Data Explorer website (citation). We retrieved survey data relating to work and job in the years of 1989, 1998, 2006, and 2016.
+Based at the University of Chicago since 1972, the GSS is a project with the objective of monitoring and analyzing the intricacies of American society [@GSSabout]. The GSS Data Explorer makes it so that data retrieved from the project is a publicly available resource, accessible to various types of people, such as educators, policymakers, or researchers through the National Opinion Research Center (NORC). It has even been referenced in leading publications, such as the New York Times and the Associated Press. Due to the variety of subjects covered regarding American society, the GSS is one of the most frequently visited resources for information for social sciences. 
 
-Majority of the GSS data was collected through face-to-face interviews with the target population of adults (18+) residing in the United States; however, starting in 2002, Computer-assisted personal interviewing methods were introduced (3). The use of manual edits and keypunching were eliminated, and training to learn how to use CAPI was included. 
+Majority of the GSS data was collected through face-to-face interviews with the target population of adults (18+) residing in the United States. The standard national survey methods were practiced, such as hiring interviewers and training supervisors when needed. Interviewers were required to complete a practice interview supervised by evaluators at NORC [@GSScodebook]. However, starting in 2002, computer-assisted personal interviewing (CAPI) methods were introduced [@GSScodebook]. The use of manual edits and keypunching were eliminated, and training to learn how to use CAPI was included. 
 
-All the survey data used was in relation to job and work in the Work Orientation Module; the specific variable names extracted from the dataset being intjob, hlpoths, and hlpsoc. For the years and demographic data, the specific variable names extracted were year, age and sex. 
+The dataset used for this paper was retrieved from the GSS Data Explorer website [@GSSexplorer]. All the survey data used to measure job satisfaction was in relation to job and work in the Work Orientation Module during the years 1989, 1998, 2006, and 2016; the specific variable names extracted from the dataset being intjob, hlpoths, and hlpsoc. For the years and demographic data, the specific variable names extracted were year, age and sex. 
+
 
 
 ## Data Cleaning
