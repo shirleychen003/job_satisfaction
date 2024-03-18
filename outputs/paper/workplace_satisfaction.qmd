@@ -546,7 +546,7 @@ kable(SU_demographic_2016, col.names = c('Response',
 
 ### Age
 
-@tbl-age_helpingothers
+@tbl-age_helpingothers and @tbl-age_socialusefulness display the proportion of respondents, filtered by age groups in our selected years, who had chosen either “important” or “very important” for the prompt. For both tables, the age group 35-44 have the highest percentage, suggesting the group’s support of helping others and social usefulness in an occupation. This age range is not fairly early nor late in one’s adult life, depicting a stage in life where individuals are generally more settled in their careers and personal lives. Thus, there is potentially more of an inclination to fulfill social responsibilities and foster a sense of communal engagement due to a surplus of time and stability. 
 
 ```{r}
 #| label: tbl-age_helpingothers
