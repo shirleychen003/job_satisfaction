@@ -673,6 +673,7 @@ helping_others_percentages |>
   theme(legend.position = "bottom") +
   theme(legend.text = element_text(size = 5)) +
   scale_fill_viridis_d(option = "viridis") 
+
 ```
 
 
@@ -721,9 +722,8 @@ social_usefulness_percentages |>
   theme(legend.position = "bottom") +
   theme(legend.text = element_text(size = 5)) +
   scale_fill_viridis_d(option = "viridis") 
-  scale_fill_viridis_d(option = "viridis") 
-```
 
+```
 
 # Discussion
 
