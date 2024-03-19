@@ -773,13 +773,13 @@ Generally, the data shows an increasing support for occupations that help others
 
 # Appendix {-}
 
-## Survey
+# Survey
 Survey available at: <https://forms.gle/ezXF9ADu7phXJGM87>
 
-### Survey Introduction
+## Survey Introduction
 The following survey aims to investigate the importance of various factors in jobs. From analyzing 1989 to 2016 data in the United States General Social Survey, our paper revealed the increasing importance of intrinsic motivations over 35 years. To deepen our understanding of the relationship between demographic factors and the importance of occupational motivations, we created this short survey. 
 
-### Questions
+## Questions
 1. All responses to this survey are completely confidential and will only be used for research purposes. Your email will only be used if you request your responses to be sent to you. You may withdraw consent and close this survey at any time. For any further inquiries, please email jessica.im@mail.utoronto.ca or sshirleyy.chen@mail.utoronto.ca.
 * I consent.
 
@@ -853,7 +853,7 @@ The following survey aims to investigate the importance of various factors in jo
 18. What is the importance of a job that has a positive social impact?
   + Likert scale 1 (Very Important) - 5 (Not Important At All)
 
-### Survey Confirmation Message
+## Survey Confirmation Message
 Thank you for completing our survey, your submission has been recorded and your answers may be requested to be sent to the email you entered. Your participation is valued and impactful in our quest to better understand occupational motivations. By participating, you have helped reveal what types of jobs are desired and valued.
 
 \newpage
