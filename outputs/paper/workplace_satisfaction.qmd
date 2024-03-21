@@ -139,8 +139,14 @@ gender_demographic_data <- cleaned_GSS_data |>
   summarise(count = n()) |>
   mutate(percentage = round((count / sum(count)) * 100, 2))
 
-kable(gender_demographic_data, col.names = c("Year","Sex", "Count","Percentage"),
-      format = "simple")
+kable(gender_demographic_data, 
+      col.names = c("Year", "Sex", "Count", "Percentage"),
+      booktabs = TRUE,
+      linesep = ""
+      
+      #,
+      #format = "simple"
+      )
 ```
 
 
